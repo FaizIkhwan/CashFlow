@@ -1,5 +1,6 @@
 package com.fish.cashflow;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -54,7 +55,6 @@ public class BudgetPieChart extends AppCompatActivity {
                 Log.d(TAG, "onValueSelected: Value select from chart.");
                 Log.d(TAG, "e: " + e.toString());
                 Log.d(TAG, "h: " + h.toString());
-
 
             }
 
