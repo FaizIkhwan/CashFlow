@@ -16,7 +16,7 @@ import java.io.InputStream;
 
 public class Splash extends AppCompatActivity {
 
-    private static String TAG = "MainActivity";
+    private static String TAG = "Splash";
 
     private GifImageView gifImageView;
 
@@ -31,7 +31,7 @@ public class Splash extends AppCompatActivity {
 
         //Set GIFImageView resource
         try{
-            InputStream inputStream = getAssets().open("splashlogotwo.gif");
+            InputStream inputStream = getAssets().open("cashFlowLogo.gif");
             byte[] bytes = IOUtils.toByteArray(inputStream);
             gifImageView.setBytes(bytes);
             gifImageView.startAnimation();

@@ -4,34 +4,170 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".BudgetPieChart">
+    tools:context=".BudgetPieChart"
+    android:id="@+id/mDrawerLayout">
 
-    <LinearLayout
+
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@android:color/background_light">
 
         <com.github.mikephil.charting.charts.PieChart
             android:id="@+id/idPieChart"
-            android:layout_width="match_parent"
-            android:layout_height="446dp"
-            android:layout_marginBottom="8dp"
-            android:layout_marginTop="64dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="136dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.478"
+            app:layout_constraintHorizontal_bias="0.552"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0">
+            app:layout_constraintTop_toTopOf="parent">
 
         </com.github.mikephil.charting.charts.PieChart>
 
-    </LinearLayout>
-    
+        <Button
+            android:id="@+id/catEntertainment"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginBottom="11dp"
+            android:layout_marginStart="116dp"
+            android:text="1"
+            app:layout_constraintBottom_toTopOf="@+id/idPieChart"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/catEducation"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginBottom="11dp"
+            android:layout_marginEnd="116dp"
+            android:text="2"
+            app:layout_constraintBottom_toTopOf="@+id/idPieChart"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <Button
+            android:id="@+id/catHealth"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginTop="150dp"
+            android:text="8"
+            app:layout_constraintEnd_toStartOf="@+id/idPieChart"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/catTransport"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="26dp"
+            android:layout_marginTop="44dp"
+            android:text="7"
+            app:layout_constraintEnd_toStartOf="@+id/idPieChart"
+            app:layout_constraintTop_toBottomOf="@+id/catHealth" />
+
+        <Button
+            android:id="@+id/catShopping"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="21dp"
+            android:layout_marginTop="150dp"
+            android:text="3"
+            app:layout_constraintStart_toEndOf="@+id/idPieChart"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/catPersonalCare"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="21dp"
+            android:layout_marginTop="44dp"
+            android:text="4"
+            app:layout_constraintStart_toEndOf="@+id/idPieChart"
+            app:layout_constraintTop_toBottomOf="@+id/catShopping" />
+
+        <Button
+            android:id="@+id/catBills"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="116dp"
+            android:layout_marginTop="8dp"
+            android:text="6"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/idPieChart" />
+
+        <Button
+            android:id="@+id/catFood"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="116dp"
+            android:layout_marginTop="8dp"
+            android:text="5"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/idPieChart" />
+
+        <TextView
+            android:id="@+id/MonthLabel"
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="140dp"
+            android:layout_marginStart="140dp"
+            android:layout_marginTop="16dp"
+            android:text="month"
+            android:textAlignment="center"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.985"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/Balance"
+            android:layout_width="200dp"
+            android:layout_height="26dp"
+            android:layout_marginBottom="80dp"
+            android:layout_marginEnd="92dp"
+            android:layout_marginStart="92dp"
+            android:textColor="#000000"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="52dp"
+            android:layout_marginEnd="92dp"
+            android:layout_marginStart="92dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageButton
+            android:id="@+id/changeIncome"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:layout_marginBottom="80dp"
+            android:layout_marginStart="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/Balance" />
+    </android.support.constraint.ConstraintLayout>
+
+
     <android.support.design.widget.NavigationView
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        app:menu="@menu/navigation_menu"
-        android:layout_gravity="start">
+        android:layout_gravity="start"
+        app:menu="@menu/navigation_menu">
 
     </android.support.design.widget.NavigationView>
 
