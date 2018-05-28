@@ -46,7 +46,7 @@ public class Splash extends AppCompatActivity {
             @Override
             public void run() {
                 //intent to BudgetPieChart activity
-                Splash.this.startActivity(new Intent(Splash.this,BudgetPieChart.class));
+                Splash.this.startActivity(new Intent(Splash.this,Home.class));
                 // bila tekan back dia tk pergi splash screen balik
                 Splash.this.finish();
             }

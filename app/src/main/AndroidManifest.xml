@@ -16,10 +16,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".BudgetPieChart" />
         <activity android:name=".Expense" />
         <activity android:name=".History" />
-        <activity android:name=".Wishlist"></activity>
+        <activity android:name=".Wishlist" />
+        <activity android:name=".Home"></activity>
     </application>
 
 </manifest>
