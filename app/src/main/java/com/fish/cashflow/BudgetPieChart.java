@@ -56,7 +56,6 @@ public class BudgetPieChart extends AppCompatActivity {
                 Log.d(TAG, "e: " + e.toString());
                 Log.d(TAG, "h: " + h.toString());
 
-                startActivity(new Intent(getApplicationContext(), Expense.class));
             }
 
             @Override
