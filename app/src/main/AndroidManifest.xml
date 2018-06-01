@@ -19,7 +19,6 @@
         <activity
             android:name=".BudgetPieChart"
             android:theme="@style/withActionBar"/>
-        <activity android:name=".Expense" />
         <activity android:name=".History" />
         <activity android:name=".Wishlist"></activity>
     </application>

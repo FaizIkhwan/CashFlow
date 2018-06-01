@@ -1,9 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Expense">
+    android:background="@drawable/pop_bg"
+    android:orientation="vertical"
+    android:padding="5dp">
 
-</android.support.constraint.ConstraintLayout>
+    <TextView
+        android:id="@+id/ExpenseLabel"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="8dp"
+        android:text="Expense"
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        android:textColor="#000000"
+        android:textSize="25sp"
+        android:textStyle="bold" />
+
+    <Spinner
+        android:id="@+id/CatSpinner"
+        android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_height="50dp"
+        android:textColor="#000000" />
+
+    <EditText
+        android:id="@+id/etRM"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:ems="10"
+        android:hint="Amount"
+        android:inputType="number"
+        android:textAlignment="textStart"
+        android:textColor="#000000"
+        android:textColorHint="#dfd4d4"
+        android:textSize="18sp" />
+
+    <EditText
+        android:id="@+id/etDescription"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:ems="10"
+        android:hint="Description"
+        android:inputType="textPersonName"
+        android:textAlignment="viewStart"
+        android:textColor="#000000"
+        android:textColorHint="#dfd4d4"
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/AddButton"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/lightRed"
+        android:text="Add"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:textSize="18sp"
+        android:textColor="@color/colorAccent"
+        android:textStyle="bold" />
+
+</LinearLayout>

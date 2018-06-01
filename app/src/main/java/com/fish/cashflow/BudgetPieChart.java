@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,9 +12,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
@@ -24,7 +28,7 @@ import java.util.ArrayList;
 
 public class BudgetPieChart extends AppCompatActivity implements View.OnClickListener{
 
-    private static String TAG = "MainActivity";
+    private static String TAG = "BudgetPieChart";
 
     private float[] Data = {25.3f, 10.6f, 66.76f, 44.32f, 46.01f, 16.89f, 23.9f, 52.6f};
     Button catEntertainment, catEducation, catHealth, catTransport, catShopping, catPersonalCare, catBills, catFood;
@@ -76,15 +80,14 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
 
         //add colors to dataset
         ArrayList<Integer> colors = new ArrayList<>();
-        colors.add(0xFFf44165);
-        colors.add(0xFF8fc6ab);
-        colors.add(0xFF85e4f7);
-        colors.add(0xFFe1ea9d);
-        colors.add(0xFF9a60af);
-        colors.add(0xFFcc90c3);
-        colors.add(0xFF739b8a);
-        colors.add(0xFFb24c08);
-
+        colors.add(0xFFf44165); // catEntertainment
+        colors.add(0xFF8fc6ab); // catEducation
+        colors.add(0xFF85e4f7); // catHealth
+        colors.add(0xFFe1ea9d); // catTransport
+        colors.add(0xFF9a60af); // catShopping
+        colors.add(0xFFcc90c3); // catPersonalCare
+        colors.add(0xFF739b8a); //  catBills
+        colors.add(0xFFb24c08); // catFood
         pieDataSet.setColors(colors);
 
         //create pie data object
@@ -156,24 +159,74 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
         switch (v.getId())
         {
             case R.id.catEntertainment:
-
+                Log.d(TAG, "Cat Entertainment");
+                initPopUp();
+                break;
             case R.id.catEducation:
-
+                Log.d(TAG, "Cat Education");
+                initPopUp();
+                break;
             case R.id.catHealth:
-
+                Log.d(TAG, "Cat Health");
+                initPopUp();
+                break;
             case R.id.catTransport:
-
+                Log.d(TAG, "Cat Transport");
+                initPopUp();
+                break;
             case R.id.catShopping:
-
+                Log.d(TAG, "Cat Shopping");
+                initPopUp();
+                break;
             case R.id.catPersonalCare:
-
+                Log.d(TAG, "Cat Personal Care");
+                initPopUp();
+                break;
             case R.id.catBills:
-
+                Log.d(TAG, "Cat Bills");
+                initPopUp();
+                break;
             case R.id.catFood:
-
+                Log.d(TAG, "Cat Food");
+                initPopUp();
+                break;
             case R.id.changeIncome:
-
+                Log.d(TAG, "Cat Change Income");
+                break;
         }
     }
+    private void initPopUp()
+    {
+        Log.d(TAG, "initPopUp");
 
+        AlertDialog.Builder mBuilder = new AlertDialog.Builder(BudgetPieChart.this);
+
+        View mView = getLayoutInflater().inflate(R.layout.activity_expense, null);
+        TextView ExpenseLabel = mView.findViewById(R.id.ExpenseLabel);
+        Spinner CatSpinner = mView.findViewById(R.id.CatSpinner);
+        final EditText etRM = mView.findViewById(R.id.etRM);
+        final EditText etDescription = mView.findViewById(R.id.etDescription);
+        Button AddButton = mView.findViewById(R.id.AddButton);
+
+        mBuilder.setView(mView);
+        final AlertDialog dialog = mBuilder.create();
+
+
+        AddButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!etRM.getText().toString().isEmpty() && !etDescription.getText().toString().isEmpty())
+                {
+                    Toast.makeText(BudgetPieChart.this, "Add success", Toast.LENGTH_SHORT).show();
+                    dialog.cancel();
+                }
+                else
+                {
+                    Toast.makeText(BudgetPieChart.this, "Must fill all details", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        dialog.show();
+    }
 }

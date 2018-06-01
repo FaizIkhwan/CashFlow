@@ -31,7 +31,7 @@ public class Splash extends AppCompatActivity {
 
         //Set GIFImageView resource
         try{
-            InputStream inputStream = getAssets().open("cashFlowLogo.gif");
+            InputStream inputStream = getAssets().open("cash_flow_logo.gif");
             byte[] bytes = IOUtils.toByteArray(inputStream);
             gifImageView.setBytes(bytes);
             gifImageView.startAnimation();
