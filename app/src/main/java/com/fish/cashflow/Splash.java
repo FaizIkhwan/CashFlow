@@ -50,7 +50,7 @@ public class Splash extends AppCompatActivity {
                 // bila tekan back dia tk pergi splash screen balik
                 Splash.this.finish();
             }
-        },2000);
+        },1900);
     }
 
     /* Creating object */

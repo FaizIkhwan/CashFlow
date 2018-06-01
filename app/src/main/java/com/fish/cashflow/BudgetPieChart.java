@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -24,13 +25,19 @@ import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class BudgetPieChart extends AppCompatActivity implements View.OnClickListener{
 
+    //log
     private static String TAG = "BudgetPieChart";
 
+    //data for pie chart
     private float[] Data = {25.3f, 10.6f, 66.76f, 44.32f, 46.01f, 16.89f, 23.9f, 52.6f};
+
+    //interface
     Button catEntertainment, catEducation, catHealth, catTransport, catShopping, catPersonalCare, catBills, catFood;
     ActionBarDrawerToggle mToggle;
     TextView MonthLabel, Balance;
@@ -38,6 +45,13 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
     ProgressBar progressBar;
     ImageButton changeIncome;
     PieChart pieChart;
+
+    //usable variable
+    String category;
+    String month;
+
+    //database
+    DatabaseHelper myDB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,11 +63,21 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
         initComponent(); //Initialize components
         initOnClickListener(); //Initialize onClickListener
 
+        //Drawer
         mToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.open, R.string.close);
         mDrawerLayout.addDrawerListener(mToggle);
         mToggle.syncState();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        //Database
+        myDB = new DatabaseHelper(this);
+
+        //Calendar to get current date
+        Calendar calendar = Calendar.getInstance();
+        String currentDate = DateFormat.getDateInstance().format(calendar.getTime());
+        //to get month
+        //month = currentDate.substring(0,)
+        MonthLabel.setText(currentDate);
     }
 
     @Override
@@ -160,42 +184,51 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
         {
             case R.id.catEntertainment:
                 Log.d(TAG, "Cat Entertainment");
-                initPopUp();
+                category = "Entertainment";
+                initPopUpExpense();
                 break;
             case R.id.catEducation:
                 Log.d(TAG, "Cat Education");
-                initPopUp();
+                category = "Education";
+                initPopUpExpense();
                 break;
             case R.id.catHealth:
                 Log.d(TAG, "Cat Health");
-                initPopUp();
+                category = "Health";
+                initPopUpExpense();
                 break;
             case R.id.catTransport:
                 Log.d(TAG, "Cat Transport");
-                initPopUp();
+                category = "Transport";
+                initPopUpExpense();
                 break;
             case R.id.catShopping:
                 Log.d(TAG, "Cat Shopping");
-                initPopUp();
+                category = "Shopping";
+                initPopUpExpense();
                 break;
             case R.id.catPersonalCare:
                 Log.d(TAG, "Cat Personal Care");
-                initPopUp();
+                category = "Personal Care";
+                initPopUpExpense();
                 break;
             case R.id.catBills:
                 Log.d(TAG, "Cat Bills");
-                initPopUp();
+                category = "Bills";
+                initPopUpExpense();
                 break;
             case R.id.catFood:
                 Log.d(TAG, "Cat Food");
-                initPopUp();
+                category = "Food";
+                initPopUpExpense();
                 break;
             case R.id.changeIncome:
-                Log.d(TAG, "Cat Change Income");
+                Log.d(TAG, "Change Income");
+
                 break;
         }
     }
-    private void initPopUp()
+    private void initPopUpExpense()
     {
         Log.d(TAG, "initPopUp");
 
@@ -203,7 +236,10 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
 
         View mView = getLayoutInflater().inflate(R.layout.activity_expense, null);
         TextView ExpenseLabel = mView.findViewById(R.id.ExpenseLabel);
-        Spinner CatSpinner = mView.findViewById(R.id.CatSpinner);
+
+        TextView CategoryLabel = mView.findViewById(R.id.CategoryLabel);
+        CategoryLabel.setText(category);
+
         final EditText etRM = mView.findViewById(R.id.etRM);
         final EditText etDescription = mView.findViewById(R.id.etDescription);
         Button AddButton = mView.findViewById(R.id.AddButton);
@@ -217,6 +253,7 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
             public void onClick(View v) {
                 if (!etRM.getText().toString().isEmpty() && !etDescription.getText().toString().isEmpty())
                 {
+                    //myDB.insertData(etRM.getText().toString(), etDescription.getText().toString(), currentDate, category);
                     Toast.makeText(BudgetPieChart.this, "Add success", Toast.LENGTH_SHORT).show();
                     dialog.cancel();
                 }
