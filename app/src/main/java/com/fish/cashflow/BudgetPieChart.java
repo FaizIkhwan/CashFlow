@@ -26,6 +26,7 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -40,7 +41,7 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
     //interface
     Button catEntertainment, catEducation, catHealth, catTransport, catShopping, catPersonalCare, catBills, catFood;
     ActionBarDrawerToggle mToggle;
-    TextView MonthLabel, Balance;
+    TextView MonthLabel, MonthlyIncomeLabel;
     DrawerLayout mDrawerLayout;
     ProgressBar progressBar;
     ImageButton changeIncome;
@@ -48,7 +49,7 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
 
     //usable variable
     String category;
-    String month;
+    String currentDate;
 
     //database
     DatabaseHelper myDB;
@@ -74,10 +75,10 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
 
         //Calendar to get current date
         Calendar calendar = Calendar.getInstance();
-        String currentDate = DateFormat.getDateInstance().format(calendar.getTime());
+        currentDate = DateFormat.getDateInstance().format(calendar.getTime());
         //to get month
-        //month = currentDate.substring(0,)
-        MonthLabel.setText(currentDate);
+        String month = currentDate.split("\\s")[0];//splits the string based on whitespace
+        MonthLabel.setText(month);
     }
 
     @Override
@@ -134,7 +135,7 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
         catFood = findViewById(R.id.catFood);
         changeIncome = findViewById(R.id.changeIncome);
         MonthLabel = findViewById(R.id.MonthLabel);
-        Balance = findViewById(R.id.Balance);
+        MonthlyIncomeLabel = findViewById(R.id.MonthlyIncomeLabel);
         progressBar = findViewById(R.id.progressBar);
         pieChart = findViewById(R.id.idPieChart);
         mDrawerLayout = findViewById(R.id.mDrawerLayout);
@@ -224,28 +225,28 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
                 break;
             case R.id.changeIncome:
                 Log.d(TAG, "Change Income");
-
+                initPopUpChangeMonthlyIncome();
                 break;
         }
     }
     private void initPopUpExpense()
     {
-        Log.d(TAG, "initPopUp");
+        Log.d(TAG, "initPopUpExpense");
 
-        AlertDialog.Builder mBuilder = new AlertDialog.Builder(BudgetPieChart.this);
+        AlertDialog.Builder mBuilderExpense = new AlertDialog.Builder(BudgetPieChart.this);
 
-        View mView = getLayoutInflater().inflate(R.layout.activity_expense, null);
-        TextView ExpenseLabel = mView.findViewById(R.id.ExpenseLabel);
+        View mViewExpense = getLayoutInflater().inflate(R.layout.activity_expense, null);
+        TextView ExpenseLabel = mViewExpense.findViewById(R.id.ExpenseLabel);
 
-        TextView CategoryLabel = mView.findViewById(R.id.CategoryLabel);
+        TextView CategoryLabel = mViewExpense.findViewById(R.id.CategoryLabel);
         CategoryLabel.setText(category);
 
-        final EditText etRM = mView.findViewById(R.id.etRM);
-        final EditText etDescription = mView.findViewById(R.id.etDescription);
-        Button AddButton = mView.findViewById(R.id.AddButton);
+        final EditText etRM = mViewExpense.findViewById(R.id.etRM);
+        final EditText etDescription = mViewExpense.findViewById(R.id.etDescription);
+        Button AddButton = mViewExpense.findViewById(R.id.AddButton);
 
-        mBuilder.setView(mView);
-        final AlertDialog dialog = mBuilder.create();
+        mBuilderExpense.setView(mViewExpense);
+        final AlertDialog dialogExpense = mBuilderExpense.create();
 
 
         AddButton.setOnClickListener(new View.OnClickListener() {
@@ -253,9 +254,9 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
             public void onClick(View v) {
                 if (!etRM.getText().toString().isEmpty() && !etDescription.getText().toString().isEmpty())
                 {
-                    //myDB.insertData(etRM.getText().toString(), etDescription.getText().toString(), currentDate, category);
+                    myDB.insertData(etRM.getText().toString(), etDescription.getText().toString(), currentDate, category);
                     Toast.makeText(BudgetPieChart.this, "Add success", Toast.LENGTH_SHORT).show();
-                    dialog.cancel();
+                    dialogExpense.cancel();
                 }
                 else
                 {
@@ -263,7 +264,41 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
                 }
             }
         });
+        dialogExpense.show();
+    }
 
-        dialog.show();
+    private void initPopUpChangeMonthlyIncome()
+    {
+        Log.d(TAG, "initPopUpChangeMonthlyIncome");
+
+        AlertDialog.Builder mBuilderChangeMonthlyIncome = new AlertDialog.Builder(BudgetPieChart.this);
+
+        View mViewChangeMonthlyIncome = getLayoutInflater().inflate(R.layout.activity_change_income, null);
+        TextView MonthlyIncome = mViewChangeMonthlyIncome.findViewById(R.id.MonthlyIncome);
+
+        final EditText etMonthlyIncome = mViewChangeMonthlyIncome.findViewById(R.id.etMonthlyIncome);
+
+        Button DoneButton = mViewChangeMonthlyIncome.findViewById(R.id.DoneButton);
+
+        mBuilderChangeMonthlyIncome.setView(mViewChangeMonthlyIncome);
+        final AlertDialog dialogChangeMonthlyIncome = mBuilderChangeMonthlyIncome.create();
+
+        DoneButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!etMonthlyIncome.getText().toString().isEmpty())
+                {
+                    String varMonthlyIncome = etMonthlyIncome.getText().toString();
+                    Toast.makeText(BudgetPieChart.this, "Add success "+varMonthlyIncome, Toast.LENGTH_SHORT).show();
+                    MonthlyIncomeLabel.setText("Monthly income: "+varMonthlyIncome);
+                    dialogChangeMonthlyIncome.cancel(); //untuk tutup pop up
+                }
+                else
+                {
+                    Toast.makeText(BudgetPieChart.this, "Must fill the details", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        dialogChangeMonthlyIncome.show();
     }
 }

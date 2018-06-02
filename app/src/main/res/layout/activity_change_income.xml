@@ -1,74 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/pop_bg"
     android:orientation="vertical"
+    android:background="@drawable/pop_bg"
     android:padding="5dp">
 
     <TextView
-        android:id="@+id/ExpenseLabel"
+        android:id="@+id/MonthlyIncome"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="8dp"
-        android:text="Expense"
+        android:text="Monthly income"
         android:textAlignment="center"
         android:textAllCaps="true"
         android:textColor="#000000"
         android:textSize="25sp"
         android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/CategoryLabel"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginLeft="4dp"
-        android:layout_marginRight="4dp"
-        android:layout_marginTop="10dp"
-        android:text="Category"
-        android:textAlignment="gravity"
-        android:textColor="#dfd4d4"
-        android:textSize="18sp" />
-
     <EditText
-        android:id="@+id/etRM"
+        android:id="@+id/etMonthlyIncome"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="4dp"
         android:layout_marginRight="4dp"
         android:ems="10"
-        android:hint="Amount"
+        android:hint="Monthly income"
         android:inputType="number"
         android:textAlignment="textStart"
         android:textColor="#000000"
         android:textColorHint="#dfd4d4"
         android:textSize="18sp" />
 
-    <EditText
-        android:id="@+id/etDescription"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="4dp"
-        android:layout_marginRight="4dp"
-        android:ems="10"
-        android:hint="Description"
-        android:inputType="textPersonName"
-        android:textAlignment="viewStart"
-        android:textColor="#000000"
-        android:textColorHint="#dfd4d4"
-        android:textSize="18sp" />
-
     <Button
-        android:id="@+id/AddButton"
+        android:id="@+id/DoneButton"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="4dp"
         android:layout_marginRight="4dp"
         android:background="@color/lightRed"
-        android:text="Add"
+        android:text="Done"
         android:textAlignment="center"
         android:gravity="center"
         android:textSize="18sp"

@@ -125,12 +125,13 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/Balance"
+            android:id="@+id/MonthlyIncomeLabel"
             android:layout_width="200dp"
             android:layout_height="26dp"
             android:layout_marginBottom="80dp"
             android:layout_marginEnd="92dp"
             android:layout_marginStart="92dp"
+            android:text="Monthly income:"
             android:textColor="#000000"
             android:textSize="14sp"
             android:textStyle="bold"
@@ -157,10 +158,10 @@
             android:layout_width="26dp"
             android:layout_height="26dp"
             android:layout_marginBottom="80dp"
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="21dp"
             android:background="@android:drawable/ic_menu_add"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/Balance" />
+            app:layout_constraintStart_toEndOf="@+id/MonthlyIncomeLabel" />
     </android.support.constraint.ConstraintLayout>
 
 
