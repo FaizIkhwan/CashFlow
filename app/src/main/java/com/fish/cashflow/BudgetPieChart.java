@@ -2,6 +2,8 @@ package com.fish.cashflow;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
@@ -30,8 +32,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public class BudgetPieChart extends AppCompatActivity implements View.OnClickListener{
-
+public class BudgetPieChart extends AppCompatActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener
+{
     //log
     private static String TAG = "BudgetPieChart";
 
@@ -40,12 +42,14 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
 
     //interface
     Button catEntertainment, catEducation, catHealth, catTransport, catShopping, catPersonalCare, catBills, catFood;
-    ActionBarDrawerToggle mToggle;
     TextView MonthLabel, MonthlyIncomeLabel;
-    DrawerLayout mDrawerLayout;
     ProgressBar progressBar;
     ImageButton changeIncome;
     PieChart pieChart;
+
+    //Navigation drawer
+    DrawerLayout mDrawerLayout;
+    ActionBarDrawerToggle mToggle;
 
     //usable variable
     String category;
@@ -55,7 +59,8 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
     DatabaseHelper myDB;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_budget_pie_chart);
 
@@ -69,6 +74,8 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
         mDrawerLayout.addDrawerListener(mToggle);
         mToggle.syncState();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        NavigationView navigationView = findViewById(R.id.navigation_view);
+        navigationView.setNavigationItemSelectedListener(this);
 
         //Database
         myDB = new DatabaseHelper(this);
@@ -77,12 +84,12 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
         Calendar calendar = Calendar.getInstance();
         currentDate = DateFormat.getDateInstance().format(calendar.getTime());
         //to get month
-        String month = currentDate.split("\\s")[0];//splits the string based on whitespace
+        String month = currentDate.split("\\s")[0];// \\s = splits the string based on whitespace
         MonthLabel.setText(month);
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) //Action bar menu
+    public boolean onOptionsItemSelected(MenuItem item) //Action bar menu, drawer
     {
         if(mToggle.onOptionsItemSelected(item))
         {
@@ -173,13 +180,6 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
 
     public void onClick(View v)  //onClickListener
     {
-        /*
-            Syntax
-            Intent <intentName> = new Intent(<context>, <otherActivity>.class);
-            startActivity(<intentName>);
-            or
-            startActivity(new Intent(this, activityTwo.class));
-            */
         Log.d(TAG, "onClick");
         switch (v.getId())
         {
@@ -300,5 +300,33 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
             }
         });
         dialogChangeMonthlyIncome.show();
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) //bila click kat navigation tu, ada event
+    {
+        /*
+            Syntax
+            Intent <intentName> = new Intent(<context>, <otherActivity>.class);
+            startActivity(<intentName>);
+            or
+            startActivity(new Intent(this, activityTwo.class));
+        */
+        int id = item.getItemId();
+
+        switch (id)
+        {
+            case R.id.home:
+                startActivity(new Intent(this, BudgetPieChart.class));
+                finish();
+                break;
+            case R.id.add_expense:
+                Toast.makeText(this,"add_expense",Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.history:
+                Toast.makeText(this,"history",Toast.LENGTH_SHORT).show();
+                break;
+        }
+        return false;
     }
 }
