@@ -10,25 +10,23 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.highlight.Highlight;
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 
 import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -38,7 +36,7 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
     private static String TAG = "BudgetPieChart";
 
     //data for pie chart
-    private float[] Data = {25.3f, 10.6f, 66.76f, 44.32f, 46.01f, 16.89f, 23.9f, 52.6f};
+    private float[] Data = {1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f};
 
     //interface
     Button catEntertainment, catEducation, catHealth, catTransport, catShopping, catPersonalCare, catBills, catFood;
@@ -128,7 +126,7 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
         pieChart.invalidate();
     }
 
-    private void initComponent()
+    private void initComponent() // init inteterface
     {
         Log.d(TAG, "initComponent");
         //Creating all object components
@@ -149,19 +147,35 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
         pieChartSetup();
     }
 
-    private void pieChartSetup()
+    private void pieChartSetup() // untuk setup pie chart
     {
         Log.d(TAG, "pieChartSetup");
         pieChart.setRotationEnabled(false);
         pieChart.setBackgroundColor(Color.WHITE);
-        pieChart.setHoleRadius(65f);
+        pieChart.setHoleRadius(50f);
         pieChart.setTransparentCircleAlpha(0);
-        pieChart.setCenterText("write something");
         pieChart.setCenterTextSize(10);
         pieChart.setTransparentCircleRadius(61f);
         pieChart.getLegend().setEnabled(false);
         pieChart.getDescription().setEnabled(false);
         addDataSet();
+
+        // untuk bila click kt chart, implement listener
+        pieChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
+            @Override
+            public void onValueSelected(Entry e, Highlight h) {
+                Log.d(TAG, "onValueSelected: Value select from chart.");
+                Log.d(TAG, "e: " + e.toString());
+                Log.d(TAG, "h: " + h.toString());
+
+                initPopUpRemainingBudget();
+            }
+
+            @Override
+            public void onNothingSelected() {
+
+            }
+        });
     }
 
     private void initOnClickListener() // Method for set on click listener for all button
@@ -229,7 +243,32 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
                 break;
         }
     }
-    private void initPopUpExpense()
+
+    private void initPopUpRemainingBudget() // pop up bila tekan pie chart
+    {
+        Log.d(TAG, "initPopUpRemainingBudget");
+
+        AlertDialog.Builder mBuilderRemainingBudget = new AlertDialog.Builder(BudgetPieChart.this);
+
+        View mViewRemainingBudget = getLayoutInflater().inflate(R.layout.activity_remaining_budget, null);
+        TextView remainingBudget = mViewRemainingBudget.findViewById(R.id.remainingBudget);
+        TextView showRemainingBudget = mViewRemainingBudget.findViewById(R.id.showRemainingBudget);
+        Button backButton = mViewRemainingBudget.findViewById(R.id.backButton);
+
+        mBuilderRemainingBudget.setView(mViewRemainingBudget);
+        final AlertDialog dialogRemainingBudget = mBuilderRemainingBudget.create();
+
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialogRemainingBudget.cancel();
+            }
+        });
+
+        dialogRemainingBudget.show();
+    }
+
+    private void initPopUpExpense() // setting popup expense
     {
         Log.d(TAG, "initPopUpExpense");
 
@@ -237,7 +276,6 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
 
         View mViewExpense = getLayoutInflater().inflate(R.layout.activity_expense, null);
         TextView ExpenseLabel = mViewExpense.findViewById(R.id.ExpenseLabel);
-
         TextView CategoryLabel = mViewExpense.findViewById(R.id.CategoryLabel);
         CategoryLabel.setText(category);
 
@@ -267,7 +305,7 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
         dialogExpense.show();
     }
 
-    private void initPopUpChangeMonthlyIncome()
+    private void initPopUpChangeMonthlyIncome() // setting popup changeMonthlyIncomes
     {
         Log.d(TAG, "initPopUpChangeMonthlyIncome");
 
@@ -320,11 +358,17 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
                 startActivity(new Intent(this, BudgetPieChart.class));
                 finish();
                 break;
-            case R.id.add_expense:
-                Toast.makeText(this,"add_expense",Toast.LENGTH_SHORT).show();
+            case R.id.category:
+                startActivity(new Intent(this, Category.class));
                 break;
             case R.id.history:
                 Toast.makeText(this,"history",Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.wishlist:
+                Toast.makeText(this,"wishlist",Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.statistic:
+                Toast.makeText(this,"statistic",Toast.LENGTH_SHORT).show();
                 break;
         }
         return false;

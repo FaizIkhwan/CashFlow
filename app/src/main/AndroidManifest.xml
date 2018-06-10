@@ -18,9 +18,11 @@
         </activity>
         <activity
             android:name=".BudgetPieChart"
-            android:theme="@style/withActionBar"/>
+            android:theme="@style/withActionBar" />
         <activity android:name=".History" />
-        <activity android:name=".Wishlist"></activity>
+        <activity android:name=".Wishlist" />
+        <activity
+            android:name=".Category" />
     </application>
 
 </manifest>

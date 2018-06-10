@@ -5,12 +5,19 @@
         android:icon="@drawable/baseline_home_black_24"
         android:title="Home" />
 
-    <item android:id="@+id/add_expense"
+    <item android:id="@+id/category"
         android:icon="@mipmap/baseline_add_black_24"
-        android:title="Add expense" />
+        android:title="Category" />
 
     <item android:id="@+id/history"
         android:icon="@mipmap/baseline_history_black_24"
         android:title="History" />
 
+    <item android:id="@+id/wishlist"
+        android:icon="@drawable/baseline_list_24"
+        android:title="Wishlist" />
+
+    <item android:id="@+id/statistic"
+        android:icon="@drawable/baseline_insert_chart_outlined_black_24"
+        android:title="Statistic" />
 </menu>
