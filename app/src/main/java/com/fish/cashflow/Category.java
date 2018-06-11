@@ -30,6 +30,9 @@ public class Category extends AppCompatActivity implements View.OnClickListener 
 
         initComponent(); //Initialize components
         initOnClickListener(); //Initialize onClickListener
+
+        // if category == 8
+        closeAllPlus();
     }
 
     private void initComponent()
@@ -86,6 +89,18 @@ public class Category extends AppCompatActivity implements View.OnClickListener 
         backButton.setOnClickListener(this);
     }
 
+    private void closeAllPlus() // invisible semua plus button kalau catogory ada 8
+    {
+        catEntertainmentPlus.setVisibility(View.INVISIBLE);
+        catEducationPlus.setVisibility(View.INVISIBLE);
+        catHealthPlus.setVisibility(View.INVISIBLE);
+        catTransportPlus.setVisibility(View.INVISIBLE);
+        catShoppingPlus.setVisibility(View.INVISIBLE);
+        catPersonalCarePlus.setVisibility(View.INVISIBLE);
+        catBillsPlus.setVisibility(View.INVISIBLE);
+        catFoodPlus.setVisibility(View.INVISIBLE);
+    }
+
     @Override
     public void onClick(View v)
     {
@@ -98,52 +113,84 @@ public class Category extends AppCompatActivity implements View.OnClickListener 
                 finish();
                 break;
             case R.id.catEntertainmentPlus:
-                Toast.makeText(this,"catEntertainmentPlus",Toast.LENGTH_SHORT).show();
+                // ++++++
+                catEntertainmentPlus.setVisibility(View.INVISIBLE);
+                catEntertainmentMinus.setVisibility(View.VISIBLE);
                 break;
             case R.id.catEntertainmentMinus:
-                Toast.makeText(this,"catEntertainmentMinus",Toast.LENGTH_SHORT).show();
+                // ------
+                catEntertainmentPlus.setVisibility(View.VISIBLE);
+                catEntertainmentMinus.setVisibility(View.INVISIBLE);
                 break;
             case R.id.catEducationPlus:
-                Toast.makeText(this,"catEducationPlus",Toast.LENGTH_SHORT).show();
+                // ++++++
+                catEducationPlus.setVisibility(View.INVISIBLE);
+                catEducationMinus.setVisibility(View.VISIBLE);
                 break;
             case R.id.catEducationMinus:
-                Toast.makeText(this,"catEducationMinus",Toast.LENGTH_SHORT).show();
+                // ------
+                catEducationPlus.setVisibility(View.VISIBLE);
+                catEducationMinus.setVisibility(View.INVISIBLE);
                 break;
             case R.id.catHealthPlus:
-                Toast.makeText(this,"catHealthPlus",Toast.LENGTH_SHORT).show();
+                // ++++++
+                catHealthPlus.setVisibility(View.INVISIBLE);
+                catHealthMinus.setVisibility(View.VISIBLE);
                 break;
             case R.id.catHealthMinus:
-                Toast.makeText(this,"catHealthMinus",Toast.LENGTH_SHORT).show();
+                // ------
+                catHealthPlus.setVisibility(View.VISIBLE);
+                catHealthMinus.setVisibility(View.INVISIBLE);
                 break;
             case R.id.catTransportPlus:
-                Toast.makeText(this,"catTransportPlus",Toast.LENGTH_SHORT).show();
+                // ++++++
+                catTransportPlus.setVisibility(View.INVISIBLE);
+                catTransportMinus.setVisibility(View.VISIBLE);
                 break;
             case R.id.catTransportMinus:
-                Toast.makeText(this,"catTransportMinus",Toast.LENGTH_SHORT).show();
+                // ------
+                catTransportPlus.setVisibility(View.VISIBLE);
+                catTransportMinus.setVisibility(View.INVISIBLE);
                 break;
             case R.id.catShoppingPlus:
-                Toast.makeText(this,"catShoppingPlus",Toast.LENGTH_SHORT).show();
+                // ++++++
+                catShoppingPlus.setVisibility(View.INVISIBLE);
+                catShoppingMinus.setVisibility(View.VISIBLE);
                 break;
             case R.id.catShoppingMinus:
-                Toast.makeText(this,"catShoppingMinus",Toast.LENGTH_SHORT).show();
+                // ------
+                catShoppingPlus.setVisibility(View.VISIBLE);
+                catShoppingMinus.setVisibility(View.INVISIBLE);
                 break;
             case R.id.catPersonalCarePlus:
-                Toast.makeText(this,"catPersonalCarePlus",Toast.LENGTH_SHORT).show();
+                // ++++++
+                catPersonalCarePlus.setVisibility(View.INVISIBLE);
+                catPersonalCareMinus.setVisibility(View.VISIBLE);
                 break;
             case R.id.catPersonalCareMinus:
-                Toast.makeText(this,"catPersonalCareMinus",Toast.LENGTH_SHORT).show();
+                // ------
+                catPersonalCarePlus.setVisibility(View.VISIBLE);
+                catPersonalCareMinus.setVisibility(View.INVISIBLE);
                 break;
             case R.id.catBillsPlus:
-                Toast.makeText(this,"catBillsPlus",Toast.LENGTH_SHORT).show();
+                // ++++++
+                catBillsPlus.setVisibility(View.INVISIBLE);
+                catBillsMinus.setVisibility(View.VISIBLE);
                 break;
             case R.id.catBillsMinus:
-                Toast.makeText(this,"catBillsMinus",Toast.LENGTH_SHORT).show();
+                // ------
+                catBillsPlus.setVisibility(View.VISIBLE);
+                catBillsMinus.setVisibility(View.INVISIBLE);
                 break;
             case R.id.catFoodPlus:
-                Toast.makeText(this,"catFoodPlus",Toast.LENGTH_SHORT).show();
+                // ++++++
+                catFoodPlus.setVisibility(View.INVISIBLE);
+                catFoodMinus.setVisibility(View.VISIBLE);
                 break;
             case R.id.catFoodMinus:
-                Toast.makeText(this,"catFoodMinus",Toast.LENGTH_SHORT).show();
+                // ------
+                catFoodPlus.setVisibility(View.VISIBLE);
+                catFoodMinus.setVisibility(View.INVISIBLE);
                 break;
         }
     }

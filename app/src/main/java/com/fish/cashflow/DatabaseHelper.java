@@ -46,7 +46,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
             return true;
     }
 
-    public Cursor getAllData()
+    public Cursor getAllData() // currently not using
     {
         SQLiteDatabase db = this.getWritableDatabase();
         String cat = "Entertainment";
@@ -54,7 +54,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
         return res;
     }
 
-    public Cursor getCategoryData(String cat)
+    public Cursor getCategoryData(String cat) // query "select * from cashFlowTable where category = var(cat)"
     {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor res = db.rawQuery("select * from "+TABLE_NAME+" where "+ COL_5+" = "+" '"+cat+"' ",null);

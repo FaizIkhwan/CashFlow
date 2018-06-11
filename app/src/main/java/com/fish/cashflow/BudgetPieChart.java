@@ -282,6 +282,7 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
 
         final EditText etRM = mViewExpense.findViewById(R.id.etRM);
         final EditText etDescription = mViewExpense.findViewById(R.id.etDescription);
+        final EditText etDate = mViewExpense.findViewById(R.id.etDate);
         Button AddButton = mViewExpense.findViewById(R.id.AddButton);
 
         mBuilderExpense.setView(mViewExpense);
@@ -291,10 +292,10 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
         AddButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!etRM.getText().toString().isEmpty() && !etDescription.getText().toString().isEmpty())
+                if (!etRM.getText().toString().isEmpty() && !etDescription.getText().toString().isEmpty() && !etDate.getText().toString().isEmpty())
                 {
-                    myDB.insertData(etRM.getText().toString(), etDescription.getText().toString(), currentDate, category);
-                    Toast.makeText(BudgetPieChart.this, "Add success", Toast.LENGTH_SHORT).show();
+                    myDB.insertData(etRM.getText().toString(), etDescription.getText().toString(), etDate.getText().toString(), category);
+                    Toast.makeText(BudgetPieChart.this, "Add success" , Toast.LENGTH_SHORT).show();
                     dialogExpense.cancel();
                 }
                 else
