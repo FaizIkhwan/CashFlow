@@ -2,6 +2,7 @@ package com.fish.cashflow;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -43,5 +44,20 @@ public class DatabaseHelper extends SQLiteOpenHelper
             return false;
         else
             return true;
+    }
+
+    public Cursor getAllData()
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String cat = "Entertainment";
+        Cursor res = db.rawQuery("select * from "+TABLE_NAME,null);
+        return res;
+    }
+
+    public Cursor getCategoryData(String cat)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor res = db.rawQuery("select * from "+TABLE_NAME+" where "+ COL_5+" = "+" '"+cat+"' ",null);
+        return res;
     }
 }

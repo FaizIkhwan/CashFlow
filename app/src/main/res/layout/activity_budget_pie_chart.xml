@@ -48,7 +48,7 @@
             app:layout_constraintEnd_toEndOf="parent" />
 
         <Button
-            android:id="@+id/catHealth"
+            android:id="@+id/catHealthButton"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginEnd="24dp"
@@ -65,7 +65,7 @@
             android:layout_marginTop="44dp"
             android:text="7"
             app:layout_constraintEnd_toStartOf="@+id/idPieChart"
-            app:layout_constraintTop_toBottomOf="@+id/catHealth" />
+            app:layout_constraintTop_toBottomOf="@+id/catHealthButton" />
 
         <Button
             android:id="@+id/catShopping"

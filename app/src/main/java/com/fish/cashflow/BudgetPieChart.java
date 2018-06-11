@@ -25,7 +25,6 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
-
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -132,7 +131,7 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
         //Creating all object components
         catEntertainment = findViewById(R.id.catEntertainment);
         catEducation = findViewById(R.id.catEducation);
-        catHealth = findViewById(R.id.catHealth);
+        catHealth = findViewById(R.id.catHealthButton);
         catTransport = findViewById(R.id.catTransport);
         catShopping = findViewById(R.id.catShopping);
         catPersonalCare = findViewById(R.id.catPersonalCare);
@@ -207,7 +206,7 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
                 category = "Education";
                 initPopUpExpense();
                 break;
-            case R.id.catHealth:
+            case R.id.catHealthButton:
                 Log.d(TAG, "Cat Health");
                 category = "Health";
                 initPopUpExpense();
@@ -254,6 +253,8 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
         TextView remainingBudget = mViewRemainingBudget.findViewById(R.id.remainingBudget);
         TextView showRemainingBudget = mViewRemainingBudget.findViewById(R.id.showRemainingBudget);
         Button backButton = mViewRemainingBudget.findViewById(R.id.backButton);
+
+        showRemainingBudget.setText("RM berapa");
 
         mBuilderRemainingBudget.setView(mViewRemainingBudget);
         final AlertDialog dialogRemainingBudget = mBuilderRemainingBudget.create();
@@ -362,7 +363,7 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
                 startActivity(new Intent(this, Category.class));
                 break;
             case R.id.history:
-                Toast.makeText(this,"history",Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(this, History.class));
                 break;
             case R.id.wishlist:
                 Toast.makeText(this,"wishlist",Toast.LENGTH_SHORT).show();
