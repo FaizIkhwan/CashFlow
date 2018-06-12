@@ -8,8 +8,14 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DatabaseHelper extends SQLiteOpenHelper
 {
+    //log
+    private static String TAG = "DatabaseHelper";
+
+    //Database name
     public static final String DATABASE_NAME = "Cashflow.db";
-    public static final String TABLE_NAME = "cashflowTable";
+
+    //Table names
+    public static final String TABLE_NAME_Expense = "Expense";
     public static final String COL_1 = "ID";
     public static final String COL_2 = "EXPENSE";
     public static final String COL_3 = "DESCRIPTION";
@@ -54,10 +60,10 @@ public class DatabaseHelper extends SQLiteOpenHelper
         return res;
     }
 
-    public Cursor getCategoryData(String cat) // query "select * from cashFlowTable where category = var(cat)"
+    public Cursor getCategoryData(String cat) // query "select * from cashFlowTable where category = var(cat) order by date "
     {
         SQLiteDatabase db = this.getWritableDatabase();
-        String query = "select * from "+TABLE_NAME+" where "+ COL_5+" = "+" '"+cat+"' " ;
+        String query = "select * from "+TABLE_NAME+" where " + COL_5 + " = " + " '" +cat+ "'";
         Cursor res = db.rawQuery(query,null);
         return res;
     }

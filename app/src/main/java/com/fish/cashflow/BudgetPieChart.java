@@ -82,7 +82,7 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
         currentDate = DateFormat.getDateInstance().format(calendar.getTime());
         //to get month
         String month = currentDate.split("\\s")[0];// \\s = splits the string based on whitespace
-        MonthLabel.setText(month);
+        MonthLabel.setText(currentDate);
     }
 
     @Override

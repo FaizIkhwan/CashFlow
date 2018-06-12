@@ -1,11 +1,13 @@
 package com.fish.cashflow;
 
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,10 +18,11 @@ public class Category extends AppCompatActivity implements View.OnClickListener 
     private static String TAG = "Category";
 
     //Interface
+    Button backButton;
     TextView categoryTV, catEntertainmentTV, catEducationTV, catHealthTV, catTransportTV, catShoppingTV, catPersonalCareTV, catBillsTV, catFoodTV;
     ImageButton catEntertainmentPlus, catEntertainmentMinus, catEducationPlus, catEducationMinus, catHealthPlus, catHealthMinus, catTransportPlus,
-        catTransportMinus, catShoppingPlus, catShoppingMinus, catPersonalCarePlus, catPersonalCareMinus, catBillsPlus, catBillsMinus, catFoodPlus, catFoodMinus;
-    Button backButton;
+            catTransportMinus, catShoppingPlus, catShoppingMinus, catPersonalCarePlus, catPersonalCareMinus, catBillsPlus, catBillsMinus, catFoodPlus, catFoodMinus,
+                addBudgetEntertainment, addBudgetEducation, addBudgetHealth, addBudgetTransport, addBudgetShopping, addBudgetPersonalCare, addBudgetBills, addBudgetFood;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +42,7 @@ public class Category extends AppCompatActivity implements View.OnClickListener 
     {
         Log.d(TAG, "initComponent");
         //Creating all object components
+        backButton = findViewById(R.id.backButton);
         categoryTV = findViewById(R.id.categoryTV);
         catEntertainmentTV = findViewById(R.id.catEntertainmentTV);
         catEducationTV = findViewById(R.id.catEducationTV);
@@ -48,6 +52,7 @@ public class Category extends AppCompatActivity implements View.OnClickListener 
         catPersonalCareTV = findViewById(R.id.catPersonalCareTV);
         catBillsTV = findViewById(R.id.catBillsTV);
         catFoodTV = findViewById(R.id.catFoodTV);
+
         catEntertainmentPlus = findViewById(R.id.catEntertainmentPlus);
         catEntertainmentMinus = findViewById(R.id.catEntertainmentMinus);
         catEducationPlus = findViewById(R.id.catEducationPlus);
@@ -64,12 +69,22 @@ public class Category extends AppCompatActivity implements View.OnClickListener 
         catBillsMinus = findViewById(R.id.catBillsMinus);
         catFoodPlus = findViewById(R.id.catFoodPlus);
         catFoodMinus = findViewById(R.id.catFoodMinus);
-        backButton = findViewById(R.id.backButton);
+
+        addBudgetEntertainment = findViewById(R.id.addBudgetEntertainment);
+        addBudgetEducation = findViewById(R.id.addBudgetEducation);
+        addBudgetHealth = findViewById(R.id.addBudgetHealth);
+        addBudgetTransport = findViewById(R.id.addBudgetTransport);
+        addBudgetShopping = findViewById(R.id.addBudgetShopping);
+        addBudgetPersonalCare = findViewById(R.id.addBudgetPersonalCare);
+        addBudgetBills = findViewById(R.id.addBudgetBills);
+        addBudgetFood = findViewById(R.id.addBudgetFood);
     }
 
     private void initOnClickListener() // Method for set on click listener for all button
     {
         Log.d(TAG, "initOnClickListener");
+        backButton.setOnClickListener(this);
+
         catEntertainmentPlus.setOnClickListener(this);
         catEntertainmentMinus.setOnClickListener(this);
         catEducationPlus.setOnClickListener(this);
@@ -86,7 +101,15 @@ public class Category extends AppCompatActivity implements View.OnClickListener 
         catBillsMinus.setOnClickListener(this);
         catFoodPlus.setOnClickListener(this);
         catFoodMinus.setOnClickListener(this);
-        backButton.setOnClickListener(this);
+
+        addBudgetEntertainment.setOnClickListener(this);
+        addBudgetEducation.setOnClickListener(this);
+        addBudgetHealth.setOnClickListener(this);
+        addBudgetTransport.setOnClickListener(this);
+        addBudgetShopping.setOnClickListener(this);
+        addBudgetPersonalCare.setOnClickListener(this);
+        addBudgetBills.setOnClickListener(this);
+        addBudgetFood.setOnClickListener(this);
     }
 
     private void closeAllPlus() // invisible semua plus button kalau catogory ada 8
@@ -192,6 +215,63 @@ public class Category extends AppCompatActivity implements View.OnClickListener 
                 catFoodPlus.setVisibility(View.VISIBLE);
                 catFoodMinus.setVisibility(View.INVISIBLE);
                 break;
+            case R.id.addBudgetEntertainment:
+                initPopUpAddBudget("Entertainment");
+                break;
+            case R.id.addBudgetEducation:
+                initPopUpAddBudget("Education");
+                break;
+            case R.id.addBudgetHealth:
+                initPopUpAddBudget("Health");
+                break;
+            case R.id.addBudgetTransport:
+                initPopUpAddBudget("Transport");
+                break;
+            case R.id.addBudgetShopping:
+                initPopUpAddBudget("Shopping");
+                break;
+            case R.id.addBudgetPersonalCare:
+                initPopUpAddBudget("Personal Care");
+                break;
+            case R.id.addBudgetBills:
+                initPopUpAddBudget("Bills");
+                break;
+            case R.id.addBudgetFood:
+                initPopUpAddBudget("Food");
+                break;
         }
+    }
+
+    private void initPopUpAddBudget(String cat) // pop up untuk add budget
+    {
+        Log.d(TAG, "initPopUpAddBudget");
+
+        AlertDialog.Builder mBuilderAddBudget = new AlertDialog.Builder(this);
+
+        View mViewAddBudget = getLayoutInflater().inflate(R.layout.activity_add_budget, null);
+        TextView CategoryLabel = mViewAddBudget.findViewById(R.id.CategoryLabel);
+        CategoryLabel.setText(cat);
+        final EditText etBudget = mViewAddBudget.findViewById(R.id.etBudget);
+        Button DoneButton = mViewAddBudget.findViewById(R.id.DoneButton);
+
+        mBuilderAddBudget.setView(mViewAddBudget);
+        final AlertDialog dialogAddBudget = mBuilderAddBudget.create();
+
+        DoneButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!etBudget.getText().toString().isEmpty())
+                {
+                    // NANTI KENA LETAK DALAM DATABASE
+                    Toast.makeText(Category.this, "Success", Toast.LENGTH_SHORT).show();
+                    dialogAddBudget.cancel(); //untuk tutup pop up
+                }
+                else
+                {
+                    Toast.makeText(Category.this, "Must fill the details", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        dialogAddBudget.show();
     }
 }
