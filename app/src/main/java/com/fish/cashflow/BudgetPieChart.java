@@ -367,7 +367,7 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
                 startActivity(new Intent(this, History.class));
                 break;
             case R.id.wishlist:
-                Toast.makeText(this,"wishlist",Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(this, Wishlist.class));
                 break;
             case R.id.statistic:
                 Toast.makeText(this,"statistic",Toast.LENGTH_SHORT).show();
