@@ -121,7 +121,7 @@ public class History extends AppCompatActivity implements View.OnClickListener {
 
     private void retrievingData(String cat) // retrive data from db
     {
-        Cursor res = myDB.getCategoryData(cat);
+        Cursor res = myDB.getCategoryDataFromExpense(cat);
         if(res.getCount() == 0)
         {
             initPopUpShowMessage("Error","Nothing found");

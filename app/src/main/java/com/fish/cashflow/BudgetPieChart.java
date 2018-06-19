@@ -1,6 +1,7 @@
 package com.fish.cashflow;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -51,6 +52,7 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
     //usable variable
     String category;
     String currentDate;
+    String[] cat = {"entertainment", "education", "health", "transport", "shopping", "personal care", "bills", "food"};
 
     //database
     DatabaseHelper myDB;
@@ -76,6 +78,11 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
 
         //Database
         myDB = new DatabaseHelper(this);
+
+        Cursor test = myDB.getStateForAllCategory(cat[0]);
+        if(test.getCount() == 0)
+            Toast.makeText(BudgetPieChart.this, "Add success" , Toast.LENGTH_SHORT).show();
+
 
         //Calendar to get current date
         Calendar calendar = Calendar.getInstance();
@@ -115,7 +122,7 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
         colors.add(0xFFe1ea9d); // catTransport
         colors.add(0xFF9a60af); // catShopping
         colors.add(0xFFcc90c3); // catPersonalCare
-        colors.add(0xFF739b8a); //  catBills
+        colors.add(0xFF739b8a); // catBills
         colors.add(0xFFb24c08); // catFood
         pieDataSet.setColors(colors);
 
@@ -294,7 +301,7 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
             public void onClick(View v) {
                 if (!etRM.getText().toString().isEmpty() && !etDescription.getText().toString().isEmpty() && !etDate.getText().toString().isEmpty())
                 {
-                    myDB.insertData(etRM.getText().toString(), etDescription.getText().toString(), etDate.getText().toString(), category);
+                    myDB.insertDataExpense(etRM.getText().toString(), etDescription.getText().toString(), etDate.getText().toString(), category);
                     Toast.makeText(BudgetPieChart.this, "Add success" , Toast.LENGTH_SHORT).show();
                     dialogExpense.cancel();
                 }
