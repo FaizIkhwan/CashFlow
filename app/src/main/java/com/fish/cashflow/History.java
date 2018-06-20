@@ -77,35 +77,35 @@ public class History extends AppCompatActivity implements View.OnClickListener {
                 break;
             case R.id.catEntertainmentButton:
                 Log.d(TAG, "catEntertainmentButton");
-                retrievingData("Entertainment");
+                retrievingData("ENTERTAINMENT");
                 break;
             case R.id.catEducationButton:
                 Log.d(TAG, "catEducationButton");
-                retrievingData("Education");
+                retrievingData("EDUCATION");
                 break;
             case R.id.catHealthButton:
                 Log.d(TAG, "catHealthButton");
-                retrievingData("Health");
+                retrievingData("HEALTH");
                 break;
             case R.id.catTransportButton:
                 Log.d(TAG, "catTransportButton");
-                retrievingData("Transport");
+                retrievingData("TRANSPORT");
                 break;
             case R.id.catShoppingButton:
                 Log.d(TAG, "catShoppingButton");
-                retrievingData("Shopping");
+                retrievingData("SHOPPING");
                 break;
             case R.id.catPersonalCareButton:
                 Log.d(TAG, "catPersonalCareButton");
-                retrievingData("Personal Care");
+                retrievingData("PERSONAL CARE");
                 break;
             case R.id.catBillsButton:
                 Log.d(TAG, "catBillsButton");
-                retrievingData("Bills");
+                retrievingData("BILLS");
                 break;
             case R.id.catFoodButton:
                 Log.d(TAG, "catFoodButton");
-                retrievingData("Food");
+                retrievingData("FOOD");
                 break;
         }
     }
@@ -121,6 +121,7 @@ public class History extends AppCompatActivity implements View.OnClickListener {
 
     private void retrievingData(String cat) // retrive data from db
     {
+        String temp;
         Cursor res = myDB.getCategoryDataFromExpense(cat);
         if(res.getCount() == 0)
         {
@@ -130,9 +131,12 @@ public class History extends AppCompatActivity implements View.OnClickListener {
         StringBuffer buffer = new StringBuffer();
         while (res.moveToNext())
         {
+            temp = "";
             buffer.append("Expense :RM" + res.getString(1) + "\n");
             buffer.append("Description :" + res.getString(2) + "\n");
-            buffer.append("Date :" + res.getString(3) + "\n\n");
+            temp = res.getString(3).substring(6, 8)+"/"+res.getString(3).substring(4, 6)+"/"+res.getString(3).substring(0, 4);
+            Log.d(TAG, "TEMP ---> "+temp);
+            buffer.append("Date :" + temp + "\n\n");
         }
         initPopUpShowMessage(cat,buffer.toString());
     }

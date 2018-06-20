@@ -1,6 +1,7 @@
 package com.fish.cashflow;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -24,6 +25,13 @@ public class Category extends AppCompatActivity implements View.OnClickListener 
             catTransportMinus, catShoppingPlus, catShoppingMinus, catPersonalCarePlus, catPersonalCareMinus, catBillsPlus, catBillsMinus, catFoodPlus, catFoodMinus,
                 addBudgetEntertainment, addBudgetEducation, addBudgetHealth, addBudgetTransport, addBudgetShopping, addBudgetPersonalCare, addBudgetBills, addBudgetFood;
 
+    //database
+    DatabaseHelper myDB;
+
+    //usable variable
+    private String[] cat = {"ENTERTAINMENT", "EDUCATION", "HEALTH", "TRANSPORT", "SHOPPING", "PERSONAL CARE", "BILLS", "FOOD"};
+    private Cursor res;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,8 +42,7 @@ public class Category extends AppCompatActivity implements View.OnClickListener 
         initComponent(); //Initialize components
         initOnClickListener(); //Initialize onClickListener
 
-        // if category == 8
-        closeAllPlus();
+        toCloseOrOpen(); // check database to determine which button should appear
     }
 
     private void initComponent()
@@ -112,16 +119,121 @@ public class Category extends AppCompatActivity implements View.OnClickListener 
         addBudgetFood.setOnClickListener(this);
     }
 
-    private void closeAllPlus() // invisible semua plus button kalau catogory ada 8
+    private void toCloseOrOpen() // invisible semua plus button kalau catogory ada 8
     {
-        catEntertainmentPlus.setVisibility(View.INVISIBLE);
-        catEducationPlus.setVisibility(View.INVISIBLE);
-        catHealthPlus.setVisibility(View.INVISIBLE);
-        catTransportPlus.setVisibility(View.INVISIBLE);
-        catShoppingPlus.setVisibility(View.INVISIBLE);
-        catPersonalCarePlus.setVisibility(View.INVISIBLE);
-        catBillsPlus.setVisibility(View.INVISIBLE);
-        catFoodPlus.setVisibility(View.INVISIBLE);
+        //Database
+        myDB = new DatabaseHelper(this);
+
+        for(int i=0; i<cat.length; i++)
+        {
+            res = myDB.getStateForCategory(cat[i].toUpperCase());
+            if(res != null && res.moveToFirst()) // tak kosong
+            {
+                do
+                {
+                    switch ( res.getString(0) )
+                    {
+                        case "ENTERTAINMENT":
+                            if( res.getString(1).equals("TRUE") )
+                            {
+                                catEntertainmentMinus.setVisibility(View.VISIBLE);
+                                catEntertainmentPlus.setVisibility(View.INVISIBLE);
+                            }
+                            else if( res.getString(1).equals("FALSE") )
+                            {
+                                catEntertainmentMinus.setVisibility(View.INVISIBLE);
+                                catEntertainmentPlus.setVisibility(View.VISIBLE);
+                            }
+                            break;
+                        case "EDUCATION":
+                            if( res.getString(1).equals("TRUE") )
+                            {
+                                catEducationMinus.setVisibility(View.VISIBLE);
+                                catEducationPlus.setVisibility(View.INVISIBLE);
+                            }
+                            else if( res.getString(1).equals("FALSE") )
+                            {
+                                catEducationMinus.setVisibility(View.INVISIBLE);
+                                catEducationPlus.setVisibility(View.VISIBLE);
+                            }
+                            break;
+                        case "HEALTH":
+                            if( res.getString(1).equals("TRUE") )
+                            {
+                                catHealthMinus.setVisibility(View.VISIBLE);
+                                catHealthPlus.setVisibility(View.INVISIBLE);
+                            }
+                            else if( res.getString(1).equals("FALSE") )
+                            {
+                                catHealthMinus.setVisibility(View.INVISIBLE);
+                                catHealthPlus.setVisibility(View.VISIBLE);
+                            }
+                            break;
+                        case "TRANSPORT":
+                            if( res.getString(1).equals("TRUE") )
+                            {
+                                catTransportMinus.setVisibility(View.VISIBLE);
+                                catTransportPlus.setVisibility(View.INVISIBLE);
+                            }
+                            else if( res.getString(1).equals("FALSE") )
+                            {
+                                catTransportMinus.setVisibility(View.INVISIBLE);
+                                catTransportPlus.setVisibility(View.VISIBLE);
+                            }
+                            break;
+                        case "SHOPPING":
+                            if( res.getString(1).equals("TRUE") )
+                            {
+                                catShoppingMinus.setVisibility(View.VISIBLE);
+                                catShoppingPlus.setVisibility(View.INVISIBLE);
+                            }
+                            else if( res.getString(1).equals("FALSE") )
+                            {
+                                catShoppingMinus.setVisibility(View.INVISIBLE);
+                                catShoppingPlus.setVisibility(View.VISIBLE);
+                            }
+                            break;
+                        case "PERSONAL CARE":
+                            if( res.getString(1).equals("TRUE") )
+                            {
+                                catPersonalCareMinus.setVisibility(View.VISIBLE);
+                                catPersonalCarePlus.setVisibility(View.INVISIBLE);
+                            }
+                            else if( res.getString(1).equals("FALSE") )
+                            {
+                                catPersonalCareMinus.setVisibility(View.INVISIBLE);
+                                catPersonalCarePlus.setVisibility(View.VISIBLE);
+                            }
+                            break;
+                        case "BILLS":
+                            if( res.getString(1).equals("TRUE") )
+                            {
+                                catBillsMinus.setVisibility(View.VISIBLE);
+                                catBillsPlus.setVisibility(View.INVISIBLE);
+                            }
+                            else if( res.getString(1).equals("FALSE") )
+                            {
+                                catBillsMinus.setVisibility(View.INVISIBLE);
+                                catBillsPlus.setVisibility(View.VISIBLE);
+                            }
+                            break;
+                        case "FOOD":
+                            if( res.getString(1).equals("TRUE") )
+                            {
+                                catFoodMinus.setVisibility(View.VISIBLE);
+                                catFoodPlus.setVisibility(View.INVISIBLE);
+                            }
+                            else if( res.getString(1).equals("FALSE") )
+                            {
+                                catFoodMinus.setVisibility(View.INVISIBLE);
+                                catFoodPlus.setVisibility(View.VISIBLE);
+                            }
+                            break;
+                    }
+                }
+                while(res.moveToNext());
+            }
+        }
     }
 
     @Override
@@ -136,113 +248,145 @@ public class Category extends AppCompatActivity implements View.OnClickListener 
                 finish();
                 break;
             case R.id.catEntertainmentPlus:
-                // ++++++
+                res = myDB.getBudgetOnlyForCategory("ENTERTAINMENT");
+                if(res != null && res.moveToFirst())
+                    myDB.updateDataCategory("1", "ENTERTAINMENT", res.getString(0), "TRUE");
                 catEntertainmentPlus.setVisibility(View.INVISIBLE);
                 catEntertainmentMinus.setVisibility(View.VISIBLE);
                 break;
             case R.id.catEntertainmentMinus:
-                // ------
+                res = myDB.getBudgetOnlyForCategory("ENTERTAINMENT");
+                if(res != null && res.moveToFirst())
+                    myDB.updateDataCategory("1", "ENTERTAINMENT", res.getString(0), "FALSE");
                 catEntertainmentPlus.setVisibility(View.VISIBLE);
                 catEntertainmentMinus.setVisibility(View.INVISIBLE);
                 break;
             case R.id.catEducationPlus:
-                // ++++++
+                res = myDB.getBudgetOnlyForCategory("EDUCATION");
+                if(res != null && res.moveToFirst())
+                    myDB.updateDataCategory("2", "EDUCATION", res.getString(0), "TRUE");
                 catEducationPlus.setVisibility(View.INVISIBLE);
                 catEducationMinus.setVisibility(View.VISIBLE);
                 break;
             case R.id.catEducationMinus:
-                // ------
+                res = myDB.getBudgetOnlyForCategory("EDUCATION");
+                if(res != null && res.moveToFirst())
+                    myDB.updateDataCategory("2", "EDUCATION", res.getString(0), "FALSE");
                 catEducationPlus.setVisibility(View.VISIBLE);
                 catEducationMinus.setVisibility(View.INVISIBLE);
                 break;
             case R.id.catHealthPlus:
-                // ++++++
+                res = myDB.getBudgetOnlyForCategory("HEALTH");
+                if(res != null && res.moveToFirst())
+                    myDB.updateDataCategory("3", "HEALTH", res.getString(0), "TRUE");
                 catHealthPlus.setVisibility(View.INVISIBLE);
                 catHealthMinus.setVisibility(View.VISIBLE);
                 break;
             case R.id.catHealthMinus:
-                // ------
+                res = myDB.getBudgetOnlyForCategory("HEALTH");
+                if(res != null && res.moveToFirst())
+                    myDB.updateDataCategory("3", "HEALTH", res.getString(0), "FALSE");
                 catHealthPlus.setVisibility(View.VISIBLE);
                 catHealthMinus.setVisibility(View.INVISIBLE);
                 break;
             case R.id.catTransportPlus:
-                // ++++++
+                res = myDB.getBudgetOnlyForCategory("TRANSPORT");
+                if(res != null && res.moveToFirst())
+                    myDB.updateDataCategory("4", "TRANSPORT", res.getString(0), "TRUE");
                 catTransportPlus.setVisibility(View.INVISIBLE);
                 catTransportMinus.setVisibility(View.VISIBLE);
                 break;
             case R.id.catTransportMinus:
-                // ------
+                res = myDB.getBudgetOnlyForCategory("TRANSPORT");
+                if(res != null && res.moveToFirst())
+                    myDB.updateDataCategory("4", "TRANSPORT", res.getString(0), "FALSE");
                 catTransportPlus.setVisibility(View.VISIBLE);
                 catTransportMinus.setVisibility(View.INVISIBLE);
                 break;
             case R.id.catShoppingPlus:
-                // ++++++
+                res = myDB.getBudgetOnlyForCategory("SHOPPING");
+                if(res != null && res.moveToFirst())
+                    myDB.updateDataCategory("5", "SHOPPING", res.getString(0), "TRUE");
                 catShoppingPlus.setVisibility(View.INVISIBLE);
                 catShoppingMinus.setVisibility(View.VISIBLE);
                 break;
             case R.id.catShoppingMinus:
-                // ------
+                res = myDB.getBudgetOnlyForCategory("SHOPPING");
+                if(res != null && res.moveToFirst())
+                    myDB.updateDataCategory("5", "SHOPPING", res.getString(0), "FALSE");
                 catShoppingPlus.setVisibility(View.VISIBLE);
                 catShoppingMinus.setVisibility(View.INVISIBLE);
                 break;
             case R.id.catPersonalCarePlus:
-                // ++++++
+                res = myDB.getBudgetOnlyForCategory("PERSONAL CARE");
+                if(res != null && res.moveToFirst())
+                    myDB.updateDataCategory("6", "PERSONAL CARE", res.getString(0), "TRUE");
                 catPersonalCarePlus.setVisibility(View.INVISIBLE);
                 catPersonalCareMinus.setVisibility(View.VISIBLE);
                 break;
             case R.id.catPersonalCareMinus:
-                // ------
+                res = myDB.getBudgetOnlyForCategory("PERSONAL CARE");
+                if(res != null && res.moveToFirst())
+                    myDB.updateDataCategory("6", "PERSONAL CARE", res.getString(0), "FALSE");
                 catPersonalCarePlus.setVisibility(View.VISIBLE);
                 catPersonalCareMinus.setVisibility(View.INVISIBLE);
                 break;
             case R.id.catBillsPlus:
-                // ++++++
+                res = myDB.getBudgetOnlyForCategory("BILLS");
+                if(res != null && res.moveToFirst())
+                    myDB.updateDataCategory("7", "BILLS", res.getString(0), "TRUE");
                 catBillsPlus.setVisibility(View.INVISIBLE);
                 catBillsMinus.setVisibility(View.VISIBLE);
                 break;
             case R.id.catBillsMinus:
-                // ------
+                res = myDB.getBudgetOnlyForCategory("BILLS");
+                if(res != null && res.moveToFirst())
+                    myDB.updateDataCategory("7", "BILLS", res.getString(0), "FALSE");
                 catBillsPlus.setVisibility(View.VISIBLE);
                 catBillsMinus.setVisibility(View.INVISIBLE);
                 break;
             case R.id.catFoodPlus:
-                // ++++++
+                res = myDB.getBudgetOnlyForCategory("FOOD");
+                if(res != null && res.moveToFirst())
+                    myDB.updateDataCategory("8", "FOOD", res.getString(0), "TRUE");
                 catFoodPlus.setVisibility(View.INVISIBLE);
                 catFoodMinus.setVisibility(View.VISIBLE);
                 break;
             case R.id.catFoodMinus:
-                // ------
+                res = myDB.getBudgetOnlyForCategory("FOOD");
+                if(res != null && res.moveToFirst())
+                    myDB.updateDataCategory("8", "FOOD", res.getString(0), "FALSE");
                 catFoodPlus.setVisibility(View.VISIBLE);
                 catFoodMinus.setVisibility(View.INVISIBLE);
                 break;
             case R.id.addBudgetEntertainment:
-                initPopUpAddBudget("Entertainment");
+                initPopUpAddBudget("ENTERTAINMENT");
                 break;
             case R.id.addBudgetEducation:
-                initPopUpAddBudget("Education");
+                initPopUpAddBudget("EDUCATION");
                 break;
             case R.id.addBudgetHealth:
-                initPopUpAddBudget("Health");
+                initPopUpAddBudget("HEALTH");
                 break;
             case R.id.addBudgetTransport:
-                initPopUpAddBudget("Transport");
+                initPopUpAddBudget("TRANSPORT");
                 break;
             case R.id.addBudgetShopping:
-                initPopUpAddBudget("Shopping");
+                initPopUpAddBudget("SHOPPING");
                 break;
             case R.id.addBudgetPersonalCare:
-                initPopUpAddBudget("Personal Care");
+                initPopUpAddBudget("PERSONAL CARE");
                 break;
             case R.id.addBudgetBills:
-                initPopUpAddBudget("Bills");
+                initPopUpAddBudget("BILLS");
                 break;
             case R.id.addBudgetFood:
-                initPopUpAddBudget("Food");
+                initPopUpAddBudget("FOOD");
                 break;
         }
     }
 
-    private void initPopUpAddBudget(String cat) // pop up untuk add budget
+    private void initPopUpAddBudget(final String localCat) // pop up untuk add budget
     {
         Log.d(TAG, "initPopUpAddBudget");
 
@@ -250,7 +394,7 @@ public class Category extends AppCompatActivity implements View.OnClickListener 
 
         View mViewAddBudget = getLayoutInflater().inflate(R.layout.activity_add_budget, null);
         TextView CategoryLabel = mViewAddBudget.findViewById(R.id.CategoryLabel);
-        CategoryLabel.setText(cat);
+        CategoryLabel.setText(localCat);
         final EditText etBudget = mViewAddBudget.findViewById(R.id.etBudget);
         Button DoneButton = mViewAddBudget.findViewById(R.id.DoneButton);
 
@@ -260,15 +404,57 @@ public class Category extends AppCompatActivity implements View.OnClickListener 
         DoneButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!etBudget.getText().toString().isEmpty())
+                if (!etBudget.getText().toString().isEmpty()) // kalau dia isi semua part
                 {
-                    // NANTI KENA LETAK DALAM DATABASE
-                    Toast.makeText(Category.this, "Success", Toast.LENGTH_SHORT).show();
+                    switch (localCat)
+                    {
+                        case "ENTERTAINMENT":
+                            res = myDB.getStateForCategory(localCat);
+                            if(res != null && res.moveToFirst())
+                                myDB.updateDataCategory("1", localCat, etBudget.getText().toString(), res.getString(1));
+                            break;
+                        case "EDUCATION":
+                            res = myDB.getStateForCategory(localCat);
+                            if(res != null && res.moveToFirst())
+                                myDB.updateDataCategory("2", localCat, etBudget.getText().toString(), res.getString(1));
+                            break;
+                        case "HEALTH":
+                            res = myDB.getStateForCategory(localCat);
+                            if(res != null && res.moveToFirst())
+                                myDB.updateDataCategory("3", localCat, etBudget.getText().toString(), res.getString(1));
+                            break;
+                        case "TRANSPORT":
+                            res = myDB.getStateForCategory(localCat);
+                            if(res != null && res.moveToFirst())
+                                myDB.updateDataCategory("4", localCat, etBudget.getText().toString(), res.getString(1));
+                            break;
+                        case "SHOPPING":
+                            res = myDB.getStateForCategory(localCat);
+                            if(res != null && res.moveToFirst())
+                                myDB.updateDataCategory("5", localCat, etBudget.getText().toString(), res.getString(1));
+                            break;
+                        case "PERSONAL CARE":
+                            res = myDB.getStateForCategory(localCat);
+                            if(res != null && res.moveToFirst())
+                                myDB.updateDataCategory("6", localCat, etBudget.getText().toString(), res.getString(1));
+                            break;
+                        case "BILLS":
+                            res = myDB.getStateForCategory(localCat);
+                            if(res != null && res.moveToFirst())
+                                myDB.updateDataCategory("7", localCat, etBudget.getText().toString(), res.getString(1));
+                            break;
+                        case "FOOD":
+                            res = myDB.getStateForCategory(localCat);
+                            if(res != null && res.moveToFirst())
+                                myDB.updateDataCategory("8", localCat, etBudget.getText().toString(), res.getString(1));
+                            break;
+                    }
+                    Toast.makeText(Category.this, "Add success", Toast.LENGTH_SHORT).show();
                     dialogAddBudget.cancel(); //untuk tutup pop up
                 }
                 else
                 {
-                    Toast.makeText(Category.this, "Must fill the details", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Category.this, "Must fill all the details", Toast.LENGTH_SHORT).show();
                 }
             }
         });

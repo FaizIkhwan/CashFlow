@@ -26,9 +26,10 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
-import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 public class BudgetPieChart extends AppCompatActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener
 {
@@ -50,9 +51,11 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
     ActionBarDrawerToggle mToggle;
 
     //usable variable
-    String category;
-    String currentDate;
-    String[] cat = {"entertainment", "education", "health", "transport", "shopping", "personal care", "bills", "food"};
+    private String category;
+    private String currentDate;
+    private String month;
+    String monthToDisplay;
+    private String[] cat = {"ENTERTAINMENT", "EDUCATION", "HEALTH", "TRANSPORT", "SHOPPING", "PERSONAL CARE", "BILLS", "FOOD"};
 
     //database
     DatabaseHelper myDB;
@@ -79,17 +82,144 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
         //Database
         myDB = new DatabaseHelper(this);
 
-        Cursor test = myDB.getStateForAllCategory(cat[0]);
-        if(test.getCount() == 0)
-            Toast.makeText(BudgetPieChart.this, "Add success" , Toast.LENGTH_SHORT).show();
+        whichToDisplayCategory();
 
+        monthToDisplay = getDateAndMonth();
+        MonthLabel.setText(monthToDisplay);
 
-        //Calendar to get current date
-        Calendar calendar = Calendar.getInstance();
-        currentDate = DateFormat.getDateInstance().format(calendar.getTime());
-        //to get month
-        String month = currentDate.split("\\s")[0];// \\s = splits the string based on whitespace
-        MonthLabel.setText(currentDate);
+        String monthlyIncomeToDisplay = "Monthly income: "+whatToDisplayMonthlyIncome();
+        MonthlyIncomeLabel.setText(monthlyIncomeToDisplay);
+    }
+
+    private String whatToDisplayMonthlyIncome() // untuk nk check bulan ni da ada data income belum. Kalau da, setText. Kalau belum, letak 0 (kot)
+    {
+        Log.d(TAG, "whatToDisplayMonthlyIncome");
+        Cursor res = myDB.getMonthlyIncome(monthToDisplay);
+        if(res != null && res.moveToFirst()) // tak kosong
+        {
+            return res.getString(1);
+        }
+        else // kalau tk de data untuk bulan tu
+        {
+            myDB.insertDataIncome("0", monthToDisplay);
+            return "0";
+        }
+    }
+
+    private String getDateAndMonth() // Calendar to get current date
+    {
+        Log.d(TAG, "getDateAndMonth");
+        currentDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
+        month = currentDate.split("-")[1];
+        String res = "";
+        switch (month)
+        {
+            case "01":
+                res = "JANUARY";
+                break;
+            case "02":
+                res = "FEBRUARY";
+                break;
+            case "03":
+                res = "MARCH";
+                break;
+            case "04":
+                res = "APRIL";
+                break;
+            case "05":
+                res = "MAY";
+                break;
+            case "06":
+                res = "JUNE";
+                break;
+            case "07":
+                res = "JULY";
+                break;
+            case "08":
+                res = "AUGUST";
+                break;
+            case "09":
+                res = "SEPTEMBER";
+                break;
+            case "10":
+                res = "OCTOBER";
+                break;
+            case "11":
+                res = "NOVEMBER";
+                break;
+            case "12":
+                res =  "DECEMBER";
+                break;
+        }
+        return res;
+    }
+
+    private void whichToDisplayCategory() // Process to check if the category is TRUE or FALSE. If TRUE, button will appear, else it will not.
+    {
+        for(int i=0; i<cat.length; i++)
+        {
+            Cursor res = myDB.getStateForCategory(cat[i].toUpperCase());
+            if(res != null && res.moveToFirst()) // tak kosong
+            {
+                do
+                {
+                    switch ( res.getString(0) )
+                    {
+                        case "ENTERTAINMENT":
+                            if( res.getString(1).equals("TRUE") )
+                                catEntertainment.setVisibility(View.VISIBLE);
+                            else if( res.getString(1).equals("FALSE") )
+                                catEntertainment.setVisibility(View.INVISIBLE);
+                            break;
+                        case "EDUCATION":
+                            if( res.getString(1).equals("TRUE") )
+                                catEducation.setVisibility(View.VISIBLE);
+                            else if( res.getString(1).equals("FALSE") )
+                                catEducation.setVisibility(View.INVISIBLE);
+                            break;
+                        case "HEALTH":
+                            if( res.getString(1).equals("TRUE") )
+                                catHealth.setVisibility(View.VISIBLE);
+                            else if( res.getString(1).equals("FALSE") )
+                                catHealth.setVisibility(View.INVISIBLE);
+                            break;
+                        case "TRANSPORT":
+                            if( res.getString(1).equals("TRUE") )
+                                catTransport.setVisibility(View.VISIBLE);
+                            else if( res.getString(1).equals("FALSE") )
+                                catTransport.setVisibility(View.INVISIBLE);
+                            break;
+                        case "SHOPPING":
+                            if( res.getString(1).equals("TRUE") )
+                                catShopping.setVisibility(View.VISIBLE);
+                            else if( res.getString(1).equals("FALSE") )
+                                catShopping.setVisibility(View.INVISIBLE);
+                            break;
+                        case "PERSONAL CARE":
+                            if( res.getString(1).equals("TRUE") )
+                                catPersonalCare.setVisibility(View.VISIBLE);
+                            else if( res.getString(1).equals("FALSE") )
+                                catPersonalCare.setVisibility(View.INVISIBLE);
+                            break;
+                        case "BILLS":
+                            if( res.getString(1).equals("TRUE") )
+                                catBills.setVisibility(View.VISIBLE);
+                            else if( res.getString(1).equals("FALSE") )
+                                catBills.setVisibility(View.INVISIBLE);
+                            break;
+                        case "FOOD":
+                            if( res.getString(1).equals("TRUE") )
+                                catFood.setVisibility(View.VISIBLE);
+                            else if( res.getString(1).equals("FALSE") )
+                                catFood.setVisibility(View.INVISIBLE);
+                            break;
+                    }
+                }
+                while(res.moveToNext());
+            }
+            else // kalau dalam table category kosong
+                myDB.insertDataCategory(cat[i].toUpperCase(), "0", "TRUE".toUpperCase()); // letak semua category TRUE
+        }
     }
 
     @Override
@@ -205,42 +335,42 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
         {
             case R.id.catEntertainment:
                 Log.d(TAG, "Cat Entertainment");
-                category = "Entertainment";
+                category = "ENTERTAINMENT";
                 initPopUpExpense();
                 break;
             case R.id.catEducation:
                 Log.d(TAG, "Cat Education");
-                category = "Education";
+                category = "EDUCATION";
                 initPopUpExpense();
                 break;
             case R.id.catHealthButton:
                 Log.d(TAG, "Cat Health");
-                category = "Health";
+                category = "HEALTH";
                 initPopUpExpense();
                 break;
             case R.id.catTransport:
                 Log.d(TAG, "Cat Transport");
-                category = "Transport";
+                category = "TRANSPORT";
                 initPopUpExpense();
                 break;
             case R.id.catShopping:
                 Log.d(TAG, "Cat Shopping");
-                category = "Shopping";
+                category = "SHOPPING";
                 initPopUpExpense();
                 break;
             case R.id.catPersonalCare:
                 Log.d(TAG, "Cat Personal Care");
-                category = "Personal Care";
+                category = "PERSONAL CARE";
                 initPopUpExpense();
                 break;
             case R.id.catBills:
                 Log.d(TAG, "Cat Bills");
-                category = "Bills";
+                category = "BILLS";
                 initPopUpExpense();
                 break;
             case R.id.catFood:
                 Log.d(TAG, "Cat Food");
-                category = "Food";
+                category = "FOOD";
                 initPopUpExpense();
                 break;
             case R.id.changeIncome:
@@ -295,13 +425,18 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
         mBuilderExpense.setView(mViewExpense);
         final AlertDialog dialogExpense = mBuilderExpense.create();
 
-
         AddButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (!etRM.getText().toString().isEmpty() && !etDescription.getText().toString().isEmpty() && !etDate.getText().toString().isEmpty())
                 {
-                    myDB.insertDataExpense(etRM.getText().toString(), etDescription.getText().toString(), etDate.getText().toString(), category);
+                    String expense, date, description;
+
+                    expense = etRM.getText().toString().toUpperCase();
+                    description = etDescription.getText().toString().toUpperCase();
+                    date = etDate.getText().toString().split("/")[2]+etDate.getText().toString().split("/")[1]+etDate.getText().toString().split("/")[0];
+
+                    myDB.insertDataExpense(expense, description, date, category.toUpperCase());
                     Toast.makeText(BudgetPieChart.this, "Add success" , Toast.LENGTH_SHORT).show();
                     dialogExpense.cancel();
                 }
@@ -322,9 +457,7 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
 
         View mViewChangeMonthlyIncome = getLayoutInflater().inflate(R.layout.activity_change_income, null);
         TextView MonthlyIncome = mViewChangeMonthlyIncome.findViewById(R.id.MonthlyIncome);
-
         final EditText etMonthlyIncome = mViewChangeMonthlyIncome.findViewById(R.id.etMonthlyIncome);
-
         Button DoneButton = mViewChangeMonthlyIncome.findViewById(R.id.DoneButton);
 
         mBuilderChangeMonthlyIncome.setView(mViewChangeMonthlyIncome);
@@ -336,9 +469,18 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
                 if (!etMonthlyIncome.getText().toString().isEmpty())
                 {
                     String varMonthlyIncome = etMonthlyIncome.getText().toString();
-                    Toast.makeText(BudgetPieChart.this, "Add success "+varMonthlyIncome, Toast.LENGTH_SHORT).show();
+
+                    Cursor res = myDB.getMonthlyIncome(monthToDisplay);
+                    if(res != null && res.moveToFirst()) // tak kosong
+                    {
+                        myDB.updateMonthlyIncome(res.getString(0), varMonthlyIncome, monthToDisplay);
+                        Toast.makeText(BudgetPieChart.this, "Add success", Toast.LENGTH_SHORT).show();
+                        dialogChangeMonthlyIncome.cancel(); //untuk tutup pop up
+                    }
+                    else
+                        Toast.makeText(BudgetPieChart.this, "AN ERROR HAS OCCUR!", Toast.LENGTH_SHORT).show();
+
                     MonthlyIncomeLabel.setText("Monthly income: "+varMonthlyIncome);
-                    dialogChangeMonthlyIncome.cancel(); //untuk tutup pop up
                 }
                 else
                 {
