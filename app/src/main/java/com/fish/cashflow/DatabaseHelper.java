@@ -13,36 +13,36 @@ public class DatabaseHelper extends SQLiteOpenHelper
     private static String TAG = "DatabaseHelper";
 
     //Database name
-    public static final String DATABASE_NAME = "Cashflow.db";
+    private static final String DATABASE_NAME = "Cashflow.db";
 
     //Table names
-    public static final String TABLE_NAME_EXPENSE = "Expense";
-    public static final String TABLE_NAME_INCOME = "Income";
-    public static final String TABLE_NAME_CATEGORY = "Category";
-    public static final String TABLE_NAME_WISHLIST = "Wishlist";
+    private static final String TABLE_NAME_EXPENSE = "Expense";
+    private static final String TABLE_NAME_INCOME = "Income";
+    private static final String TABLE_NAME_CATEGORY = "Category";
+    private static final String TABLE_NAME_WISHLIST = "Wishlist";
 
     //Table EXPENSE
-    public static final String COL_1_E = "ID";
-    public static final String COL_2_E = "EXPENSE"; //int
-    public static final String COL_3_E = "DESCRIPTION"; //string
-    public static final String COL_4_E = "DATE"; //string
-    public static final String COL_5_E = "CATEGORY"; //string
+    private static final String COL_1_E = "ID";
+    private static final String COL_2_E = "EXPENSE"; //int
+    private static final String COL_3_E = "DESCRIPTION"; //string
+    private static final String COL_4_E = "DATE"; //string
+    private static final String COL_5_E = "CATEGORY"; //string
 
     //Table INCOME
-    public static final String COL_1_I = "ID";
-    public static final String COL_2_I = "INCOME"; //int
-    public static final String COL_3_I = "MONTH"; //string
+    private static final String COL_1_I = "ID";
+    private static final String COL_2_I = "INCOME"; //int
+    private static final String COL_3_I = "MONTH"; //string
 
     //Table CATEGORY
-    public static final String COL_1_C = "ID";
-    public static final String COL_2_C = "DESCRIPTION"; //string
-    public static final String COL_3_C = "BUDGET"; //int
-    public static final String COL_4_C = "STATE"; // (string)   BOOLEAN untuk check category itu dipilih atau tak.
+    private static final String COL_1_C = "ID";
+    private static final String COL_2_C = "DESCRIPTION"; //string
+    private static final String COL_3_C = "BUDGET"; //int
+    private static final String COL_4_C = "STATE"; // (string)   BOOLEAN untuk check category itu dipilih atau tak.
 
     //Table WISHLIST
-    public static final String COL_1_W = "ID";
-    public static final String COL_2_W = "DESCRIPTION"; // string
-    public static final String COL_3_W = "PRICE"; //int
+    private static final String COL_1_W = "ID";
+    private static final String COL_2_W = "DESCRIPTION"; // string
+    private static final String COL_3_W = "PRICE"; //int
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, 1);
@@ -152,7 +152,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
         return true;
     }
 
-    public Cursor getMonthlyIncome(String month) // akan return monthly income berdasarkan bulan yang ditanya
+    public Cursor getMonthlyIncome(String month) // akan return id, income berdasarkan bulan yang ditanya
     {
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "select "+ COL_1_I +", " +COL_2_I+ " from "+ TABLE_NAME_INCOME +" where " + COL_3_I + " = " + " '" +month+ "'";
@@ -176,18 +176,34 @@ public class DatabaseHelper extends SQLiteOpenHelper
         return res;
     }
 
-    public Cursor getStateForCategory(String cat) // query untuk dapat kan state for every category
+    public Cursor getStateForCategory(String cat) // query untuk dapat kan description, state for every category
     {
         SQLiteDatabase db = this.getWritableDatabase();
-        String query = "select "+ COL_2_C + ", " + COL_4_C +" from "+ TABLE_NAME_CATEGORY +" where " + COL_2_C + " = " + " '" +cat+ "'";
+        String query = "select "+ COL_2_C + ", " + COL_4_C+" from "+ TABLE_NAME_CATEGORY +" where " + COL_2_C + " = " + " '" +cat+ "'";
         Cursor res = db.rawQuery(query,null);
         return res;
     }
 
-    public Cursor getBudgetOnlyForCategory(String cat) // query untuk dapat kan budget je for every category
+    public Cursor getBudgetOnlyForCategory(String cat) // query untuk dapat kan budget, description je for every category
     {
         SQLiteDatabase db = this.getWritableDatabase();
-        String query = "select "+ COL_3_C  +" from "+ TABLE_NAME_CATEGORY +" where " + COL_2_C + " = " + " '" +cat+ "'";
+        String query = "select "+ COL_3_C  +", " + COL_2_C+" from "+ TABLE_NAME_CATEGORY +" where " + COL_2_C + " = " + " '" +cat+ "'";
+        Cursor res = db.rawQuery(query,null);
+        return res;
+    }
+
+    public Cursor calculatingTotalExpense(String date, String cat) // query untuk dapat kan sum(EXPENSE) je for every category. select sum(EXPENSE) from Expense where DATE like '201808%' and CATEGORY = 'FOOD';
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "select sum(" +COL_2_E+ ") from " +TABLE_NAME_EXPENSE+ " where " +COL_4_E+ " like '" +date+"%' and " +COL_5_E+ " = " + "'" +cat+ "'";
+        Cursor res = db.rawQuery(query,null);
+        return res;
+    }
+
+    public Cursor calculatingTotalExpenseForAllCategory(String date) // query untuk dapat kan sum(EXPENSE) je for ALL category. select sum(EXPENSE) from Expense where DATE like '201808%';
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "select sum(" +COL_2_E+ ") from " +TABLE_NAME_EXPENSE+ " where " +COL_4_E+ " like '" +date+"%'";
         Cursor res = db.rawQuery(query,null);
         return res;
     }

@@ -36,12 +36,9 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
     //log
     private static String TAG = "BudgetPieChart";
 
-    //data for pie chart
-    private float[] Data = {1f, 1f, 1f, 1f, 1f, 1f, 1f, 1f};
-
     //interface
     Button catEntertainment, catEducation, catHealth, catTransport, catShopping, catPersonalCare, catBills, catFood;
-    TextView MonthLabel, MonthlyIncomeLabel;
+    TextView MonthLabel, MonthlyIncomeLabel, berapaPercentTV;
     ProgressBar progressBar;
     ImageButton changeIncome;
     PieChart pieChart;
@@ -54,7 +51,8 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
     private String category;
     private String currentDate;
     private String month;
-    String monthToDisplay;
+    private String monthToDisplay;
+    private String dateForProgressBar; //YYYYMM
     private String[] cat = {"ENTERTAINMENT", "EDUCATION", "HEALTH", "TRANSPORT", "SHOPPING", "PERSONAL CARE", "BILLS", "FOOD"};
 
     //database
@@ -71,6 +69,12 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
         initComponent(); //Initialize components
         initOnClickListener(); //Initialize onClickListener
 
+        //Database
+        myDB = new DatabaseHelper(this);
+
+        whichToDisplayCategory(); // ini wajib dulu
+        pieChartSetup();
+
         //Drawer
         mToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.open, R.string.close);
         mDrawerLayout.addDrawerListener(mToggle);
@@ -79,16 +83,52 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
         NavigationView navigationView = findViewById(R.id.navigation_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        //Database
-        myDB = new DatabaseHelper(this);
-
-        whichToDisplayCategory();
-
         monthToDisplay = getDateAndMonth();
         MonthLabel.setText(monthToDisplay);
 
         String monthlyIncomeToDisplay = "Monthly income: "+whatToDisplayMonthlyIncome();
         MonthlyIncomeLabel.setText(monthlyIncomeToDisplay);
+
+        settingProgressBar();
+    }
+
+    private void settingProgressBar() // untuk tunjuk berapa percent progress bar
+    {
+        dateForProgressBar = currentDate.split("-")[0]+currentDate.split("-")[1]; //YYYYMM
+        Log.d(TAG, "DATE ---> "+dateForProgressBar);
+
+        double totalExpenseForThisMonth = 0, incomeForThisMonth = 0, difference = 0;
+        int percentToDisplay = 0;
+
+        Cursor res = myDB.calculatingTotalExpenseForAllCategory(dateForProgressBar);
+        if(res != null && res.moveToFirst()) // tak kosong
+        {
+            Log.d(TAG, "TOTAL EXPENSE FOR THIS MONTH ---> "+res.getString(0));
+            if(res.getString(0) == null)
+                totalExpenseForThisMonth = 0;
+            else
+                totalExpenseForThisMonth = Double.parseDouble(res.getString(0));
+        }
+
+        Cursor res2 = myDB.getMonthlyIncome(monthToDisplay);
+        if(res2 != null && res2.moveToFirst()) // tak kosong
+        {
+            Log.d(TAG, "MONTHLY INCOME FOR THIS MONTH ---> "+res2.getString(1));
+            if(res2.getString(1) == null)
+                incomeForThisMonth = 0;
+            else
+                incomeForThisMonth = Double.parseDouble(res2.getString(1));
+        }
+
+        //calculating baki
+        difference = incomeForThisMonth - totalExpenseForThisMonth;
+        Log.d(TAG, "DIFFERENCE ---> "+difference);
+
+        //tukar jadi percentage
+        percentToDisplay = (int) (difference/totalExpenseForThisMonth) * 100;
+        Log.d(TAG, "PERCENT TO DISPLAY ---> "+percentToDisplay);
+
+        berapaPercentTV.setText(percentToDisplay+"%");
     }
 
     private String whatToDisplayMonthlyIncome() // untuk nk check bulan ni da ada data income belum. Kalau da, setText. Kalau belum, letak 0 (kot)
@@ -235,6 +275,129 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
     private void addDataSet() //Pie chart
     {
         Log.d(TAG, "addDataSet started");
+
+        //data for pie chart
+        float[] Data = {0, 0, 0, 0, 0, 0, 0, 0};
+
+        //add colors to dataset
+        ArrayList<Integer> colors = new ArrayList<>();
+        for(int i=0; i<cat.length; i++)
+        {
+            Cursor res = myDB.getStateForCategory(cat[i]);
+            if(res != null && res.moveToFirst()) // tak kosong
+            {
+                do {
+                    switch ( res.getString(0) )
+                    {
+                        case "ENTERTAINMENT":
+                            if( res.getString(1).equals("TRUE") )
+                            {
+                                colors.add(0xFFf44165); // catEntertainment
+                                Data[i] = 1f;
+                            }
+                            else
+                            {
+                                if(colors.contains(0xFFf44165))
+                                    colors.remove(0xFFf44165); // catEntertainment
+                                Data[i] = 0;
+                            }
+                            break;
+                        case "EDUCATION":
+                            if( res.getString(1).equals("TRUE") )
+                            {
+                                colors.add(0xFF8fc6ab); // catEducation
+                                Data[i] = 1f;
+                            }
+                            else
+                            {
+                                if(colors.contains(0xFF8fc6ab))
+                                    colors.remove(0xFF8fc6ab); // catEducation
+                                Data[i] = 0;
+                            }
+                            break;
+                        case "HEALTH":
+                            if( res.getString(1).equals("TRUE") )
+                            {
+                                colors.add(0xFF85e4f7); // catHealth
+                                Data[i] = 1f;
+                            }
+                            else
+                            {
+                                if(colors.contains(0xFF85e4f7))
+                                    colors.remove(0xFF85e4f7); // catHealth
+                                Data[i] = 0;
+                            }
+                            break;
+                        case "TRANSPORT":
+                            if( res.getString(1).equals("TRUE") )
+                            {
+                                colors.add(0xFFe1ea9d); // catTransport
+                                Data[i] = 1f;
+                            }
+                            else
+                            {
+                                if(colors.contains(0xFFe1ea9d))
+                                    colors.remove(0xFFe1ea9d); // catTransport
+                                Data[i] = 0;
+                            }
+                            break;
+                        case "SHOPPING":
+                            if( res.getString(1).equals("TRUE") )
+                            {
+                                colors.add(0xFF9a60af); // catShopping
+                                Data[i] = 1f;
+                            }
+                            else
+                            {
+                                if(colors.contains(0xFF9a60af))
+                                    colors.remove(0xFF9a60af); // catShopping
+                                Data[i] = 0;
+                            }
+                            break;
+                        case "PERSONAL CARE":
+                            if( res.getString(1).equals("TRUE") )
+                            {
+                                colors.add(0xFFcc90c3); // catPersonalCare
+                                Data[i] = 1f;
+                            }
+                            else
+                            {
+                                if(colors.contains(0xFFcc90c3))
+                                    colors.remove(0xFFcc90c3); // catPersonalCare
+                                Data[i] = 0;
+                            }
+                            break;
+                        case "BILLS":
+                            if( res.getString(1).equals("TRUE") )
+                            {
+                                colors.add(0xFF739b8a); // catBills
+                                Data[i] = 1f;
+                            }
+                            else
+                            {
+                                if(colors.contains(0xFF739b8a))
+                                    colors.remove(0xFF739b8a); // catBills
+                                Data[i] = 0;
+                            }
+                            break;
+                        case "FOOD":
+                            if( res.getString(1).equals("TRUE") )
+                            {
+                                colors.add(0xFFb24c08); // catFood
+                                Data[i] = 1f;
+                            }
+                            else
+                            {
+                                if(colors.contains(0xFFb24c08))
+                                    colors.remove(0xFFb24c08); // catFood
+                                Data[i] = 0;
+                            }
+                            break;
+                    }
+                }while(res.moveToNext());
+            }
+        }
+
         ArrayList<PieEntry> yEntrys = new ArrayList<>();
 
         for(int i = 0; i < Data.length; i++)
@@ -243,17 +406,6 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
         //create the data set
         PieDataSet pieDataSet = new PieDataSet(yEntrys,"");
         pieDataSet.setDrawValues(false);
-
-        //add colors to dataset
-        ArrayList<Integer> colors = new ArrayList<>();
-        colors.add(0xFFf44165); // catEntertainment
-        colors.add(0xFF8fc6ab); // catEducation
-        colors.add(0xFF85e4f7); // catHealth
-        colors.add(0xFFe1ea9d); // catTransport
-        colors.add(0xFF9a60af); // catShopping
-        colors.add(0xFFcc90c3); // catPersonalCare
-        colors.add(0xFF739b8a); // catBills
-        colors.add(0xFFb24c08); // catFood
         pieDataSet.setColors(colors);
 
         //create pie data object
@@ -280,7 +432,7 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
         progressBar = findViewById(R.id.progressBar);
         pieChart = findViewById(R.id.idPieChart);
         mDrawerLayout = findViewById(R.id.mDrawerLayout);
-        pieChartSetup();
+        berapaPercentTV = findViewById(R.id.berapaPercentTV);
     }
 
     private void pieChartSetup() // untuk setup pie chart
@@ -303,8 +455,8 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
                 Log.d(TAG, "onValueSelected: Value select from chart.");
                 Log.d(TAG, "e: " + e.toString());
                 Log.d(TAG, "h: " + h.toString());
-
-                initPopUpRemainingBudget();
+                String temp = h.toString().substring(14,15);
+                initPopUpRemainingBudget(temp);
             }
 
             @Override
@@ -380,9 +532,38 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
         }
     }
 
-    private void initPopUpRemainingBudget() // pop up bila tekan pie chart
+    private void initPopUpRemainingBudget(String temp) // pop up bila tekan pie chart
     {
         Log.d(TAG, "initPopUpRemainingBudget");
+
+        String cat="";
+        switch (temp)
+        {
+            case "0":
+                cat = "ENTERTAINMENT";
+                break;
+            case "1":
+                cat = "EDUCATION";
+                break;
+            case "2":
+                cat = "HEALTH";
+                break;
+            case "3":
+                cat = "TRANSPORT";
+                break;
+            case "4":
+                cat = "SHOPPING";
+                break;
+            case "5":
+                cat = "PERSONAL CARE";
+                break;
+            case "6":
+                cat = "BILLS";
+                break;
+            case "7":
+                cat = "FOOD";
+                break;
+        }
 
         AlertDialog.Builder mBuilderRemainingBudget = new AlertDialog.Builder(BudgetPieChart.this);
 
@@ -391,7 +572,41 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
         TextView showRemainingBudget = mViewRemainingBudget.findViewById(R.id.showRemainingBudget);
         Button backButton = mViewRemainingBudget.findViewById(R.id.backButton);
 
-        showRemainingBudget.setText("RM berapa");
+        double budget = 0;
+        Cursor res = myDB.getBudgetOnlyForCategory(cat);
+        if(res != null && res.moveToFirst()) // tak kosong
+        {
+            remainingBudget.setText("Remaining Budget "+res.getString(1));
+            budget = Double.parseDouble(res.getString(0));
+            Log.d(TAG, "BUDGET --->" +budget);
+        }
+        else
+            remainingBudget.setText("Remaining Budget ");
+
+        double totalExpense = 0;
+        String dateToPass = currentDate.split("-")[0]+currentDate.split("-")[1];
+        Log.d(TAG, "DATE TO PASS --->" +dateToPass);
+        Log.d(TAG, "CAT --->" +cat);
+        Cursor res2 = myDB.calculatingTotalExpense(dateToPass, cat);
+        if(res2 != null && res2.moveToFirst()) // tak kosong
+        {
+            if(res2.getString(0) == null)
+            {
+                totalExpense = 0;
+                Log.d(TAG, "TOTAL EXPENSE = 0");
+            }
+            else
+            {
+                Log.d(TAG, "TOTAL EXPENSE --->" +res2.getString(0));
+                totalExpense = Double.parseDouble(res2.getString(0));
+            }
+
+        }
+
+        Log.d(TAG, "TOTAL EXPENSE --->" +totalExpense);
+
+        double remainingBudgetToDisplay = budget - totalExpense;
+        showRemainingBudget.setText("RM "+remainingBudgetToDisplay);
 
         mBuilderRemainingBudget.setView(mViewRemainingBudget);
         final AlertDialog dialogRemainingBudget = mBuilderRemainingBudget.create();
@@ -489,6 +704,8 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
             }
         });
         dialogChangeMonthlyIncome.show();
+
+        settingProgressBar();
     }
 
     @Override
