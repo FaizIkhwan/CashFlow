@@ -21,8 +21,8 @@
             android:theme="@style/withActionBar" />
         <activity android:name=".History" />
         <activity android:name=".Wishlist" />
-        <activity
-            android:name=".Category" />
+        <activity android:name=".Category" />
+        <activity android:name=".Statistic"></activity>
     </application>
 
 </manifest>

@@ -168,7 +168,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
         return res;
     }
 
-    public Cursor getStateForCategory(String cat) // query untuk dapat kan description, state for every category
+    public Cursor getStateForCategory(String cat) // query untuk dapat kan description, state for each category
     {
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "select "+ COL_2_C + ", " + COL_4_C+" from "+ TABLE_NAME_CATEGORY +" where " + COL_2_C + " = " + " '" +cat+ "'";
@@ -176,7 +176,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
         return res;
     }
 
-    public Cursor getBudgetOnlyForCategory(String cat) // query untuk dapat kan budget, description je for every category
+    public Cursor getBudgetOnlyForCategory(String cat) // query untuk dapat kan budget, description je for each category
     {
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "select "+ COL_3_C  +", " + COL_2_C+" from "+ TABLE_NAME_CATEGORY +" where " + COL_2_C + " = " + " '" +cat+ "'";
@@ -184,7 +184,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
         return res;
     }
 
-    public Cursor calculatingTotalExpense(String date, String cat) // query untuk dapat kan sum(EXPENSE) je for every category. select sum(EXPENSE) from Expense where DATE like '201808%' and CATEGORY = 'FOOD';
+    public Cursor calculatingTotalExpense(String date, String cat) // query untuk dapat kan sum(EXPENSE) je for each category. select sum(EXPENSE) from Expense where DATE like '201808%' and CATEGORY = 'FOOD';
     {
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "select sum(" +COL_2_E+ ") from " +TABLE_NAME_EXPENSE+ " where " +COL_4_E+ " like '" +date+"%' and " +COL_5_E+ " = " + "'" +cat+ "'";

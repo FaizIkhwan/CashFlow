@@ -39,11 +39,11 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
     private static String TAG = "BudgetPieChart";
 
     //interface
-    Button catEntertainment, catEducation, catHealth, catTransport, catShopping, catPersonalCare, catBills, catFood;
-    TextView MonthLabel, MonthlyIncomeLabel, berapaPercentTV;
-    ProgressBar progressBar;
-    ImageButton changeIncome;
-    PieChart pieChart;
+    private Button catEntertainment, catEducation, catHealth, catTransport, catShopping, catPersonalCare, catBills, catFood;
+    private TextView MonthLabel, MonthlyIncomeLabel, berapaPercentTV;
+    private ProgressBar progressBar;
+    private ImageButton changeIncome;
+    private PieChart pieChart;
 
     //Navigation drawer
     DrawerLayout mDrawerLayout;
@@ -56,6 +56,7 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
     private String monthToDisplay;
     private String dateForProgressBar; //YYYYMM
     private String[] cat = {"ENTERTAINMENT", "EDUCATION", "HEALTH", "TRANSPORT", "SHOPPING", "PERSONAL CARE", "BILLS", "FOOD"};
+    private String[] monthInWords = {"JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"};
     private static double savings;
 
     //database
@@ -77,6 +78,7 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
 
         whichToDisplayCategory(); // ini wajib dulu
         pieChartSetup();
+        settingMonthlyIncome();
 
         //Drawer
         mToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.open, R.string.close);
@@ -93,6 +95,18 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
         MonthlyIncomeLabel.setText(monthlyIncomeToDisplay);
 
         settingProgressBar();
+    }
+
+    private void settingMonthlyIncome() // check kalau tak ada data untuk bulan tu, letak income 0. NOTE: redundance dengan whatToDisplayMonthlyIncome().
+    {
+        for(int i=0; i<monthInWords.length; i++)
+        {
+            Cursor res = myDB.getMonthlyIncome(monthInWords[i]);
+            if(res != null && res.moveToFirst()) // tak kosong
+                return;
+            else
+                myDB.insertDataIncome("0", monthInWords[i]);
+        }
     }
 
     public static double getSavings() // return savings je
@@ -151,14 +165,9 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
         Log.d(TAG, "whatToDisplayMonthlyIncome");
         Cursor res = myDB.getMonthlyIncome(monthToDisplay);
         if(res != null && res.moveToFirst()) // tak kosong
-        {
             return res.getString(1);
-        }
-        else // kalau tk de data untuk bulan tu
-        {
-            myDB.insertDataIncome("0", monthToDisplay);
+        else
             return "0";
-        }
     }
 
     private String getDateAndMonth() // Calendar to get current date
@@ -752,7 +761,7 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
                 startActivity(new Intent(this, Wishlist.class));
                 break;
             case R.id.statistic:
-                Toast.makeText(this,"statistic",Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(this, Statistic.class));
                 break;
         }
         return false;
