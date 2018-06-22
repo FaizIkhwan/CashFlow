@@ -7,15 +7,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.util.ArrayList;
 
 public class Wishlist extends AppCompatActivity implements View.OnClickListener{
@@ -44,8 +40,27 @@ public class Wishlist extends AppCompatActivity implements View.OnClickListener{
         //database
         myDB = new DatabaseHelper(this);
 
-        populateListView(); //print kat listView
+        createObj(); //print kat listView
+    }
 
+    private void createObj() // transfer semua dalam db wishlist jadi object
+    {
+        //get the data and append to a list
+        Cursor data = myDB.getDataFromWishlist();
+        ArrayList<WishlishObj> listData = new ArrayList<>();
+        double saving = BudgetPieChart.getSavings();
+        Log.d(TAG, "SAVING ---->" +saving);
+        double percent;
+
+        while(data.moveToNext())
+        {
+            percent = 100 - (  ( Double.parseDouble(data.getString(2)) - saving) / Double.parseDouble(data.getString(2))  * 100); // calculation
+            Log.d(TAG, "PERCENT IN WISHLIST CLASS ---->" +percent);
+            listData.add(new WishlishObj( data.getString(1), data.getString(2), percent ) );
+        }
+
+        WishlistAdapter adapter = new WishlistAdapter(this, R.layout.adapter_view_layout, listData);
+        listView.setAdapter(adapter);
     }
 
     private void initComponent() //interface
@@ -80,30 +95,6 @@ public class Wishlist extends AppCompatActivity implements View.OnClickListener{
         }
     }
 
-    private void populateListView()
-    {
-
-        /*
-            NANTI KENA TUKAR JADI TABLE WISHLIST
-         */
-        Log.d(TAG, "populateListView: Displaying data in the ListView.");
-
-        //get the data and append to a list
-        Cursor data = myDB.getAllData();
-        ArrayList<String> listData = new ArrayList<>();
-        while(data.moveToNext()){
-            //get the value from the database in column 1
-            //then add it to the ArrayList
-            listData.add(data.getString(1));
-            listData.add(data.getString(2));
-            listData.add(data.getString(3));
-            listData.add(data.getString(4));
-        }
-        //create the list adapter and set the adapter
-        ListAdapter adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, listData);
-        listView.setAdapter(adapter);
-    }
-
     private void initPopUpAddWishlist()
     {
         Log.d(TAG, "initPopUpAddWishlist");
@@ -126,9 +117,10 @@ public class Wishlist extends AppCompatActivity implements View.OnClickListener{
             public void onClick(View v) {
                 if (!etRM.getText().toString().isEmpty() && !etDescription.getText().toString().isEmpty())
                 {
-                    // NANTI KENA LETAK DALAM DATABASE
+                    myDB.insertDataWishlist(etDescription.getText().toString(), etRM.getText().toString());
                     Toast.makeText(Wishlist.this, "Add success" , Toast.LENGTH_SHORT).show();
                     dialogAddWishlist.cancel(); //untuk tutup pop up
+                    createObj();
                 }
                 else
                 {

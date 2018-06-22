@@ -142,7 +142,7 @@
 
         <ProgressBar
             android:id="@+id/progressBar"
-            style="?android:attr/progressBarStyleHorizontal"
+            style="@android:style/Widget.ProgressBar.Horizontal"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="52dp"
@@ -167,9 +167,8 @@
             android:id="@+id/berapaPercentTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="87dp"
-            android:layout_marginStart="16dp"
-            android:text="TextView"
+            android:layout_marginBottom="52dp"
+            android:layout_marginStart="304dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
     </android.support.constraint.ConstraintLayout>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="100">
+
+
+    <ProgressBar
+        android:id="@+id/percentTV"
+        style="@android:style/Widget.ProgressBar.Horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_margin="6dp"
+        android:layout_weight="66.6"
+        android:gravity="center"
+        android:text="TextView1"
+        android:textAlignment="center" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="33.3">
+
+        <TextView
+            android:id="@+id/descriptionTV"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_margin="3dp"
+            android:background="@drawable/back"
+            android:text="TextView2"
+            android:textAlignment="viewStart"
+            android:textColor="#000000" />
+
+        <TextView
+            android:id="@+id/priceTV"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_below="@+id/descriptionTV"
+            android:layout_margin="3dp"
+            android:background="@drawable/back"
+            android:text="TextView3"
+            android:textAlignment="viewStart"
+            android:textColor="#000000" />
+
+    </LinearLayout>
+
+</LinearLayout>

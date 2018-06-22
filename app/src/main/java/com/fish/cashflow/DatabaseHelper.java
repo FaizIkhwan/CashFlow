@@ -160,14 +160,6 @@ public class DatabaseHelper extends SQLiteOpenHelper
         return res;
     }
 
-    public Cursor getAllData() // currently not using. Get all data from table expense
-    {
-        SQLiteDatabase db = this.getWritableDatabase();
-        String query = "select * from "+TABLE_NAME_EXPENSE;
-        Cursor res = db.rawQuery(query,null);
-        return res;
-    }
-
     public Cursor getCategoryDataFromExpense(String cat) // query "select * from expense where category = var(cat) order by date "
     {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -204,6 +196,14 @@ public class DatabaseHelper extends SQLiteOpenHelper
     {
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "select sum(" +COL_2_E+ ") from " +TABLE_NAME_EXPENSE+ " where " +COL_4_E+ " like '" +date+"%'";
+        Cursor res = db.rawQuery(query,null);
+        return res;
+    }
+
+    public Cursor getDataFromWishlist() // query untuk dapat kan data from table Wishlist
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "select * from " +TABLE_NAME_WISHLIST;
         Cursor res = db.rawQuery(query,null);
         return res;
     }

@@ -26,6 +26,8 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
+
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -54,6 +56,7 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
     private String monthToDisplay;
     private String dateForProgressBar; //YYYYMM
     private String[] cat = {"ENTERTAINMENT", "EDUCATION", "HEALTH", "TRANSPORT", "SHOPPING", "PERSONAL CARE", "BILLS", "FOOD"};
+    private static double savings;
 
     //database
     DatabaseHelper myDB;
@@ -92,13 +95,17 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
         settingProgressBar();
     }
 
+    public static double getSavings() // return savings je
+    {
+        return savings;
+    }
+
     private void settingProgressBar() // untuk tunjuk berapa percent progress bar
     {
         dateForProgressBar = currentDate.split("-")[0]+currentDate.split("-")[1]; //YYYYMM
         Log.d(TAG, "DATE ---> "+dateForProgressBar);
 
-        double totalExpenseForThisMonth = 0, incomeForThisMonth = 0, difference = 0;
-        int percentToDisplay = 0;
+        double totalExpenseForThisMonth = 0, incomeForThisMonth = 0, percentCalculation = 0;
 
         Cursor res = myDB.calculatingTotalExpenseForAllCategory(dateForProgressBar);
         if(res != null && res.moveToFirst()) // tak kosong
@@ -120,15 +127,23 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
                 incomeForThisMonth = Double.parseDouble(res2.getString(1));
         }
 
-        //calculating baki
-        difference = incomeForThisMonth - totalExpenseForThisMonth;
-        Log.d(TAG, "DIFFERENCE ---> "+difference);
+        //calculating SAVINGS
+        savings = incomeForThisMonth - totalExpenseForThisMonth;
+        Log.d(TAG, "SAVINGSSSS ---> "+savings);
 
         //tukar jadi percentage
-        percentToDisplay = (int) (difference/totalExpenseForThisMonth) * 100;
+        percentCalculation =  (savings/incomeForThisMonth) * 100;
+        int percentToDisplay = (int) percentCalculation;
+        Log.d(TAG, "PERCENT CALCULATION ---> "+percentCalculation);
         Log.d(TAG, "PERCENT TO DISPLAY ---> "+percentToDisplay);
 
-        berapaPercentTV.setText(percentToDisplay+"%");
+        if(savings == 0 && incomeForThisMonth == 0)
+            return;
+
+        progressBar.setProgress(percentToDisplay);
+
+        DecimalFormat df = new DecimalFormat("#0.00");
+        berapaPercentTV.setText(df.format(percentToDisplay)+"%");
     }
 
     private String whatToDisplayMonthlyIncome() // untuk nk check bulan ni da ada data income belum. Kalau da, setText. Kalau belum, letak 0 (kot)
@@ -619,6 +634,7 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
         });
 
         dialogRemainingBudget.show();
+        settingProgressBar();
     }
 
     private void initPopUpExpense() // setting popup expense
@@ -654,6 +670,7 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
                     myDB.insertDataExpense(expense, description, date, category.toUpperCase());
                     Toast.makeText(BudgetPieChart.this, "Add success" , Toast.LENGTH_SHORT).show();
                     dialogExpense.cancel();
+                    settingProgressBar();
                 }
                 else
                 {
@@ -696,6 +713,7 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
                         Toast.makeText(BudgetPieChart.this, "AN ERROR HAS OCCUR!", Toast.LENGTH_SHORT).show();
 
                     MonthlyIncomeLabel.setText("Monthly income: "+varMonthlyIncome);
+                    settingProgressBar();
                 }
                 else
                 {
@@ -704,8 +722,6 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
             }
         });
         dialogChangeMonthlyIncome.show();
-
-        settingProgressBar();
     }
 
     @Override
