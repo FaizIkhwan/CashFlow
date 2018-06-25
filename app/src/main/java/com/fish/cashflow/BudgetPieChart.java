@@ -26,7 +26,6 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
-
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -699,6 +698,7 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
         View mViewChangeMonthlyIncome = getLayoutInflater().inflate(R.layout.activity_change_income, null);
         TextView MonthlyIncome = mViewChangeMonthlyIncome.findViewById(R.id.MonthlyIncome);
         final EditText etMonthlyIncome = mViewChangeMonthlyIncome.findViewById(R.id.etMonthlyIncome);
+        final EditText etMonth = mViewChangeMonthlyIncome.findViewById(R.id.etMonth);
         Button DoneButton = mViewChangeMonthlyIncome.findViewById(R.id.DoneButton);
 
         mBuilderChangeMonthlyIncome.setView(mViewChangeMonthlyIncome);
@@ -707,14 +707,15 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
         DoneButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!etMonthlyIncome.getText().toString().isEmpty())
+                if (!etMonthlyIncome.getText().toString().isEmpty() && !etMonth.getText().toString().isEmpty())
                 {
                     String varMonthlyIncome = etMonthlyIncome.getText().toString();
+                    String monthLocalVar = etMonth.getText().toString();
 
                     Cursor res = myDB.getMonthlyIncome(monthToDisplay);
                     if(res != null && res.moveToFirst()) // tak kosong
                     {
-                        myDB.updateMonthlyIncome(res.getString(0), varMonthlyIncome, monthToDisplay);
+                        myDB.updateMonthlyIncome(res.getString(0), varMonthlyIncome, monthLocalVar.toUpperCase());
                         Toast.makeText(BudgetPieChart.this, "Add success", Toast.LENGTH_SHORT).show();
                         dialogChangeMonthlyIncome.cancel(); //untuk tutup pop up
                     }
@@ -753,15 +754,19 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
                 break;
             case R.id.category:
                 startActivity(new Intent(this, Category.class));
+                finish();
                 break;
             case R.id.history:
                 startActivity(new Intent(this, History.class));
+                finish();
                 break;
             case R.id.wishlist:
                 startActivity(new Intent(this, Wishlist.class));
+                finish();
                 break;
             case R.id.statistic:
                 startActivity(new Intent(this, Statistic.class));
+                finish();
                 break;
         }
         return false;

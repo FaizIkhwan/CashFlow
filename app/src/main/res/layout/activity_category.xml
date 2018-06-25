@@ -290,7 +290,7 @@
         android:id="@+id/backButton"
         android:layout_width="wrap_content"
         android:layout_height="38dp"
-        android:layout_marginStart="24dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:text="Back"
         app:layout_constraintStart_toStartOf="parent"

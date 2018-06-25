@@ -9,7 +9,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class History extends AppCompatActivity implements View.OnClickListener {
 
@@ -74,6 +73,7 @@ public class History extends AppCompatActivity implements View.OnClickListener {
             case R.id.backButton:
                 Log.d(TAG, "backButton");
                 startActivity(new Intent(this, BudgetPieChart.class));
+                finish();
                 break;
             case R.id.catEntertainmentButton:
                 Log.d(TAG, "catEntertainmentButton");
