@@ -34,18 +34,15 @@
         android:textColorHint="#dfd4d4"
         android:textSize="18sp" />
 
-    <EditText
-        android:id="@+id/etMonth"
+    <Spinner
+        android:id="@+id/spinnerChangeMonthlyIncome"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="4dp"
         android:layout_marginRight="4dp"
         android:ems="10"
-        android:hint="Month eg: JANUARY"
-        android:textAlignment="textStart"
         android:textColor="#000000"
-        android:textColorHint="#dfd4d4"
         android:textSize="18sp" />
 
     <Button

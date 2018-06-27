@@ -60,18 +60,37 @@
         android:textColorHint="#dfd4d4"
         android:textSize="18sp" />
 
-    <EditText
-        android:id="@+id/etDate"
+    <Spinner
+        android:id="@+id/spinnerExpenseDateDay"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginLeft="4dp"
         android:layout_marginRight="4dp"
         android:layout_marginTop="10dp"
         android:ems="10"
-        android:hint="Date (DD/MM/YYYY)"
-        android:inputType="date"
         android:textColor="#000000"
-        android:textColorHint="#dfd4d4"
+        android:textSize="18sp" />
+
+    <Spinner
+        android:id="@+id/spinnerExpenseDateMonth"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginTop="10dp"
+        android:ems="10"
+        android:textColor="#000000"
+        android:textSize="18sp" />
+
+    <Spinner
+        android:id="@+id/spinnerExpenseDateYear"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginTop="10dp"
+        android:ems="10"
+        android:textColor="#000000"
         android:textSize="18sp" />
 
     <Button

@@ -13,10 +13,14 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Adapter;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.github.mikephil.charting.charts.PieChart;
@@ -32,7 +36,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
-public class BudgetPieChart extends AppCompatActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener
+public class BudgetPieChart extends AppCompatActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener, AdapterView.OnItemSelectedListener
 {
     //log
     private static String TAG = "BudgetPieChart";
@@ -57,6 +61,12 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
     private String[] cat = {"ENTERTAINMENT", "EDUCATION", "HEALTH", "TRANSPORT", "SHOPPING", "PERSONAL CARE", "BILLS", "FOOD"};
     private String[] monthInWords = {"JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"};
     private static double savings;
+
+    //usable for spinner
+    private String changeMonthlyIncomeSpinnerRes;
+    private String expenseSpinnerDay;
+    private String expenseSpinnerMonth;
+    private String expenseSpinnerYear;
 
     //database
     DatabaseHelper myDB;
@@ -116,7 +126,6 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
     private void settingProgressBar() // untuk tunjuk berapa percent progress bar
     {
         dateForProgressBar = currentDate.split("-")[0]+currentDate.split("-")[1]; //YYYYMM
-        Log.d(TAG, "DATE ---> "+dateForProgressBar);
 
         double totalExpenseForThisMonth = 0, incomeForThisMonth = 0, percentCalculation = 0;
 
@@ -658,8 +667,28 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
 
         final EditText etRM = mViewExpense.findViewById(R.id.etRM);
         final EditText etDescription = mViewExpense.findViewById(R.id.etDescription);
-        final EditText etDate = mViewExpense.findViewById(R.id.etDate);
         Button AddButton = mViewExpense.findViewById(R.id.AddButton);
+        Spinner spinnerExpenseDateDay = mViewExpense.findViewById(R.id.spinnerExpenseDateDay);
+        Spinner spinnerExpenseDateMonth = mViewExpense.findViewById(R.id.spinnerExpenseDateMonth);
+        Spinner spinnerExpenseDateYear = mViewExpense.findViewById(R.id.spinnerExpenseDateYear);
+
+        //Spinner DAY
+        ArrayAdapter<CharSequence> adapterExpenseDay = ArrayAdapter.createFromResource(this, R.array.day, android.R.layout.simple_spinner_item);
+        adapterExpenseDay.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerExpenseDateDay.setAdapter(adapterExpenseDay);
+        spinnerExpenseDateDay.setOnItemSelectedListener(this);
+
+        //Spinner MONTH
+        ArrayAdapter<CharSequence> adapterExpenseMonth = ArrayAdapter.createFromResource(this, R.array.month, android.R.layout.simple_spinner_item);
+        adapterExpenseMonth.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerExpenseDateMonth.setAdapter(adapterExpenseMonth);
+        spinnerExpenseDateMonth.setOnItemSelectedListener(this);
+
+        //Spinner YEAR
+        ArrayAdapter<CharSequence> adapterExpenseYear = ArrayAdapter.createFromResource(this, R.array.year, android.R.layout.simple_spinner_item);
+        adapterExpenseYear.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerExpenseDateYear.setAdapter(adapterExpenseYear);
+        spinnerExpenseDateYear.setOnItemSelectedListener(this);
 
         mBuilderExpense.setView(mViewExpense);
         final AlertDialog dialogExpense = mBuilderExpense.create();
@@ -667,13 +696,14 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
         AddButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!etRM.getText().toString().isEmpty() && !etDescription.getText().toString().isEmpty() && !etDate.getText().toString().isEmpty())
+                if (!etRM.getText().toString().isEmpty() && !etDescription.getText().toString().isEmpty())
                 {
                     String expense, date, description;
 
                     expense = etRM.getText().toString().toUpperCase();
                     description = etDescription.getText().toString().toUpperCase();
-                    date = etDate.getText().toString().split("/")[2]+etDate.getText().toString().split("/")[1]+etDate.getText().toString().split("/")[0];
+                    date = expenseSpinnerYear+expenseSpinnerMonth+expenseSpinnerDay;
+                    Log.d(TAG, "DATE YANG DI INPUT ---->"+date);
 
                     myDB.insertDataExpense(expense, description, date, category.toUpperCase());
                     Toast.makeText(BudgetPieChart.this, "Add success" , Toast.LENGTH_SHORT).show();
@@ -698,8 +728,14 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
         View mViewChangeMonthlyIncome = getLayoutInflater().inflate(R.layout.activity_change_income, null);
         TextView MonthlyIncome = mViewChangeMonthlyIncome.findViewById(R.id.MonthlyIncome);
         final EditText etMonthlyIncome = mViewChangeMonthlyIncome.findViewById(R.id.etMonthlyIncome);
-        final EditText etMonth = mViewChangeMonthlyIncome.findViewById(R.id.etMonth);
+        Spinner spinnerChangeMonthlyIncome = mViewChangeMonthlyIncome.findViewById(R.id.spinnerChangeMonthlyIncome);
         Button DoneButton = mViewChangeMonthlyIncome.findViewById(R.id.DoneButton);
+
+        //Spinner
+        ArrayAdapter<CharSequence> adapterMonthlyIncome = ArrayAdapter.createFromResource(this, R.array.monthSpelling, android.R.layout.simple_spinner_item);
+        adapterMonthlyIncome.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerChangeMonthlyIncome.setAdapter(adapterMonthlyIncome);
+        spinnerChangeMonthlyIncome.setOnItemSelectedListener(this);
 
         mBuilderChangeMonthlyIncome.setView(mViewChangeMonthlyIncome);
         final AlertDialog dialogChangeMonthlyIncome = mBuilderChangeMonthlyIncome.create();
@@ -707,15 +743,16 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
         DoneButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!etMonthlyIncome.getText().toString().isEmpty() && !etMonth.getText().toString().isEmpty())
+                if (!etMonthlyIncome.getText().toString().isEmpty())
                 {
                     String varMonthlyIncome = etMonthlyIncome.getText().toString();
-                    String monthLocalVar = etMonth.getText().toString();
+
+                    Toast.makeText(BudgetPieChart.this, changeMonthlyIncomeSpinnerRes, Toast.LENGTH_SHORT).show();
 
                     Cursor res = myDB.getMonthlyIncome(monthToDisplay);
                     if(res != null && res.moveToFirst()) // tak kosong
                     {
-                        myDB.updateMonthlyIncome(res.getString(0), varMonthlyIncome, monthLocalVar.toUpperCase());
+                        myDB.updateMonthlyIncome(res.getString(0), varMonthlyIncome, changeMonthlyIncomeSpinnerRes);
                         Toast.makeText(BudgetPieChart.this, "Add success", Toast.LENGTH_SHORT).show();
                         dialogChangeMonthlyIncome.cancel(); //untuk tutup pop up
                     }
@@ -770,5 +807,31 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
                 break;
         }
         return false;
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) // Spinner
+    {
+        switch (parent.getId())
+        {
+            case R.id.spinnerChangeMonthlyIncome:
+                changeMonthlyIncomeSpinnerRes = parent.getItemAtPosition(position).toString();
+                break;
+            case R.id.spinnerExpenseDateDay:
+                expenseSpinnerDay = parent.getItemAtPosition(position).toString();
+                break;
+            case R.id.spinnerExpenseDateMonth:
+                expenseSpinnerMonth = parent.getItemAtPosition(position).toString();
+                break;
+            case R.id.spinnerExpenseDateYear:
+                expenseSpinnerYear = parent.getItemAtPosition(position).toString();
+                break;
+        }
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) // Spinner
+    {
+
     }
 }

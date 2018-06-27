@@ -22,6 +22,9 @@ public class History extends AppCompatActivity implements View.OnClickListener {
     TextView historyTV;
     Button backButton, catEntertainmentButton, catEducationButton, catHealthButton, catTransportButton, catShoppingButton, catPersonalCareButton, catBillsButton, catFoodButton;
 
+    //usable var
+    private String[] cat = {"ENTERTAINMENT", "EDUCATION", "HEALTH", "TRANSPORT", "SHOPPING", "PERSONAL CARE", "BILLS", "FOOD"};
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +35,8 @@ public class History extends AppCompatActivity implements View.OnClickListener {
 
         //Database
         myDB = new DatabaseHelper(this);
+
+        checkStateForEachCategory();
     }
 
     private void initComponent() //interface
@@ -139,5 +144,69 @@ public class History extends AppCompatActivity implements View.OnClickListener {
             buffer.append("Date :" + temp + "\n\n");
         }
         initPopUpShowMessage(cat,buffer.toString());
+    }
+
+    private void checkStateForEachCategory() //untuk check state category itu TRUE atau FALSE, kalau TRUE dia display button. Otherwise tk display
+    {
+        Log.d(TAG, "checkStateForEachCategory");
+
+        for (int i = 0; i < cat.length; i++)
+        {
+            Cursor res = myDB.getStateForCategory(cat[i]);
+            if(res != null && res.moveToFirst()) // tak kosong
+            {
+                switch (res.getString(0))
+                {
+                    case "ENTERTAINMENT":
+                        if( res.getString(1).equals("TRUE") )
+                            catEntertainmentButton.setVisibility(View.VISIBLE);
+                        else if( res.getString(1).equals("FALSE") )
+                            catEntertainmentButton.setVisibility(View.INVISIBLE);
+                        break;
+                    case "EDUCATION":
+                        if( res.getString(1).equals("TRUE") )
+                            catEducationButton.setVisibility(View.VISIBLE);
+                        else if( res.getString(1).equals("FALSE") )
+                            catEducationButton.setVisibility(View.INVISIBLE);
+                        break;
+                    case "HEALTH":
+                        if( res.getString(1).equals("TRUE") )
+                            catHealthButton.setVisibility(View.VISIBLE);
+                        else if( res.getString(1).equals("FALSE") )
+                            catHealthButton.setVisibility(View.INVISIBLE);
+                        break;
+                    case "TRANSPORT":
+                        if( res.getString(1).equals("TRUE") )
+                            catTransportButton.setVisibility(View.VISIBLE);
+                        else if( res.getString(1).equals("FALSE") )
+                            catTransportButton.setVisibility(View.INVISIBLE);
+                        break;
+                    case "SHOPPING":
+                        if( res.getString(1).equals("TRUE") )
+                            catShoppingButton.setVisibility(View.VISIBLE);
+                        else if( res.getString(1).equals("FALSE") )
+                            catShoppingButton.setVisibility(View.INVISIBLE);
+                        break;
+                    case "PERSONAL CARE":
+                        if( res.getString(1).equals("TRUE") )
+                            catPersonalCareButton.setVisibility(View.VISIBLE);
+                        else if( res.getString(1).equals("FALSE") )
+                            catPersonalCareButton.setVisibility(View.INVISIBLE);
+                        break;
+                    case "BILLS":
+                        if( res.getString(1).equals("TRUE") )
+                            catBillsButton.setVisibility(View.VISIBLE);
+                        else if( res.getString(1).equals("FALSE") )
+                            catBillsButton.setVisibility(View.INVISIBLE);
+                        break;
+                    case "FOOD":
+                        if( res.getString(1).equals("TRUE") )
+                            catFoodButton.setVisibility(View.VISIBLE);
+                        else if( res.getString(1).equals("FALSE") )
+                            catFoodButton.setVisibility(View.INVISIBLE);
+                        break;
+                }
+            }
+        }
     }
 }
