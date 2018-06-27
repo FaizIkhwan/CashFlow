@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.AxisBase;
@@ -28,7 +28,7 @@ public class Statistic extends AppCompatActivity implements View.OnClickListener
     private static String TAG = "BudgetPieChart";
 
     //interface
-    private Button backButton;
+    private ImageButton backButton;
     private TextView statisticTV;
     private BarChart barChart;
 

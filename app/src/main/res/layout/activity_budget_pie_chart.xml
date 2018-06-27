@@ -27,83 +27,83 @@
 
         </com.github.mikephil.charting.charts.PieChart>
 
-        <Button
+        <ImageButton
             android:id="@+id/catEntertainment"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginBottom="11dp"
             android:layout_marginStart="116dp"
-            android:text="1"
+            android:background="@drawable/joystick"
             app:layout_constraintBottom_toTopOf="@+id/idPieChart"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <Button
+        <ImageButton
             android:id="@+id/catEducation"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginBottom="11dp"
             android:layout_marginEnd="116dp"
-            android:text="2"
+            android:background="@drawable/openbook"
             app:layout_constraintBottom_toTopOf="@+id/idPieChart"
             app:layout_constraintEnd_toEndOf="parent" />
 
-        <Button
+        <ImageButton
             android:id="@+id/catHealthButton"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_marginEnd="24dp"
+            android:layout_marginEnd="20dp"
             android:layout_marginTop="150dp"
-            android:text="8"
+            android:background="@drawable/heart"
             app:layout_constraintEnd_toStartOf="@+id/idPieChart"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
+        <ImageButton
             android:id="@+id/catTransport"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_marginEnd="26dp"
+            android:layout_marginEnd="20dp"
             android:layout_marginTop="44dp"
-            android:text="7"
+            android:background="@drawable/car"
             app:layout_constraintEnd_toStartOf="@+id/idPieChart"
             app:layout_constraintTop_toBottomOf="@+id/catHealthButton" />
 
-        <Button
+        <ImageButton
             android:id="@+id/catShopping"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_marginStart="21dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="150dp"
-            android:text="3"
+            android:background="@drawable/shoppingcart"
             app:layout_constraintStart_toEndOf="@+id/idPieChart"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
+        <ImageButton
             android:id="@+id/catPersonalCare"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_marginStart="21dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="44dp"
-            android:text="4"
+            android:background="@drawable/haircuttool"
             app:layout_constraintStart_toEndOf="@+id/idPieChart"
             app:layout_constraintTop_toBottomOf="@+id/catShopping" />
 
-        <Button
+        <ImageButton
             android:id="@+id/catBills"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginStart="116dp"
             android:layout_marginTop="8dp"
-            android:text="6"
+            android:background="@drawable/banknote"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/idPieChart" />
 
-        <Button
+        <ImageButton
             android:id="@+id/catFood"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginEnd="116dp"
             android:layout_marginTop="8dp"
-            android:text="5"
+            android:background="@drawable/dish"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/idPieChart" />
 
@@ -159,7 +159,7 @@
             android:layout_height="26dp"
             android:layout_marginBottom="80dp"
             android:layout_marginStart="21dp"
-            android:background="@android:drawable/ic_menu_add"
+            android:background="@drawable/settings"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/MonthlyIncomeLabel" />
 

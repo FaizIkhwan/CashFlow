@@ -42,10 +42,9 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
     private static String TAG = "BudgetPieChart";
 
     //interface
-    private Button catEntertainment, catEducation, catHealth, catTransport, catShopping, catPersonalCare, catBills, catFood;
     private TextView MonthLabel, MonthlyIncomeLabel, berapaPercentTV;
     private ProgressBar progressBar;
-    private ImageButton changeIncome;
+    private ImageButton changeIncome, catEntertainment, catEducation, catHealth, catTransport, catShopping, catPersonalCare, catBills, catFood;
     private PieChart pieChart;
 
     //Navigation drawer
@@ -696,7 +695,7 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
         AddButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!etRM.getText().toString().isEmpty() && !etDescription.getText().toString().isEmpty())
+                if (!etRM.getText().toString().isEmpty() && !etDescription.getText().toString().isEmpty() && !expenseSpinnerYear.equalsIgnoreCase("Year") && !expenseSpinnerMonth.equalsIgnoreCase("Month") && !expenseSpinnerDay.equalsIgnoreCase("Day"))
                 {
                     String expense, date, description;
 
@@ -743,11 +742,9 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
         DoneButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!etMonthlyIncome.getText().toString().isEmpty())
+                if (!etMonthlyIncome.getText().toString().isEmpty() && !changeMonthlyIncomeSpinnerRes.equalsIgnoreCase("Month"))
                 {
                     String varMonthlyIncome = etMonthlyIncome.getText().toString();
-
-                    Toast.makeText(BudgetPieChart.this, changeMonthlyIncomeSpinnerRes, Toast.LENGTH_SHORT).show();
 
                     Cursor res = myDB.getMonthlyIncome(monthToDisplay);
                     if(res != null && res.moveToFirst()) // tak kosong

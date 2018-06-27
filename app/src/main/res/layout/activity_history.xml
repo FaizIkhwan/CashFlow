@@ -23,93 +23,93 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
+    <ImageButton
         android:id="@+id/catEntertainmentButton"
-        android:layout_width="140dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="38dp"
-        android:text="Entertainment"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="70dp"
+        android:layout_marginTop="36dp"
+        android:background="@drawable/joystick"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/historyTV" />
 
-    <Button
+    <ImageButton
         android:id="@+id/catEducationButton"
-        android:layout_width="140dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="70dp"
         android:layout_marginTop="38dp"
-        android:text="Education"
+        android:background="@drawable/openbook"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/historyTV" />
 
-    <Button
+    <ImageButton
         android:id="@+id/catHealthButton"
-        android:layout_width="140dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="70dp"
         android:layout_marginTop="32dp"
-        android:text="Health"
+        android:background="@drawable/heart"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/catEntertainmentButton" />
 
-    <Button
+    <ImageButton
         android:id="@+id/catTransportButton"
-        android:layout_width="140dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="70dp"
         android:layout_marginTop="32dp"
-        android:text="Transport"
+        android:background="@drawable/car"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/catEducationButton" />
 
-    <Button
+    <ImageButton
         android:id="@+id/catShoppingButton"
-        android:layout_width="140dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="70dp"
         android:layout_marginTop="32dp"
-        android:text="Shopping"
+        android:background="@drawable/shoppingcart"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/catHealthButton" />
 
-    <Button
+    <ImageButton
         android:id="@+id/catPersonalCareButton"
-        android:layout_width="140dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="70dp"
         android:layout_marginTop="32dp"
-        android:text="PersonalCare"
+        android:background="@drawable/haircuttool"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/catTransportButton" />
 
-    <Button
+    <ImageButton
         android:id="@+id/catBillsButton"
-        android:layout_width="140dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="70dp"
         android:layout_marginTop="32dp"
-        android:text="Bills"
+        android:background="@drawable/banknote"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/catShoppingButton" />
 
-    <Button
+    <ImageButton
         android:id="@+id/catFoodButton"
-        android:layout_width="140dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="70dp"
         android:layout_marginTop="32dp"
-        android:text="Food"
+        android:background="@drawable/dish"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/catPersonalCareButton" />
 
-    <Button
+    <ImageButton
         android:id="@+id/backButton"
-        android:layout_width="69dp"
-        android:layout_height="38dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="Back"
+        android:background="@drawable/roundleftbutton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

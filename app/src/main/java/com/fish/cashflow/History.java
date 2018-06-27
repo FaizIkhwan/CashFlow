@@ -7,7 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 public class History extends AppCompatActivity implements View.OnClickListener {
@@ -20,7 +20,7 @@ public class History extends AppCompatActivity implements View.OnClickListener {
 
     //interface
     TextView historyTV;
-    Button backButton, catEntertainmentButton, catEducationButton, catHealthButton, catTransportButton, catShoppingButton, catPersonalCareButton, catBillsButton, catFoodButton;
+    ImageButton backButton, catEntertainmentButton, catEducationButton, catHealthButton, catTransportButton, catShoppingButton, catPersonalCareButton, catBillsButton, catFoodButton;
 
     //usable var
     private String[] cat = {"ENTERTAINMENT", "EDUCATION", "HEALTH", "TRANSPORT", "SHOPPING", "PERSONAL CARE", "BILLS", "FOOD"};

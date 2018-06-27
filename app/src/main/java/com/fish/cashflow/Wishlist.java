@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,7 +22,7 @@ public class Wishlist extends AppCompatActivity implements View.OnClickListener{
 
     //interface
     TextView wishlistTV;
-    Button addButton, backButton;
+    ImageButton addButton, backButton;
     ListView listView;
 
     //database
