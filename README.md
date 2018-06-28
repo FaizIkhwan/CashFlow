@@ -9,4 +9,4 @@ Our lecturer's name are Mr Wan Ya bin Wan Hussin and Nordin Abu Bakar (Assoc. Pr
 ## Created by:
 1.	Faiz Ikhwan [github](https://github.com/FaizIkhwan) - Developer
 2.  Shahrul Rymie [github](https://github.com/shahrymie) - Designer
-3.	Muhd Nur Hidayat [github](https://github.com/MuhdNurHidayat) - GIF creator
+3.	Muhd Nur Hidayat [github](https://github.com/MuhdNurHidayat) - GIF creator, Software tester
