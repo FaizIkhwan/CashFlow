@@ -68,10 +68,14 @@ public class Statistic extends AppCompatActivity implements View.OnClickListener
     {
         barChart.setPinchZoom(false);
         barChart.setDrawBarShadow(false);
-        barChart.setDrawGridBackground(false);
-        barChart.setDrawValueAboveBar(true);
+        barChart.setDrawValueAboveBar(false);
         barChart.getDescription().setEnabled(false);
         barChart.setMaxVisibleValueCount(50);
+        barChart.getAxisRight().setDrawGridLines(false);
+        barChart.getAxisLeft().setDrawGridLines(false);
+        barChart.getXAxis().setDrawGridLines(false);
+
+        barChart.getAxisLeft().setAxisMinimum(0f);
 
         float monthlyIncome, monthlyExpense;
 
@@ -113,6 +117,8 @@ public class Statistic extends AppCompatActivity implements View.OnClickListener
         barDataSet2.setColor(0xFF9a60af);
 
         BarData data = new BarData(barDataSet1, barDataSet2);
+
+        data.setDrawValues(false);
 
         float groupSpace = 0.1f;
         float barSpace = 0.02f;

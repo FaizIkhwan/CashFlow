@@ -57,7 +57,7 @@ public class Wishlist extends AppCompatActivity implements View.OnClickListener{
         {
             percent = 100 - (  ( Double.parseDouble(data.getString(2)) - saving) / Double.parseDouble(data.getString(2))  * 100); // calculation
             Log.d(TAG, "PERCENT IN WISHLIST CLASS ---->" +percent);
-            listData.add(new WishlishObj( data.getString(1), data.getString(2), percent ) );
+            listData.add(new WishlishObj( data.getString(1), percent ) );
         }
 
         WishlistAdapter adapter = new WishlistAdapter(this, R.layout.adapter_view_layout, listData);

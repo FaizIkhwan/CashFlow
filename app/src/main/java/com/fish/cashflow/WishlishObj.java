@@ -2,12 +2,10 @@ package com.fish.cashflow;
 
 public class WishlishObj {
     private String description;
-    private String price;
     private double percent;
 
-    public WishlishObj(String description, String price, double percent) {
+    public WishlishObj(String description, double percent) {
         this.description = description;
-        this.price = price;
         this.percent = percent;
     }
 
@@ -17,14 +15,6 @@ public class WishlishObj {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public String getPrice() {
-        return price;
-    }
-
-    public void setPrice(String price) {
-        this.price = price;
     }
 
     public double getPercent() {

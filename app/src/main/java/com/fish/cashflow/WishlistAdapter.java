@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class WishlistAdapter extends ArrayAdapter<WishlishObj> {
@@ -26,7 +28,7 @@ public class WishlistAdapter extends ArrayAdapter<WishlishObj> {
     private static class ViewHolder {
         ProgressBar percentTV;
         TextView descriptionTV;
-        TextView priceTV;
+        TextView showPercentTV;
     }
 
     /**
@@ -47,22 +49,21 @@ public class WishlistAdapter extends ArrayAdapter<WishlishObj> {
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         //get the wishlist information
         String description = getItem(position).getDescription();
-        String price = getItem(position).getPrice();
         double percent = getItem(position).getPercent();
 
         //Create the wishlist object with the information
-        WishlishObj myObj = new WishlishObj(description, price, percent);
+        WishlishObj myObj = new WishlishObj(description, percent);
 
         LayoutInflater inflater = LayoutInflater.from(mContext);
         convertView = inflater.inflate(mResource, parent, false);
 
-        TextView descriptionTV = (TextView) convertView.findViewById(R.id.descriptionTV);
-        TextView priceTV = (TextView) convertView.findViewById(R.id.priceTV);
-        ProgressBar percentTV = (ProgressBar) convertView.findViewById(R.id.percentTV);
+        TextView descriptionTV = convertView.findViewById(R.id.descriptionTV);
+        ProgressBar percentTV = convertView.findViewById(R.id.percentTV);
+        TextView showPercentTV = convertView.findViewById(R.id.showPercentTV);
 
         descriptionTV.setText("  "+description);
-        priceTV.setText("  "+price);
         Log.d(TAG, "PERCENT --->"+percent);
+        showPercentTV.setText((int)percent + "%");
         //Log.d(TAG, "PERCENT AFTER INT --->"+(int) Integer.parseInt(percent));
 
         percentTV.setProgress((int)percent);
