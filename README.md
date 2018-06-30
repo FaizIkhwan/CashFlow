@@ -55,17 +55,14 @@ This program can run by using Android Studio IDE. It also need emulator or using
 3.	Muhd Nur Hidayat [github](https://github.com/MuhdNurHidayat) - GIF creator, Software tester
 
 ### Credits
+Special thanks to:
 1. Icons made by [Freepik](http://www.freepik.com) from [https://www.flaticon.com/](https://www.flaticon.com/) is licensed by [Creative Commons BY 3.0](http://creativecommons.org/licenses/by/3.0/)
-2. Icons made by [Hanan](https://www.flaticon.com/authors/hanan) from [https://www.flaticon.com/](https://www.flaticon.com/) is licensed by [Creative Commons BY 3.0](http://creativecommons.org/licenses/by/3.0/)
-3. Icons made by [Gregor Cresnar](https://www.flaticon.com/authors/gregor-cresnar) from [https://www.flaticon.com/](https://www.flaticon.com/) is licensed by [Creative Commons BY 3.0](http://creativecommons.org/licenses/by/3.0/)
-4. Icons made by [Freepik](http://www.freepik.com) from [https://www.flaticon.com/](https://www.flaticon.com/) is licensed by [Creative Commons BY 3.0](http://creativecommons.org/licenses/by/3.0/)
+2. Icons made by [Good Ware](https://www.flaticon.com/authors/good-ware) from [https://www.flaticon.com/](https://www.flaticon.com/) is licensed by [Creative Commons BY 3.0](http://creativecommons.org/licenses/by/3.0/)
+3. Icons made by [Hanan](https://www.flaticon.com/authors/hanan) from [https://www.flaticon.com/](https://www.flaticon.com/) is licensed by [Creative Commons BY 3.0](http://creativecommons.org/licenses/by/3.0/)
+4. Icons made by [Gregor Cresnar](https://www.flaticon.com/authors/gregor-cresnar) from [https://www.flaticon.com/](https://www.flaticon.com/) is licensed by [Creative Commons BY 3.0](http://creativecommons.org/licenses/by/3.0/)
 5. Icons made by [mynamepong](https://www.flaticon.com/authors/mynamepong) from [https://www.flaticon.com/](https://www.flaticon.com/) is licensed by [Creative Commons BY 3.0](http://creativecommons.org/licenses/by/3.0/)
 6. Icons made by [Zlatko Najdenovski](https://www.flaticon.com/authors/zlatko-najdenovski) from [https://www.flaticon.com/](https://www.flaticon.com/) is licensed by [Creative Commons BY 3.0](http://creativecommons.org/licenses/by/3.0/)
-7. Icons made by [Good Ware](https://www.flaticon.com/authors/good-ware) from [https://www.flaticon.com/](https://www.flaticon.com/) is licensed by [Creative Commons BY 3.0](http://creativecommons.org/licenses/by/3.0/)
-8. Icons made by [Kiranshastry](https://www.flaticon.com/authors/kiranshastry) from [https://www.flaticon.com/](https://www.flaticon.com/) is licensed by [Creative Commons BY 3.0](http://creativecommons.org/licenses/by/3.0/)
-9. Icons made by [Freepik](http://www.freepik.com) from [https://www.flaticon.com/](https://www.flaticon.com/) is licensed by [Creative Commons BY 3.0](http://creativecommons.org/licenses/by/3.0/)
-10. Icons made by [Freepik](http://www.freepik.com) from [https://www.flaticon.com/](https://www.flaticon.com/) is licensed by [Creative Commons BY 3.0](http://creativecommons.org/licenses/by/3.0/)
-11. Icons made by [Good Ware](https://www.flaticon.com/authors/good-ware) from [https://www.flaticon.com/](https://www.flaticon.com/) is licensed by [Creative Commons BY 3.0](http://creativecommons.org/licenses/by/3.0/)
-12. Icons made by [Pause08](https://www.flaticon.com/authors/pause08) from [https://www.flaticon.com/](https://www.flaticon.com/) is licensed by [Creative Commons BY 3.0](http://creativecommons.org/licenses/by/3.0/)
+7. Icons made by [Kiranshastry](https://www.flaticon.com/authors/kiranshastry) from [https://www.flaticon.com/](https://www.flaticon.com/) is licensed by [Creative Commons BY 3.0](http://creativecommons.org/licenses/by/3.0/)
+8. Icons made by [Pause08](https://www.flaticon.com/authors/pause08) from [https://www.flaticon.com/](https://www.flaticon.com/) is licensed by [Creative Commons BY 3.0](http://creativecommons.org/licenses/by/3.0/)
 
 
