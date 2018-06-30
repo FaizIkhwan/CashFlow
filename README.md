@@ -11,43 +11,41 @@ Our lecturer's name are Mr Wan Ya bin Wan Hussin and Nordin Abu Bakar (Assoc. Pr
 This program can run by using Android Studio IDE. It also need emulator or using an android phone by connecting the phone with computer.
 
 ## Screenshots
-1. Homepage
+1. **Homepage**
 
 	![Homepage](/images/home.jpg)
 	![Add Monthly Income](/images/addingMonthlyIncome.jpg)
-	
-	User can add/change their monthly income based on month.
-	
 	![Add Expense](/images/addingExpense.jpg)
+	![Checking Remaining Budget](/images/checkingRemainingBudget.jpg)
+	
+	User can add/change their monthly income based on month by clicking setting icon.
 	
 	User can add their expenses by clicking icon on the right.
 	
-	![Checking Remaining Budget](/images/checkingRemainingBudget.jpg)
-	
 	User can check their remaining budget for specific category by clicking on the pie chart.
 	
-2. Category
+2. **Category**
 
 	![Category](/images/category.jpg)
 	![Adding Busget](/images/addingBudget.jpg)
 	
-	User need to add budget for specific category.
+	User need to add budget for specific category by clicking setting icon. User also can remove or add the category by clicking add or remove icone.
 	
-3. History
+3. **History**
 
 	![History](/images/history.jpg)
 	![History Samples](/images/historySample.jpg)
 	
 	User can view their history expenses sorted by date.
 	
-4. Wishlist
+4. **Wishlist**
 
 	![Wishlist](/images/wishlist.jpg)
 	![Add Wishlist](/images/addWishlist.jpg)
 	
 	User can add their wishlist, it also show progress bar to see their progress of their saving.
 	
-5. Statistic
+5. **Statistic**
 
 	![Statistic](/images/statistic.jpg)
 	
