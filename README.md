@@ -12,13 +12,21 @@ This program can run by using Android Studio IDE. It also need emulator or using
 
 ## Screenshots
 1. Homepage
+
 	![Homepage](/images/home.jpg)
+	
 	![Add Monthly Income](/images/addingMonthlyIncome.jpg)
+	
 	User can add/change their monthly income based on month.
+	
 	![Add Expense](/images/addingExpense.jpg)
+	
 	User can add their expenses by clicking icon on the right.
+	
 	![Checking Remaining Budget](/images/checkingRemainingBudget.jpg)
+	
 	User can check their remaining budget for specific category by clicking on the pie chart.
+	
 2. Category
 	![Category](/images/category.jpg)
 	![Adding Busget](/images/addingBudget.jpg)
