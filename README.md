@@ -55,7 +55,10 @@ This program can be run by using Android Studio IDE. It also needs either a runn
 3. Muhammad Nur Hidayat ([MuhdNurHidayat](https://github.com/MuhdNurHidayat "MuhdNurHidayat on GitHub")) - GIF creator, Software tester
 
 ### Credits
+This application uses Open Source components. We acknowledge and are grateful to these developers and artist for their contributions.
+
 Special thanks to:
+1. MPAndroidChart by [PhilJay](https://github.com/PhilJay/MPAndroidChart) is licensed under the [Apache License 2.0](https://github.com/PhilJay/MPAndroidChart/blob/master/LICENSE)
 1. Icons made by [Freepik](https://www.freepik.com) from [https://www.flaticon.com/](https://www.flaticon.com/) is licensed under [Creative Commons BY 3.0](https://creativecommons.org/licenses/by/3.0/)
 2. Icons made by [Good Ware](https://www.flaticon.com/authors/good-ware) from [https://www.flaticon.com/](https://www.flaticon.com/) is licensed under [Creative Commons BY 3.0](https://creativecommons.org/licenses/by/3.0/)
 3. Icons made by [Hanan](https://www.flaticon.com/authors/hanan) from [https://www.flaticon.com/](https://www.flaticon.com/) is licensed under [Creative Commons BY 3.0](https://creativecommons.org/licenses/by/3.0/)
