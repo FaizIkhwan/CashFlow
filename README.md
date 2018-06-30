@@ -12,27 +12,27 @@ This program can run by using Android Studio IDE. It also need emulator or using
 
 ## Screenshots
 1. Homepage
-	![Homepage](/images/home.jpeg)
-	![Add Monthly Income](/images/addingMonthlyIncome.jpeg)
+	![Homepage](/images/home.jpg)
+	![Add Monthly Income](/images/addingMonthlyIncome.jpg)
 	User can add/change their monthly income based on month.
-	![Add Expense](/images/addingExpense.jpeg)
+	![Add Expense](/images/addingExpense.jpg)
 	User can add their expenses by clicking icon on the right.
-	![Checking Remaining Budget](/images/checkingRemainingBudget.jpeg)
+	![Checking Remaining Budget](/images/checkingRemainingBudget.jpg)
 	User can check their remaining budget for specific category by clicking on the pie chart.
 2. Category
-	![Category](/images/category.jpeg)
-	![Adding Busget](/images/addingBudget.jpeg)
+	![Category](/images/category.jpg)
+	![Adding Busget](/images/addingBudget.jpg)
 	User need to add budget for specific category.
 3. History
-	![History](/images/history.jpeg)
-	![History Samples](/images/historySample.jpeg)
+	![History](/images/history.jpg)
+	![History Samples](/images/historySample.jpg)
 	User can view their history expenses sorted by date.
 4. Wishlist
-	![Wishlist](/images/wishlist.jpeg)
-	![Add Wishlist](/images/addWishlist.jpeg)
+	![Wishlist](/images/wishlist.jpg)
+	![Add Wishlist](/images/addWishlist.jpg)
 	User can add their wishlist, it also show progress bar to see their progress of their saving.
 5. Statistic
-	![Statistic](/images/statistic.jpeg)
+	![Statistic](/images/statistic.jpg)
 	User can see their statistic on **Monthly income vs Total Montly Expense**.
 	
 ---
