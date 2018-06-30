@@ -1,5 +1,5 @@
 # CashFlow :money_with_wings: :money_with_wings: :money_with_wings:
-Cash Flow is a money management / budget planner application to assist users track and manage their everyday expenses. This application will keep track of every expenses made by users separated by category for user to better track where their money goes and manage their expenses better. This app also keep track of user’s saving with added ‘Wishlist’ functionality which is an item that user wanted to purchase outside of their daily expenses. ‘Wishlist’ is dependent on saving functionality which means users can see how much saving they accumulated and if its enough to be used to purchase the item in ‘Wishlist’.
+Cash Flow is a money management / budget planner application that is intend to assist users in tracking and managing their everyday expenses. This application will keep track of every expenses made by users separated by category for user to better track where their money goes and manage their expenses better. This app also keep track of user’s saving with added ‘Wishlist’ functionality which is an item that user wanted to purchase outside of their daily expenses. ‘Wishlist’ is dependent on saving functionality which means users can see how much saving they accumulated and if its enough to be used to purchase the item in ‘Wishlist’.
 
 ---
 
