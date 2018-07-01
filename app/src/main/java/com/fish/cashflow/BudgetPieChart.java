@@ -754,8 +754,10 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
                         dialogChangeMonthlyIncome.cancel(); //untuk tutup pop up
                     }
                     else
+                    {
+                        Log.d(TAG, "initPopUpChangeMonthlyIncome");
                         Toast.makeText(BudgetPieChart.this, "AN ERROR HAS OCCUR!", Toast.LENGTH_SHORT).show();
-
+                    }
                     MonthlyIncomeLabel.setText("Monthly income: "+varMonthlyIncome);
                     settingProgressBar();
                 }

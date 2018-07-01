@@ -68,4 +68,6 @@ Special thanks to:
 8. Icons made by [Kiranshastry](https://www.flaticon.com/authors/kiranshastry) from [https://www.flaticon.com/](https://www.flaticon.com/) is licensed under [Creative Commons BY 3.0](https://creativecommons.org/licenses/by/3.0/)
 9. Icons made by [Pause08](https://www.flaticon.com/authors/pause08) from [https://www.flaticon.com/](https://www.flaticon.com/) is licensed under [Creative Commons BY 3.0](https://creativecommons.org/licenses/by/3.0/)
 
+###License
+The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
 
