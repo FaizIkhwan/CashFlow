@@ -38,10 +38,10 @@ import java.util.Locale;
 
 public class BudgetPieChart extends AppCompatActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener, AdapterView.OnItemSelectedListener
 {
-    //log
+    //Log
     private static String TAG = "BudgetPieChart";
 
-    //interface
+    //Interface
     private TextView MonthLabel, MonthlyIncomeLabel, berapaPercentTV;
     private ProgressBar progressBar;
     private ImageButton changeIncome, catEntertainment, catEducation, catHealth, catTransport, catShopping, catPersonalCare, catBills, catFood;
@@ -51,7 +51,7 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
     DrawerLayout mDrawerLayout;
     ActionBarDrawerToggle mToggle;
 
-    //usable variable
+    //Variable to use
     private String category;
     private String currentDate;
     private String month;
@@ -61,13 +61,13 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
     private String[] monthInWords = {"JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"};
     private static double savings;
 
-    //usable for spinner
+    //Variable for spinner
     private String changeMonthlyIncomeSpinnerRes;
     private String expenseSpinnerDay;
     private String expenseSpinnerMonth;
     private String expenseSpinnerYear;
 
-    //database
+    //Database
     DatabaseHelper myDB;
 
     @Override
@@ -84,7 +84,7 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
         //Database
         myDB = new DatabaseHelper(this);
 
-        whichToDisplayCategory(); // ini wajib dulu
+        whichToDisplayCategory(); // Need to put this first. Important. Else, bug.
         pieChartSetup();
         settingMonthlyIncome();
 
@@ -96,7 +96,7 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
         NavigationView navigationView = findViewById(R.id.navigation_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        monthToDisplay = getDateAndMonth();
+        monthToDisplay = getDateAndMonth(); // Will get value of months ABC. Example "JANUARY", "JULY".
         MonthLabel.setText(monthToDisplay);
 
         String monthlyIncomeToDisplay = "Monthly income: "+whatToDisplayMonthlyIncome();
@@ -105,31 +105,34 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
         settingProgressBar();
     }
 
-    private void settingMonthlyIncome() // check kalau tak ada data untuk bulan tu, letak income 0. NOTE: redundance dengan whatToDisplayMonthlyIncome().
+    /**
+     * To check table Income is empty or not.
+     * If it is empty, will add Income = 0 for each month.
+     * else, ignore.
+     */
+    private void settingMonthlyIncome()
     {
         for(int i=0; i<monthInWords.length; i++)
         {
             Cursor res = myDB.getMonthlyIncome(monthInWords[i]);
-            if(res != null && res.moveToFirst()) // tak kosong
+            if(res != null && res.moveToFirst()) // If the query result is not empty.
                 return;
             else
                 myDB.insertDataIncome("0", monthInWords[i]);
         }
     }
 
-    public static double getSavings() // return savings je
-    {
-        return savings;
-    }
-
-    private void settingProgressBar() // untuk tunjuk berapa percent progress bar
+    /**
+     * To show percentage of the progress bar.
+     */
+    private void settingProgressBar()
     {
         dateForProgressBar = currentDate.split("-")[0]+currentDate.split("-")[1]; //YYYYMM
 
         double totalExpenseForThisMonth = 0, incomeForThisMonth = 0, percentCalculation = 0;
 
         Cursor res = myDB.calculatingTotalExpenseForAllCategory(dateForProgressBar);
-        if(res != null && res.moveToFirst()) // tak kosong
+        if(res != null && res.moveToFirst()) // If the query result is not empty.
         {
             Log.d(TAG, "TOTAL EXPENSE FOR THIS MONTH ---> "+res.getString(0));
             if(res.getString(0) == null)
@@ -139,7 +142,7 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
         }
 
         Cursor res2 = myDB.getMonthlyIncome(monthToDisplay);
-        if(res2 != null && res2.moveToFirst()) // tak kosong
+        if(res2 != null && res2.moveToFirst()) // If the query result is not empty.
         {
             Log.d(TAG, "MONTHLY INCOME FOR THIS MONTH ---> "+res2.getString(1));
             if(res2.getString(1) == null)
@@ -148,11 +151,11 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
                 incomeForThisMonth = Double.parseDouble(res2.getString(1));
         }
 
-        //calculating SAVINGS
+        //Calculating SAVINGS
         savings = incomeForThisMonth - totalExpenseForThisMonth;
         Log.d(TAG, "SAVINGSSSS ---> "+savings);
 
-        //tukar jadi percentage
+        //Change it into percentage
         percentCalculation =  (savings/incomeForThisMonth) * 100;
         int percentToDisplay = (int) percentCalculation;
         Log.d(TAG, "PERCENT CALCULATION ---> "+percentCalculation);
@@ -167,17 +170,27 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
         berapaPercentTV.setText(df.format(percentToDisplay)+"%");
     }
 
-    private String whatToDisplayMonthlyIncome() // untuk nk check bulan ni da ada data income belum. Kalau da, setText. Kalau belum, letak 0 (kot)
+    /**
+     * To check in current month have income or not.
+     * If it have income, it will return the amount of income.
+     * Else, return 0.
+     * @return
+     */
+    private String whatToDisplayMonthlyIncome()
     {
         Log.d(TAG, "whatToDisplayMonthlyIncome");
         Cursor res = myDB.getMonthlyIncome(monthToDisplay);
-        if(res != null && res.moveToFirst()) // tak kosong
+        if(res != null && res.moveToFirst()) // If the query result is not empty.
             return res.getString(1);
         else
             return "0";
     }
 
-    private String getDateAndMonth() // Calendar to get current date
+    /**
+     * To return month in words.
+     * @return res
+     */
+    private String getDateAndMonth()
     {
         Log.d(TAG, "getDateAndMonth");
         currentDate = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
@@ -225,12 +238,17 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
         return res;
     }
 
-    private void whichToDisplayCategory() // Process to check if the category is TRUE or FALSE. If TRUE, button will appear, else it will not.
+    /**
+     * Process to check if the category STATE is TRUE or FALSE.
+     * If it is TRUE, button will appear.
+     * Else, it will not.
+     */
+    private void whichToDisplayCategory()
     {
         for(int i=0; i<cat.length; i++)
         {
             Cursor res = myDB.getStateForCategory(cat[i].toUpperCase());
-            if(res != null && res.moveToFirst()) // tak kosong
+            if(res != null && res.moveToFirst()) // If the query result is not empty.
             {
                 do
                 {
@@ -288,7 +306,7 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
                 }
                 while(res.moveToNext());
             }
-            else // kalau dalam table category kosong
+            else // If the query result is empty.
                 myDB.insertDataCategory(cat[i].toUpperCase(), "0", "TRUE".toUpperCase()); // letak semua category TRUE
         }
     }
@@ -303,19 +321,22 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
         return super.onOptionsItemSelected(item);
     }
 
-    private void addDataSet() //Pie chart
+    /**
+     * Process to add data set for piechart.
+     */
+    private void addDataSet()
     {
         Log.d(TAG, "addDataSet started");
 
-        //data for pie chart
+        //Data for pie chart
         float[] Data = {0, 0, 0, 0, 0, 0, 0, 0};
 
-        //add colors to dataset
+        //Add colors to dataset
         ArrayList<Integer> colors = new ArrayList<>();
         for(int i=0; i<cat.length; i++)
         {
             Cursor res = myDB.getStateForCategory(cat[i]);
-            if(res != null && res.moveToFirst()) // tak kosong
+            if(res != null && res.moveToFirst()) // If the query result is not empty.
             {
                 do {
                     switch ( res.getString(0) )
@@ -434,18 +455,21 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
         for(int i = 0; i < Data.length; i++)
             yEntrys.add(new PieEntry(Data[i] , i));
 
-        //create the data set
+        //Create the data set
         PieDataSet pieDataSet = new PieDataSet(yEntrys,"");
         pieDataSet.setDrawValues(false);
         pieDataSet.setColors(colors);
 
-        //create pie data object
+        //Create pie data object
         PieData pieData = new PieData(pieDataSet);
         pieChart.setData(pieData);
         pieChart.invalidate();
     }
 
-    private void initComponent() // init inteterface
+    /**
+     * Define the UI.
+     */
+    private void initComponent()
     {
         Log.d(TAG, "initComponent");
         //Creating all object components
@@ -466,7 +490,10 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
         berapaPercentTV = findViewById(R.id.berapaPercentTV);
     }
 
-    private void pieChartSetup() // untuk setup pie chart
+    /**
+     * Setting up the pie chart.
+     */
+    private void pieChartSetup()
     {
         Log.d(TAG, "pieChartSetup");
         pieChart.setRotationEnabled(false);
@@ -479,7 +506,7 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
         pieChart.getDescription().setEnabled(false);
         addDataSet();
 
-        // untuk bila click kt chart, implement listener
+        // Implementing listener for each section in pie chart.
         pieChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
             @Override
             public void onValueSelected(Entry e, Highlight h) {
@@ -497,7 +524,10 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
         });
     }
 
-    private void initOnClickListener() // Method for set on click listener for all button
+    /**
+     * Implementing OnClickListener for each button.
+     */
+    private void initOnClickListener()
     {
         Log.d(TAG, "initOnClickListener");
         catEntertainment.setOnClickListener(this);
@@ -511,7 +541,11 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
         changeIncome.setOnClickListener(this);
     }
 
-    public void onClick(View v)  //onClickListener
+    /**
+     * OnClick method for each button.
+     * @param v
+     */
+    public void onClick(View v)
     {
         Log.d(TAG, "onClick");
         switch (v.getId())
@@ -563,7 +597,11 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
         }
     }
 
-    private void initPopUpRemainingBudget(String temp) // pop up bila tekan pie chart
+    /**
+     * Creating pop up when the user click on pie chart.
+     * @param temp
+     */
+    private void initPopUpRemainingBudget(String temp)
     {
         Log.d(TAG, "initPopUpRemainingBudget");
 
@@ -605,7 +643,7 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
 
         double budget = 0;
         Cursor res = myDB.getBudgetOnlyForCategory(cat);
-        if(res != null && res.moveToFirst()) // tak kosong
+        if(res != null && res.moveToFirst()) // If the query result is not empty.
         {
             remainingBudget.setText("Remaining Budget "+res.getString(1));
             budget = Double.parseDouble(res.getString(0));
@@ -619,7 +657,7 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
         Log.d(TAG, "DATE TO PASS --->" +dateToPass);
         Log.d(TAG, "CAT --->" +cat);
         Cursor res2 = myDB.calculatingTotalExpense(dateToPass, cat);
-        if(res2 != null && res2.moveToFirst()) // tak kosong
+        if(res2 != null && res2.moveToFirst()) // If the query result is not empty.
         {
             if(res2.getString(0) == null)
             {
@@ -642,6 +680,9 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
         mBuilderRemainingBudget.setView(mViewRemainingBudget);
         final AlertDialog dialogRemainingBudget = mBuilderRemainingBudget.create();
 
+        /*
+            When the user click "Back" button.
+         */
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -653,7 +694,10 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
         settingProgressBar();
     }
 
-    private void initPopUpExpense() // setting popup expense
+    /**
+     * Creating pop up when the user click on category button.
+     */
+    private void initPopUpExpense()
     {
         Log.d(TAG, "initPopUpExpense");
 
@@ -692,6 +736,9 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
         mBuilderExpense.setView(mViewExpense);
         final AlertDialog dialogExpense = mBuilderExpense.create();
 
+        /*
+            When user click "Add" button.
+         */
         AddButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -718,7 +765,10 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
         dialogExpense.show();
     }
 
-    private void initPopUpChangeMonthlyIncome() // setting popup changeMonthlyIncomes
+    /**
+     * Creating pop up when the user click on add monthly income button.
+     */
+    private void initPopUpChangeMonthlyIncome()
     {
         Log.d(TAG, "initPopUpChangeMonthlyIncome");
 
@@ -739,29 +789,36 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
         mBuilderChangeMonthlyIncome.setView(mViewChangeMonthlyIncome);
         final AlertDialog dialogChangeMonthlyIncome = mBuilderChangeMonthlyIncome.create();
 
+        /*
+            When user click on "Done" button.
+         */
         DoneButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!etMonthlyIncome.getText().toString().isEmpty() && !changeMonthlyIncomeSpinnerRes.equalsIgnoreCase("Month"))
+                if (!etMonthlyIncome.getText().toString().isEmpty() && !changeMonthlyIncomeSpinnerRes.equalsIgnoreCase("Month")) // If the user fill all the details.
                 {
-                    String varMonthlyIncome = etMonthlyIncome.getText().toString();
+                    String varMonthlyIncome = etMonthlyIncome.getText().toString(); // Get what user input.
 
-                    Cursor res = myDB.getMonthlyIncome(monthToDisplay);
-                    if(res != null && res.moveToFirst()) // tak kosong
+                    Cursor res = myDB.getMonthlyIncome(changeMonthlyIncomeSpinnerRes); // Query to get income based on month user pick.
+                    if(res != null && res.moveToFirst()) // If the query result is not empty.
                     {
-                        myDB.updateMonthlyIncome(res.getString(0), varMonthlyIncome, changeMonthlyIncomeSpinnerRes);
+                        myDB.updateMonthlyIncome(res.getString(0), varMonthlyIncome, changeMonthlyIncomeSpinnerRes); // Update row ID, Amount monthly income, Spinner result.
                         Toast.makeText(BudgetPieChart.this, "Add success", Toast.LENGTH_SHORT).show();
-                        dialogChangeMonthlyIncome.cancel(); //untuk tutup pop up
+                        dialogChangeMonthlyIncome.cancel(); // To close the pop up.
+
+                        if(changeMonthlyIncomeSpinnerRes.equalsIgnoreCase(monthToDisplay)) // If user choose the month same with system month. Example user choose = "JUNE", system = "JUNE".
+                        {
+                            MonthlyIncomeLabel.setText("Monthly income: "+varMonthlyIncome);
+                            settingProgressBar();
+                        }
                     }
                     else
                     {
                         Log.d(TAG, "initPopUpChangeMonthlyIncome");
                         Toast.makeText(BudgetPieChart.this, "AN ERROR HAS OCCUR!", Toast.LENGTH_SHORT).show();
                     }
-                    MonthlyIncomeLabel.setText("Monthly income: "+varMonthlyIncome);
-                    settingProgressBar();
                 }
-                else
+                else // User does not fill all the detail.
                 {
                     Toast.makeText(BudgetPieChart.this, "Must fill the details", Toast.LENGTH_SHORT).show();
                 }
@@ -771,15 +828,8 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
     }
 
     @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) //bila click kat navigation tu, ada event
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) //When user click on navigation, there is an event.
     {
-        /*
-            Syntax
-            Intent <intentName> = new Intent(<context>, <otherActivity>.class);
-            startActivity(<intentName>);
-            or
-            startActivity(new Intent(this, activityTwo.class));
-        */
         int id = item.getItemId();
 
         switch (id)

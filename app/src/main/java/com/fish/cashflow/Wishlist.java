@@ -17,16 +17,20 @@ import java.util.ArrayList;
 
 public class Wishlist extends AppCompatActivity implements View.OnClickListener{
 
-    //log
+    //Log
     private static String TAG = "Wishlist";
 
-    //interface
+    //Interface
     TextView wishlistTV;
     ImageButton addButton, backButton;
     ListView listView;
 
-    //database
+    //Database
     DatabaseHelper myDB;
+
+    //Variable to use
+    private String[] monthInWords = {"JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"};
+    String[] monthInNumber = {"201801", "201802", "201803", "201804", "201805", "201806", "201807", "201808", "201809", "201810", "201811", "201812"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,27 +39,54 @@ public class Wishlist extends AppCompatActivity implements View.OnClickListener{
 
         Log.d(TAG, "onCreate: Wishlist");
 
-        initComponent(); //Initialize components
-        initOnClickListener(); //Initialize onClickListener
+        initComponent(); //Initialize components.
+        initOnClickListener(); //Initialize onClickListener.
 
-        //database
+        //Database
         myDB = new DatabaseHelper(this);
 
-        createObj(); //print kat listView
+        createObj(); //Print on listView.
     }
 
-    private void createObj() // transfer semua dalam db wishlist jadi object
-    {
-        //get the data and append to a list
+    /**
+     * Transfer data from table Wishlist on database into object.
+     */
+    private void createObj() {
+        //Get the data from Wishlist table and append to a list.
         Cursor data = myDB.getDataFromWishlist();
         ArrayList<WishlishObj> listData = new ArrayList<>();
-        double saving = BudgetPieChart.getSavings();
-        Log.d(TAG, "SAVING ---->" +saving);
-        double percent;
+
+        double totalSaving = 0, monthIncome = 0, monthExpense = 0, percent;
+
+        for (int i = 0; i < monthInWords.length; i++)
+        {
+            Cursor res1 = myDB.getMonthlyIncome(monthInWords[i]);
+            if(res1 != null && res1.moveToFirst()) // If the query result is not empty.
+            {
+                monthIncome = Double.parseDouble(res1.getString(1));
+            }
+            else
+                Toast.makeText(Wishlist.this, "ERROR HAS OCCUR. PLEASE REPORT THIS BUG." , Toast.LENGTH_SHORT).show();
+
+            Cursor res2 = myDB.calculatingTotalExpenseForAllCategory(monthInNumber[i]);
+            if(res2 != null && res2.moveToFirst()) // If the query result is not empty.
+            {
+                if(res2.getString(0) == null)
+                    monthExpense = 0;
+                else
+                    monthExpense = Double.parseDouble(res2.getString(0));
+            }
+            else
+                Toast.makeText(Wishlist.this, "ERROR HAS OCCUR. PLEASE REPORT THIS BUG." , Toast.LENGTH_SHORT).show();
+
+            //Calculation.
+            totalSaving += ( monthIncome - monthExpense );
+            Log.d(TAG, "TOTAL SAVINGS ---->" +totalSaving);
+        }
 
         while(data.moveToNext())
         {
-            percent = 100 - (  ( Double.parseDouble(data.getString(2)) - saving) / Double.parseDouble(data.getString(2))  * 100); // calculation
+            percent = (  totalSaving / Double.parseDouble(data.getString(2))  * 100); // Calculation.
             Log.d(TAG, "PERCENT IN WISHLIST CLASS ---->" +percent);
             listData.add(new WishlishObj( data.getString(1), percent ) );
         }
@@ -64,7 +95,10 @@ public class Wishlist extends AppCompatActivity implements View.OnClickListener{
         listView.setAdapter(adapter);
     }
 
-    private void initComponent() //interface
+    /**
+     * Define the UI.
+     */
+    private void initComponent()
     {
         Log.d(TAG, "InitComponent");
         wishlistTV = findViewById(R.id.wishlistTV);
@@ -73,15 +107,22 @@ public class Wishlist extends AppCompatActivity implements View.OnClickListener{
         backButton = findViewById(R.id.backButton);
     }
 
-    private void initOnClickListener() //interface
+    /**
+     * Implementing OnClickListener for each button.
+     */
+    private void initOnClickListener()
     {
         Log.d(TAG, "initOnClickListener");
         addButton.setOnClickListener(this);
         backButton.setOnClickListener(this);
     }
 
+    /**
+     * OnClick method for each button.
+     * @param v
+     */
     @Override
-    public void onClick(View v) //click listener
+    public void onClick(View v)
     {
         Log.d(TAG, "onClick");
         switch (v.getId())
@@ -96,6 +137,9 @@ public class Wishlist extends AppCompatActivity implements View.OnClickListener{
         }
     }
 
+    /**
+     * Creating pop up when the user click on add wishlist button.
+     */
     private void initPopUpAddWishlist()
     {
         Log.d(TAG, "initPopUpAddWishlist");
@@ -118,9 +162,9 @@ public class Wishlist extends AppCompatActivity implements View.OnClickListener{
             public void onClick(View v) {
                 if (!etRM.getText().toString().isEmpty() && !etDescription.getText().toString().isEmpty())
                 {
-                    myDB.insertDataWishlist(etDescription.getText().toString(), etRM.getText().toString());
+                    myDB.insertDataWishlist(etDescription.getText().toString().toUpperCase(), etRM.getText().toString());
                     Toast.makeText(Wishlist.this, "Add success" , Toast.LENGTH_SHORT).show();
-                    dialogAddWishlist.cancel(); //untuk tutup pop up
+                    dialogAddWishlist.cancel(); // To close the pop up.
                     createObj();
                 }
                 else

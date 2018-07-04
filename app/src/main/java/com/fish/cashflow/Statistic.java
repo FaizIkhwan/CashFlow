@@ -16,23 +16,22 @@ import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
-
 import java.util.ArrayList;
 
 public class Statistic extends AppCompatActivity implements View.OnClickListener{
 
-    //database
+    //Database
     DatabaseHelper myDB;
 
-    //log
+    //Log
     private static String TAG = "BudgetPieChart";
 
-    //interface
+    //Interface
     private ImageButton backButton;
     private TextView statisticTV;
     private BarChart barChart;
 
-    //usable variable
+    //Variable to use
     String[] monthInNumber = {"201801", "201802", "201803", "201804", "201805", "201806", "201807", "201808", "201809", "201810", "201811", "201812"};
     String[] month = {"JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"};
 
@@ -52,6 +51,9 @@ public class Statistic extends AppCompatActivity implements View.OnClickListener
         barChartSetting();
     }
 
+    /**
+     * Define the UI.
+     */
     private void initComponent()
     {
         backButton = findViewById(R.id.backButton);
@@ -59,11 +61,17 @@ public class Statistic extends AppCompatActivity implements View.OnClickListener
         barChart = findViewById(R.id.barChart);
     }
 
+    /**
+     * Implementing OnClickListener for each button.
+     */
     private void initOnClickListener()
     {
         backButton.setOnClickListener(this);
     }
 
+    /**
+     * Bar chart setting and styling.
+     */
     private void barChartSetting()
     {
         barChart.setPinchZoom(false);
@@ -86,7 +94,7 @@ public class Statistic extends AppCompatActivity implements View.OnClickListener
         {
             Log.d(TAG, "MONTH---> "+month[i]);
             Cursor res1 = myDB.getMonthlyIncome(month[i]);
-            if(res1 != null && res1.moveToFirst()) // tak kosong
+            if(res1 != null && res1.moveToFirst()) // If the query result is not empty.
             {
                 if(res1.getString(1) == null)
                     monthlyIncome = 0;
@@ -98,7 +106,7 @@ public class Statistic extends AppCompatActivity implements View.OnClickListener
             }
 
             Cursor res2 = myDB.calculatingTotalExpenseForAllCategory(monthInNumber[i]);
-            if(res2 != null && res2.moveToFirst()) // tak kosong
+            if(res2 != null && res2.moveToFirst()) // If the query result is not empty.
             {
                 if(res2.getString(0) == null)
                     monthlyExpense = 0;
@@ -140,6 +148,9 @@ public class Statistic extends AppCompatActivity implements View.OnClickListener
         yAxis.setEnabled(false);
     }
 
+    /**
+     * Bar chart X axis.
+     */
     public class MyXAxisValueFormatter implements IAxisValueFormatter
     {
         private String[] mValues;
@@ -155,6 +166,10 @@ public class Statistic extends AppCompatActivity implements View.OnClickListener
         }
     }
 
+    /**
+     * OnClick method for each button.
+     * @param v
+     */
     @Override
     public void onClick(View v) {
         switch (v.getId())

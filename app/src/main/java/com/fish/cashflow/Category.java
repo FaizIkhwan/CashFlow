@@ -15,7 +15,7 @@ import android.widget.Toast;
 
 public class Category extends AppCompatActivity implements View.OnClickListener {
 
-    //log
+    //Log
     private static String TAG = "Category";
 
     //Interface
@@ -25,10 +25,10 @@ public class Category extends AppCompatActivity implements View.OnClickListener 
                 addBudgetEntertainment, addBudgetEducation, addBudgetHealth, addBudgetTransport, addBudgetShopping, addBudgetPersonalCare, addBudgetBills, addBudgetFood
                     , backButton;
 
-    //database
+    //Database
     DatabaseHelper myDB;
 
-    //usable variable
+    //Variable to use
     private String[] cat = {"ENTERTAINMENT", "EDUCATION", "HEALTH", "TRANSPORT", "SHOPPING", "PERSONAL CARE", "BILLS", "FOOD"};
     private Cursor res;
 
@@ -39,12 +39,15 @@ public class Category extends AppCompatActivity implements View.OnClickListener 
 
         Log.d(TAG, "onCreate: Category");
 
-        initComponent(); //Initialize components
-        initOnClickListener(); //Initialize onClickListener
+        initComponent(); //Initialize components.
+        initOnClickListener(); //Initialize onClickListener.
 
-        toCloseOrOpen(); // check database to determine which button should appear
+        toCloseOrOpen(); // Check database to determine which button should appear.
     }
 
+    /**
+     * Define the UI.
+     */
     private void initComponent()
     {
         Log.d(TAG, "initComponent");
@@ -87,7 +90,10 @@ public class Category extends AppCompatActivity implements View.OnClickListener 
         addBudgetFood = findViewById(R.id.addBudgetFood);
     }
 
-    private void initOnClickListener() // Method for set on click listener for all button
+    /**
+     * Implementing OnClickListener for each button.
+     */
+    private void initOnClickListener()
     {
         Log.d(TAG, "initOnClickListener");
         backButton.setOnClickListener(this);
@@ -119,7 +125,12 @@ public class Category extends AppCompatActivity implements View.OnClickListener 
         addBudgetFood.setOnClickListener(this);
     }
 
-    private void toCloseOrOpen() // invisible semua plus button kalau catogory ada 8
+    /**
+     * Process to check if the category STATE is TRUE or FALSE.
+     * If it is TRUE, button will appear.
+     * Else, it will not.
+     */
+    private void toCloseOrOpen()
     {
         //Database
         myDB = new DatabaseHelper(this);
@@ -127,7 +138,7 @@ public class Category extends AppCompatActivity implements View.OnClickListener 
         for(int i=0; i<cat.length; i++)
         {
             res = myDB.getStateForCategory(cat[i].toUpperCase());
-            if(res != null && res.moveToFirst()) // tak kosong
+            if(res != null && res.moveToFirst()) // If the query result is not empty.
             {
                 do
                 {
@@ -236,6 +247,10 @@ public class Category extends AppCompatActivity implements View.OnClickListener 
         }
     }
 
+    /**
+     * OnClick method for each button.
+     * @param v
+     */
     @Override
     public void onClick(View v)
     {
@@ -386,7 +401,12 @@ public class Category extends AppCompatActivity implements View.OnClickListener 
         }
     }
 
-    private void initPopUpAddBudget(final String localCat) // pop up untuk add budget
+    /**
+     * Creating pop up when the user click on category setting button.
+     * To add or change budget.
+     * @param localCat - Category name.
+     */
+    private void initPopUpAddBudget(final String localCat)
     {
         Log.d(TAG, "initPopUpAddBudget");
 
@@ -404,7 +424,7 @@ public class Category extends AppCompatActivity implements View.OnClickListener 
         DoneButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!etBudget.getText().toString().isEmpty()) // kalau dia isi semua part
+                if (!etBudget.getText().toString().isEmpty()) // If the user fill all the parts.
                 {
                     switch (localCat)
                     {
@@ -450,7 +470,7 @@ public class Category extends AppCompatActivity implements View.OnClickListener 
                             break;
                     }
                     Toast.makeText(Category.this, "Add success", Toast.LENGTH_SHORT).show();
-                    dialogAddBudget.cancel(); //untuk tutup pop up
+                    dialogAddBudget.cancel(); // To close the pop up.
                 }
                 else
                 {

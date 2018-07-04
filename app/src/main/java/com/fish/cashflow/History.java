@@ -12,17 +12,17 @@ import android.widget.TextView;
 
 public class History extends AppCompatActivity implements View.OnClickListener {
 
-    //log
+    //Log
     private static String TAG = "History";
 
-    //database
+    //Database
     DatabaseHelper myDB;
 
-    //interface
+    //Interface
     TextView historyTV;
     ImageButton backButton, catEntertainmentButton, catEducationButton, catHealthButton, catTransportButton, catShoppingButton, catPersonalCareButton, catBillsButton, catFoodButton;
 
-    //usable var
+    //Variable to use
     private String[] cat = {"ENTERTAINMENT", "EDUCATION", "HEALTH", "TRANSPORT", "SHOPPING", "PERSONAL CARE", "BILLS", "FOOD"};
 
     @Override
@@ -30,8 +30,8 @@ public class History extends AppCompatActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
 
-        initComponent(); //Initialize components
-        initOnClickListener(); //Initialize onClickListener
+        initComponent(); //Initialize components.
+        initOnClickListener(); //Initialize onClickListener.
 
         //Database
         myDB = new DatabaseHelper(this);
@@ -39,7 +39,10 @@ public class History extends AppCompatActivity implements View.OnClickListener {
         checkStateForEachCategory();
     }
 
-    private void initComponent() //interface
+    /**
+     * Define the UI.
+     */
+    private void initComponent()
     {
         Log.d(TAG, "initComponent");
         //Creating all object components
@@ -55,7 +58,10 @@ public class History extends AppCompatActivity implements View.OnClickListener {
         catFoodButton = findViewById(R.id.catFoodButton);
     }
 
-    private void initOnClickListener() // button listener
+    /**
+     * Implementing OnClickListener for each button.
+     */
+    private void initOnClickListener()
     {
         Log.d(TAG, "initOnClickListener");
         backButton.setOnClickListener(this);
@@ -69,8 +75,12 @@ public class History extends AppCompatActivity implements View.OnClickListener {
         catFoodButton.setOnClickListener(this);
     }
 
+    /**
+     * OnClick method for each button.
+     * @param v
+     */
     @Override
-    public void onClick(View v) // button listener
+    public void onClick(View v)
     {
         Log.d(TAG, "onClick");
         switch(v.getId())
@@ -115,7 +125,12 @@ public class History extends AppCompatActivity implements View.OnClickListener {
         }
     }
 
-    private void initPopUpShowMessage(String title,String Message) // pop up
+    /**
+     * Creating pop up when the user click on category button.
+     * @param title
+     * @param Message
+     */
+    private void initPopUpShowMessage(String title,String Message)
     {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setCancelable(true);
@@ -124,19 +139,22 @@ public class History extends AppCompatActivity implements View.OnClickListener {
         builder.show();
     }
 
-    private void retrievingData(String cat) // retrive data from db
+    /**
+     * Retrieve data from table Expense in the database.
+     * @param cat
+     */
+    private void retrievingData(String cat)
     {
         String temp;
         Cursor res = myDB.getCategoryDataFromExpense(cat);
         if(res.getCount() == 0)
         {
             initPopUpShowMessage("Error","Nothing found");
-            return; // keluar terus dari method ini
+            return; // Exit this method.
         }
         StringBuffer buffer = new StringBuffer();
         while (res.moveToNext())
         {
-            temp = "";
             buffer.append("Expense :RM" + res.getString(1) + "\n");
             buffer.append("Description :" + res.getString(2) + "\n");
             temp = res.getString(3).substring(6, 8)+"/"+res.getString(3).substring(4, 6)+"/"+res.getString(3).substring(0, 4);
@@ -146,14 +164,19 @@ public class History extends AppCompatActivity implements View.OnClickListener {
         initPopUpShowMessage(cat,buffer.toString());
     }
 
-    private void checkStateForEachCategory() //untuk check state category itu TRUE atau FALSE, kalau TRUE dia display button. Otherwise tk display
+    /**
+     * Process to check if the category STATE is TRUE or FALSE.
+     * If it is TRUE, button will appear.
+     * Else, it will not.
+     */
+    private void checkStateForEachCategory()
     {
         Log.d(TAG, "checkStateForEachCategory");
 
         for (int i = 0; i < cat.length; i++)
         {
             Cursor res = myDB.getStateForCategory(cat[i]);
-            if(res != null && res.moveToFirst()) // tak kosong
+            if(res != null && res.moveToFirst()) // If the query result is not empty.
             {
                 switch (res.getString(0))
                 {

@@ -10,12 +10,11 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 
-public class WishlistAdapter extends ArrayAdapter<WishlishObj> {
-    //log
+public class WishlistAdapter extends ArrayAdapter<WishlishObj>
+{
+    //Log
     private static final String TAG = "WishlistAdapter";
 
     private Context mContext;
@@ -47,11 +46,11 @@ public class WishlistAdapter extends ArrayAdapter<WishlishObj> {
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        //get the wishlist information
+        //Get the wishlist information.
         String description = getItem(position).getDescription();
         double percent = getItem(position).getPercent();
 
-        //Create the wishlist object with the information
+        //Create the wishlist object with the information.
         WishlishObj myObj = new WishlishObj(description, percent);
 
         LayoutInflater inflater = LayoutInflater.from(mContext);
@@ -64,7 +63,6 @@ public class WishlistAdapter extends ArrayAdapter<WishlishObj> {
         descriptionTV.setText("  "+description);
         Log.d(TAG, "PERCENT --->"+percent);
         showPercentTV.setText((int)percent + "%");
-        //Log.d(TAG, "PERCENT AFTER INT --->"+(int) Integer.parseInt(percent));
 
         percentTV.setProgress((int)percent);
 

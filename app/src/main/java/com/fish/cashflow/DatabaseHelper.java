@@ -37,7 +37,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
     private static final String COL_1_C = "ID";
     private static final String COL_2_C = "DESCRIPTION"; //string
     private static final String COL_3_C = "BUDGET"; //int
-    private static final String COL_4_C = "STATE"; // (string)   BOOLEAN untuk check category itu dipilih atau tak.
+    private static final String COL_4_C = "STATE"; // string   BOOLEAN (TRUE/FALSE).
 
     //Table WISHLIST
     private static final String COL_1_W = "ID";
@@ -48,6 +48,10 @@ public class DatabaseHelper extends SQLiteOpenHelper
         super(context, DATABASE_NAME, null, 1);
     }
 
+    /**
+     * Create 4 tables when first time open the apps.
+     * @param db
+     */
     @Override
     public void onCreate(SQLiteDatabase db)
     {
@@ -59,6 +63,12 @@ public class DatabaseHelper extends SQLiteOpenHelper
         Log.d(TAG, "DONE CREATE 4 TABLE !");
     }
 
+    /**
+     * Upgrade tables.
+     * @param db
+     * @param oldVersion
+     * @param newVersion
+     */
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)
     {
@@ -72,6 +82,15 @@ public class DatabaseHelper extends SQLiteOpenHelper
         onCreate(db);
     }
 
+    /**
+     * Add row on table Expense.
+     * ID, Expense, Description, Date, Category.
+     * @param expense
+     * @param description
+     * @param date
+     * @param category
+     * @return true if it success add row.
+     */
     public boolean insertDataExpense(String expense, String description, String date, String category)
     {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -87,6 +106,13 @@ public class DatabaseHelper extends SQLiteOpenHelper
             return true;
     }
 
+    /**
+     * Add row on table Income.
+     * ID, Income, Month.
+     * @param income
+     * @param month
+     * @return true if it success add row.
+     */
     public boolean insertDataIncome(String income, String month)
     {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -100,6 +126,14 @@ public class DatabaseHelper extends SQLiteOpenHelper
             return true;
     }
 
+    /**
+     * Add row on table Category.
+     * ID, Description, Budget, State.
+     * @param description
+     * @param budget
+     * @param state
+     * @return true if it success add row.
+     */
     public boolean insertDataCategory(String description, String budget, String state)
     {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -114,6 +148,13 @@ public class DatabaseHelper extends SQLiteOpenHelper
             return true;
     }
 
+    /**
+     * Add row on table Wishlist.
+     * ID, Description, Price.
+     * @param description
+     * @param price
+     * @return true if it success add row.
+     */
     public boolean insertDataWishlist(String description, String price)
     {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -127,7 +168,15 @@ public class DatabaseHelper extends SQLiteOpenHelper
             return true;
     }
 
-    public boolean updateDataCategory(String id, String description, String budget, String state) //overwrite table category
+    /**
+     * Update row on table Category.
+     * @param id
+     * @param description
+     * @param budget
+     * @param state
+     * @return true if it success update row.
+     */
+    public boolean updateDataCategory(String id, String description, String budget, String state)
     {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -140,7 +189,14 @@ public class DatabaseHelper extends SQLiteOpenHelper
         return true;
     }
 
-    public boolean updateMonthlyIncome(String id, String income, String month) //overwrite table income
+    /**
+     * Update row on table Income.
+     * @param id
+     * @param income
+     * @param month
+     * @return true if it success update row.
+     */
+    public boolean updateMonthlyIncome(String id, String income, String month)
     {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -152,7 +208,12 @@ public class DatabaseHelper extends SQLiteOpenHelper
         return true;
     }
 
-    public Cursor getMonthlyIncome(String month) // akan return id, income berdasarkan bulan yang ditanya
+    /**
+     * Query select ID, INCOME from Income where MONTH = "query(month)";
+     * @param month
+     * @return ID, Income
+     */
+    public Cursor getMonthlyIncome(String month)
     {
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "select "+ COL_1_I +", " +COL_2_I+ " from "+ TABLE_NAME_INCOME +" where " + COL_3_I + " = " + " '" +month+ "'";
@@ -160,7 +221,12 @@ public class DatabaseHelper extends SQLiteOpenHelper
         return res;
     }
 
-    public Cursor getCategoryDataFromExpense(String cat) // query "select * from expense where category = var(cat) order by date "
+    /**
+     * Query select * from Expense where CATEGORY = query(cat) order by DATE;
+     * @param cat
+     * @return *
+     */
+    public Cursor getCategoryDataFromExpense(String cat)
     {
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "select * from " +TABLE_NAME_EXPENSE+ " where " +COL_5_E+ " = "+" '"+cat+"'"+" order by "+COL_4_E+" desc";
@@ -168,7 +234,12 @@ public class DatabaseHelper extends SQLiteOpenHelper
         return res;
     }
 
-    public Cursor getStateForCategory(String cat) // query untuk dapat kan description, state for each category
+    /**
+     * Query select DESCRIPTION, STATE from Category where DESCRIPTION = "query(cat)";
+     * @param cat
+     * @return Description, State
+     */
+    public Cursor getStateForCategory(String cat)
     {
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "select "+ COL_2_C + ", " + COL_4_C+" from "+ TABLE_NAME_CATEGORY +" where " + COL_2_C + " = " + " '" +cat+ "'";
@@ -176,7 +247,12 @@ public class DatabaseHelper extends SQLiteOpenHelper
         return res;
     }
 
-    public Cursor getBudgetOnlyForCategory(String cat) // query untuk dapat kan budget, description je for each category
+    /**
+     * Query select BUDGET, DESCRIPTION from Category where DESCRIPTION = "query(cat)";
+     * @param cat
+     * @return Budget, Description
+     */
+    public Cursor getBudgetOnlyForCategory(String cat)
     {
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "select "+ COL_3_C  +", " + COL_2_C+" from "+ TABLE_NAME_CATEGORY +" where " + COL_2_C + " = " + " '" +cat+ "'";
@@ -184,7 +260,13 @@ public class DatabaseHelper extends SQLiteOpenHelper
         return res;
     }
 
-    public Cursor calculatingTotalExpense(String date, String cat) // query untuk dapat kan sum(EXPENSE) je for each category. select sum(EXPENSE) from Expense where DATE like '201808%' and CATEGORY = 'FOOD';
+    /**
+     * Query select sum(EXPENSE) from Expense where DATE like 'query(date)' and CATEGORY = "query(cat)";
+     * @param date
+     * @param cat
+     * @return sum(EXPENSE)
+     */
+    public Cursor calculatingTotalExpense(String date, String cat)
     {
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "select sum(" +COL_2_E+ ") from " +TABLE_NAME_EXPENSE+ " where " +COL_4_E+ " like '" +date+"%' and " +COL_5_E+ " = " + "'" +cat+ "'";
@@ -192,7 +274,12 @@ public class DatabaseHelper extends SQLiteOpenHelper
         return res;
     }
 
-    public Cursor calculatingTotalExpenseForAllCategory(String date) // query untuk dapat kan sum(EXPENSE) je for ALL category. select sum(EXPENSE) from Expense where DATE like '201808%';
+    /**
+     * Query sum(EXPENSE) from Expense where DATE like 'query(date)';
+     * @param date
+     * @return sum(EXPENSE)
+     */
+    public Cursor calculatingTotalExpenseForAllCategory(String date)
     {
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "select sum(" +COL_2_E+ ") from " +TABLE_NAME_EXPENSE+ " where " +COL_4_E+ " like '" +date+"%'";
@@ -200,7 +287,11 @@ public class DatabaseHelper extends SQLiteOpenHelper
         return res;
     }
 
-    public Cursor getDataFromWishlist() // query untuk dapat kan data from table Wishlist
+    /**
+     * Query select * from Wishlist;
+     * @return *
+     */
+    public Cursor getDataFromWishlist()
     {
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "select * from " +TABLE_NAME_WISHLIST;

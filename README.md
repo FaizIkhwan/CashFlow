@@ -8,7 +8,7 @@ This repository contains source code for our Group Mini project of CSC577 Fundam
 Our laboratory lecturer is Nordin Abu Bakar (Assoc. Prof. Dr.) and class lecturer is Mr Wan Ya bin Wan Hussin. The project has been presented to Dr. Nordin as needed by the course prior to the release.
 
 ## How to run
-This program can be run by using Android Studio IDE. It also needs either a running emulator or an USB debugging-enabled android phone connected to the computer.
+Install cashFlow.apk on your Android phone.
 
 ## Screenshots
 1. **Homepage**

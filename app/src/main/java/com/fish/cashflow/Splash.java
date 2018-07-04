@@ -13,8 +13,10 @@ import java.io.InputStream;
 
 public class Splash extends AppCompatActivity {
 
+    //Log
     private static String TAG = "Splash";
 
+    //GIF
     private GifImageView gifImageView;
 
     @Override
@@ -42,15 +44,15 @@ public class Splash extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                //intent to BudgetPieChart activity
-                Splash.this.startActivity(new Intent(Splash.this,BudgetPieChart.class));
-                // bila tekan back dia tk pergi splash screen balik
+                Splash.this.startActivity(new Intent(Splash.this,BudgetPieChart.class)); // Intent to BudgetPieChart activity.
                 Splash.this.finish();
             }
-        },1900);//1900
+        },1800); // 1800ms
     }
 
-    /* Creating object */
+    /**
+     * Define the UI.
+     */
     private void initComponent()
     {
         Log.d(TAG, "initComponent: Initialise all components");
