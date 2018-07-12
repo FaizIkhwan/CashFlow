@@ -13,6 +13,11 @@
         android:icon="@mipmap/baseline_history_black_24"
         android:title="History" />
 
+    <item android:id="@+id/savings"
+        android:icon="@drawable/baseline_monetization_on_black_18"
+        android:title="Savings"
+        />
+
     <item android:id="@+id/wishlist"
         android:icon="@drawable/baseline_list_24"
         android:title="Wishlist" />

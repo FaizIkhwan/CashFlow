@@ -127,164 +127,76 @@
         app:layout_constraintTop_toBottomOf="@+id/catBillsTV" />
 
     <ImageButton
-        android:id="@+id/catEntertainmentPlus"
+        android:id="@+id/catEntertainmentPlusMinus"
         android:layout_width="25dp"
         android:layout_height="25dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="82dp"
         android:layout_marginTop="73dp"
-        android:background="@drawable/addplusbutton"
-        app:layout_constraintEnd_toStartOf="@+id/catEntertainmentMinus"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageButton
-        android:id="@+id/catEntertainmentMinus"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:layout_marginEnd="41dp"
-        android:layout_marginTop="73dp"
-        android:background="@drawable/cancel"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
-        android:id="@+id/catEducationPlus"
+        android:id="@+id/catEducationPlusMinus"
         android:layout_width="25dp"
         android:layout_height="25dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="82dp"
         android:layout_marginTop="25dp"
-        android:background="@drawable/addplusbutton"
-        app:layout_constraintEnd_toStartOf="@+id/catEducationMinus"
-        app:layout_constraintTop_toBottomOf="@+id/catEntertainmentPlus" />
-
-    <ImageButton
-        android:id="@+id/catEducationMinus"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:layout_marginEnd="41dp"
-        android:layout_marginTop="25dp"
-        android:background="@drawable/cancel"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/catEntertainmentMinus" />
+        app:layout_constraintTop_toBottomOf="@+id/catEntertainmentPlusMinus" />
 
     <ImageButton
-        android:id="@+id/catHealthPlus"
+        android:id="@+id/catHealthPlusMinus"
         android:layout_width="25dp"
         android:layout_height="25dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="82dp"
         android:layout_marginTop="25dp"
-        android:background="@drawable/addplusbutton"
-        app:layout_constraintEnd_toStartOf="@+id/catHealthMinus"
-        app:layout_constraintTop_toBottomOf="@+id/catEducationPlus" />
-
-    <ImageButton
-        android:id="@+id/catHealthMinus"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:layout_marginEnd="41dp"
-        android:layout_marginTop="25dp"
-        android:background="@drawable/cancel"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/catEducationMinus" />
+        app:layout_constraintTop_toBottomOf="@+id/catEducationPlusMinus" />
 
     <ImageButton
-        android:id="@+id/catTransportPlus"
+        android:id="@+id/catTransportPlusMinus"
         android:layout_width="25dp"
         android:layout_height="25dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="82dp"
         android:layout_marginTop="25dp"
-        android:background="@drawable/addplusbutton"
-        app:layout_constraintEnd_toStartOf="@+id/catTransportMinus"
-        app:layout_constraintTop_toBottomOf="@+id/catHealthPlus" />
-
-    <ImageButton
-        android:id="@+id/catTransportMinus"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:layout_marginEnd="41dp"
-        android:layout_marginTop="25dp"
-        android:background="@drawable/cancel"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/catHealthMinus" />
+        app:layout_constraintTop_toBottomOf="@+id/catHealthPlusMinus" />
 
     <ImageButton
-        android:id="@+id/catShoppingPlus"
+        android:id="@+id/catShoppingPlusMinus"
         android:layout_width="25dp"
         android:layout_height="25dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="82dp"
         android:layout_marginTop="25dp"
-        android:background="@drawable/addplusbutton"
-        app:layout_constraintEnd_toStartOf="@+id/catShoppingMinus"
-        app:layout_constraintTop_toBottomOf="@+id/catTransportPlus" />
-
-    <ImageButton
-        android:id="@+id/catShoppingMinus"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:layout_marginEnd="41dp"
-        android:layout_marginTop="25dp"
-        android:background="@drawable/cancel"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/catTransportMinus" />
+        app:layout_constraintTop_toBottomOf="@+id/catTransportPlusMinus" />
 
     <ImageButton
-        android:id="@+id/catPersonalCarePlus"
+        android:id="@+id/catPersonalCarePlusMinus"
         android:layout_width="25dp"
         android:layout_height="25dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="82dp"
         android:layout_marginTop="25dp"
-        android:background="@drawable/addplusbutton"
-        app:layout_constraintEnd_toStartOf="@+id/catPersonalCareMinus"
-        app:layout_constraintTop_toBottomOf="@+id/catShoppingPlus" />
-
-    <ImageButton
-        android:id="@+id/catPersonalCareMinus"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:layout_marginEnd="41dp"
-        android:layout_marginTop="25dp"
-        android:background="@drawable/cancel"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/catShoppingMinus" />
+        app:layout_constraintTop_toBottomOf="@+id/catShoppingPlusMinus" />
 
     <ImageButton
-        android:id="@+id/catBillsPlus"
+        android:id="@+id/catBillsPlusMinus"
         android:layout_width="25dp"
         android:layout_height="25dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="82dp"
         android:layout_marginTop="25dp"
-        android:background="@drawable/addplusbutton"
-        app:layout_constraintEnd_toStartOf="@+id/catBillsMinus"
-        app:layout_constraintTop_toBottomOf="@+id/catPersonalCarePlus" />
-
-    <ImageButton
-        android:id="@+id/catBillsMinus"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:layout_marginEnd="41dp"
-        android:layout_marginTop="25dp"
-        android:background="@drawable/cancel"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/catPersonalCareMinus" />
+        app:layout_constraintTop_toBottomOf="@+id/catPersonalCarePlusMinus" />
 
     <ImageButton
-        android:id="@+id/catFoodPlus"
+        android:id="@+id/catFoodPlusMinus"
         android:layout_width="25dp"
         android:layout_height="25dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="82dp"
         android:layout_marginTop="25dp"
-        android:background="@drawable/addplusbutton"
-        app:layout_constraintEnd_toStartOf="@+id/catFoodMinus"
-        app:layout_constraintTop_toBottomOf="@+id/catBillsPlus" />
-
-    <ImageButton
-        android:id="@+id/catFoodMinus"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:layout_marginEnd="41dp"
-        android:layout_marginTop="25dp"
-        android:background="@drawable/cancel"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/catBillsMinus" />
+        app:layout_constraintTop_toBottomOf="@+id/catBillsPlusMinus" />
 
     <ImageButton
         android:id="@+id/backButton"
@@ -303,7 +215,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginTop="73dp"
         android:background="@drawable/settings"
-        app:layout_constraintEnd_toStartOf="@+id/catEntertainmentPlus"
+        app:layout_constraintEnd_toStartOf="@+id/catEntertainmentPlusMinus"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
@@ -313,7 +225,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginTop="25dp"
         android:background="@drawable/settings"
-        app:layout_constraintEnd_toStartOf="@+id/catEducationPlus"
+        app:layout_constraintEnd_toStartOf="@+id/catEducationPlusMinus"
         app:layout_constraintTop_toBottomOf="@+id/addBudgetEntertainment" />
 
     <ImageButton
@@ -323,7 +235,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginTop="25dp"
         android:background="@drawable/settings"
-        app:layout_constraintEnd_toStartOf="@+id/catHealthPlus"
+        app:layout_constraintEnd_toStartOf="@+id/catHealthPlusMinus"
         app:layout_constraintTop_toBottomOf="@+id/addBudgetEducation" />
 
     <ImageButton
@@ -333,7 +245,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginTop="25dp"
         android:background="@drawable/settings"
-        app:layout_constraintEnd_toStartOf="@+id/catTransportPlus"
+        app:layout_constraintEnd_toStartOf="@+id/catTransportPlusMinus"
         app:layout_constraintTop_toBottomOf="@+id/addBudgetHealth" />
 
     <ImageButton
@@ -343,7 +255,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginTop="25dp"
         android:background="@drawable/settings"
-        app:layout_constraintEnd_toStartOf="@+id/catShoppingPlus"
+        app:layout_constraintEnd_toStartOf="@+id/catShoppingPlusMinus"
         app:layout_constraintTop_toBottomOf="@+id/addBudgetTransport" />
 
     <ImageButton
@@ -353,7 +265,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginTop="25dp"
         android:background="@drawable/settings"
-        app:layout_constraintEnd_toStartOf="@+id/catPersonalCarePlus"
+        app:layout_constraintEnd_toStartOf="@+id/catPersonalCarePlusMinus"
         app:layout_constraintTop_toBottomOf="@+id/addBudgetShopping" />
 
     <ImageButton
@@ -363,7 +275,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginTop="25dp"
         android:background="@drawable/settings"
-        app:layout_constraintEnd_toStartOf="@+id/catBillsPlus"
+        app:layout_constraintEnd_toStartOf="@+id/catBillsPlusMinus"
         app:layout_constraintTop_toBottomOf="@+id/addBudgetPersonalCare" />
 
     <ImageButton
@@ -373,7 +285,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginTop="25dp"
         android:background="@drawable/settings"
-        app:layout_constraintEnd_toStartOf="@+id/catFoodPlus"
+        app:layout_constraintEnd_toStartOf="@+id/catFoodPlusMinus"
         app:layout_constraintTop_toBottomOf="@+id/addBudgetBills" />
 
 </android.support.constraint.ConstraintLayout>

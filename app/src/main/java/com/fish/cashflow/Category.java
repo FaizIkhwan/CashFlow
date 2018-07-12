@@ -20,8 +20,7 @@ public class Category extends AppCompatActivity implements View.OnClickListener 
 
     //Interface
     TextView categoryTV, catEntertainmentTV, catEducationTV, catHealthTV, catTransportTV, catShoppingTV, catPersonalCareTV, catBillsTV, catFoodTV;
-    ImageButton catEntertainmentPlus, catEntertainmentMinus, catEducationPlus, catEducationMinus, catHealthPlus, catHealthMinus, catTransportPlus,
-            catTransportMinus, catShoppingPlus, catShoppingMinus, catPersonalCarePlus, catPersonalCareMinus, catBillsPlus, catBillsMinus, catFoodPlus, catFoodMinus,
+    ImageButton catEntertainmentPlusMinus,  catEducationPlusMinus,  catHealthPlusMinus,  catTransportPlusMinus, catShoppingPlusMinus,  catPersonalCarePlusMinus,  catBillsPlusMinus,  catFoodPlusMinus,
                 addBudgetEntertainment, addBudgetEducation, addBudgetHealth, addBudgetTransport, addBudgetShopping, addBudgetPersonalCare, addBudgetBills, addBudgetFood
                     , backButton;
 
@@ -31,6 +30,7 @@ public class Category extends AppCompatActivity implements View.OnClickListener 
     //Variable to use
     private String[] cat = {"ENTERTAINMENT", "EDUCATION", "HEALTH", "TRANSPORT", "SHOPPING", "PERSONAL CARE", "BILLS", "FOOD"};
     private Cursor res;
+    private String state;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,22 +63,14 @@ public class Category extends AppCompatActivity implements View.OnClickListener 
         catBillsTV = findViewById(R.id.catBillsTV);
         catFoodTV = findViewById(R.id.catFoodTV);
 
-        catEntertainmentPlus = findViewById(R.id.catEntertainmentPlus);
-        catEntertainmentMinus = findViewById(R.id.catEntertainmentMinus);
-        catEducationPlus = findViewById(R.id.catEducationPlus);
-        catEducationMinus = findViewById(R.id.catEducationMinus);
-        catHealthPlus = findViewById(R.id.catHealthPlus);
-        catHealthMinus = findViewById(R.id.catHealthMinus);
-        catTransportPlus = findViewById(R.id.catTransportPlus);
-        catTransportMinus = findViewById(R.id.catTransportMinus);
-        catShoppingPlus = findViewById(R.id.catShoppingPlus);
-        catShoppingMinus = findViewById(R.id.catShoppingMinus);
-        catPersonalCarePlus = findViewById(R.id.catPersonalCarePlus);
-        catPersonalCareMinus = findViewById(R.id.catPersonalCareMinus);
-        catBillsPlus = findViewById(R.id.catBillsPlus);
-        catBillsMinus = findViewById(R.id.catBillsMinus);
-        catFoodPlus = findViewById(R.id.catFoodPlus);
-        catFoodMinus = findViewById(R.id.catFoodMinus);
+        catEntertainmentPlusMinus = findViewById(R.id.catEntertainmentPlusMinus);
+        catEducationPlusMinus = findViewById(R.id.catEducationPlusMinus);
+        catHealthPlusMinus = findViewById(R.id.catHealthPlusMinus);
+        catTransportPlusMinus = findViewById(R.id.catTransportPlusMinus);
+        catShoppingPlusMinus = findViewById(R.id.catShoppingPlusMinus);
+        catPersonalCarePlusMinus = findViewById(R.id.catPersonalCarePlusMinus);
+        catBillsPlusMinus = findViewById(R.id.catBillsPlusMinus);
+        catFoodPlusMinus = findViewById(R.id.catFoodPlusMinus);
 
         addBudgetEntertainment = findViewById(R.id.addBudgetEntertainment);
         addBudgetEducation = findViewById(R.id.addBudgetEducation);
@@ -98,22 +90,14 @@ public class Category extends AppCompatActivity implements View.OnClickListener 
         Log.d(TAG, "initOnClickListener");
         backButton.setOnClickListener(this);
 
-        catEntertainmentPlus.setOnClickListener(this);
-        catEntertainmentMinus.setOnClickListener(this);
-        catEducationPlus.setOnClickListener(this);
-        catEducationMinus.setOnClickListener(this);
-        catHealthPlus.setOnClickListener(this);
-        catHealthMinus.setOnClickListener(this);
-        catTransportPlus.setOnClickListener(this);
-        catTransportMinus.setOnClickListener(this);
-        catShoppingPlus.setOnClickListener(this);
-        catShoppingMinus.setOnClickListener(this);
-        catPersonalCarePlus.setOnClickListener(this);
-        catPersonalCareMinus.setOnClickListener(this);
-        catBillsPlus.setOnClickListener(this);
-        catBillsMinus.setOnClickListener(this);
-        catFoodPlus.setOnClickListener(this);
-        catFoodMinus.setOnClickListener(this);
+        catEntertainmentPlusMinus.setOnClickListener(this);
+        catEducationPlusMinus.setOnClickListener(this);
+        catHealthPlusMinus.setOnClickListener(this);
+        catTransportPlusMinus.setOnClickListener(this);
+        catShoppingPlusMinus.setOnClickListener(this);
+        catPersonalCarePlusMinus.setOnClickListener(this);
+        catBillsPlusMinus.setOnClickListener(this);
+        catFoodPlusMinus.setOnClickListener(this);
 
         addBudgetEntertainment.setOnClickListener(this);
         addBudgetEducation.setOnClickListener(this);
@@ -146,99 +130,58 @@ public class Category extends AppCompatActivity implements View.OnClickListener 
                     {
                         case "ENTERTAINMENT":
                             if( res.getString(1).equals("TRUE") )
-                            {
-                                catEntertainmentMinus.setVisibility(View.VISIBLE);
-                                catEntertainmentPlus.setVisibility(View.INVISIBLE);
-                            }
+                                catEntertainmentPlusMinus.setImageResource(R.drawable.cancel);
                             else if( res.getString(1).equals("FALSE") )
-                            {
-                                catEntertainmentMinus.setVisibility(View.INVISIBLE);
-                                catEntertainmentPlus.setVisibility(View.VISIBLE);
-                            }
+                                catEntertainmentPlusMinus.setImageResource(R.drawable.addplusbutton);
                             break;
+
                         case "EDUCATION":
                             if( res.getString(1).equals("TRUE") )
-                            {
-                                catEducationMinus.setVisibility(View.VISIBLE);
-                                catEducationPlus.setVisibility(View.INVISIBLE);
-                            }
+                                catEducationPlusMinus.setImageResource(R.drawable.cancel);
                             else if( res.getString(1).equals("FALSE") )
-                            {
-                                catEducationMinus.setVisibility(View.INVISIBLE);
-                                catEducationPlus.setVisibility(View.VISIBLE);
-                            }
+                                catEducationPlusMinus.setImageResource(R.drawable.addplusbutton);
                             break;
                         case "HEALTH":
+
                             if( res.getString(1).equals("TRUE") )
-                            {
-                                catHealthMinus.setVisibility(View.VISIBLE);
-                                catHealthPlus.setVisibility(View.INVISIBLE);
-                            }
+                                catHealthPlusMinus.setImageResource(R.drawable.cancel);
                             else if( res.getString(1).equals("FALSE") )
-                            {
-                                catHealthMinus.setVisibility(View.INVISIBLE);
-                                catHealthPlus.setVisibility(View.VISIBLE);
-                            }
+                                catHealthPlusMinus.setImageResource(R.drawable.addplusbutton);
                             break;
+
                         case "TRANSPORT":
                             if( res.getString(1).equals("TRUE") )
-                            {
-                                catTransportMinus.setVisibility(View.VISIBLE);
-                                catTransportPlus.setVisibility(View.INVISIBLE);
-                            }
+                                catTransportPlusMinus.setImageResource(R.drawable.cancel);
                             else if( res.getString(1).equals("FALSE") )
-                            {
-                                catTransportMinus.setVisibility(View.INVISIBLE);
-                                catTransportPlus.setVisibility(View.VISIBLE);
-                            }
+                                catTransportPlusMinus.setImageResource(R.drawable.addplusbutton);
                             break;
+
                         case "SHOPPING":
                             if( res.getString(1).equals("TRUE") )
-                            {
-                                catShoppingMinus.setVisibility(View.VISIBLE);
-                                catShoppingPlus.setVisibility(View.INVISIBLE);
-                            }
+                                catShoppingPlusMinus.setImageResource(R.drawable.cancel);
                             else if( res.getString(1).equals("FALSE") )
-                            {
-                                catShoppingMinus.setVisibility(View.INVISIBLE);
-                                catShoppingPlus.setVisibility(View.VISIBLE);
-                            }
+                                catShoppingPlusMinus.setImageResource(R.drawable.addplusbutton);
                             break;
+
                         case "PERSONAL CARE":
                             if( res.getString(1).equals("TRUE") )
-                            {
-                                catPersonalCareMinus.setVisibility(View.VISIBLE);
-                                catPersonalCarePlus.setVisibility(View.INVISIBLE);
-                            }
+                                catPersonalCarePlusMinus.setImageResource(R.drawable.cancel);
                             else if( res.getString(1).equals("FALSE") )
-                            {
-                                catPersonalCareMinus.setVisibility(View.INVISIBLE);
-                                catPersonalCarePlus.setVisibility(View.VISIBLE);
-                            }
+                                catPersonalCarePlusMinus.setImageResource(R.drawable.addplusbutton);
                             break;
+
                         case "BILLS":
                             if( res.getString(1).equals("TRUE") )
-                            {
-                                catBillsMinus.setVisibility(View.VISIBLE);
-                                catBillsPlus.setVisibility(View.INVISIBLE);
-                            }
+                                catBillsPlusMinus.setImageResource(R.drawable.cancel);
                             else if( res.getString(1).equals("FALSE") )
-                            {
-                                catBillsMinus.setVisibility(View.INVISIBLE);
-                                catBillsPlus.setVisibility(View.VISIBLE);
-                            }
+                                catBillsPlusMinus.setImageResource(R.drawable.addplusbutton);
                             break;
+
                         case "FOOD":
                             if( res.getString(1).equals("TRUE") )
-                            {
-                                catFoodMinus.setVisibility(View.VISIBLE);
-                                catFoodPlus.setVisibility(View.INVISIBLE);
-                            }
+                                catFoodPlusMinus.setImageResource(R.drawable.cancel);
                             else if( res.getString(1).equals("FALSE") )
-                            {
-                                catFoodMinus.setVisibility(View.INVISIBLE);
-                                catFoodPlus.setVisibility(View.VISIBLE);
-                            }
+                                catFoodPlusMinus.setImageResource(R.drawable.addplusbutton);
                             break;
                     }
                 }
@@ -262,117 +205,93 @@ public class Category extends AppCompatActivity implements View.OnClickListener 
                 startActivity(new Intent(this, BudgetPieChart.class));
                 finish();
                 break;
-            case R.id.catEntertainmentPlus:
-                res = myDB.getBudgetOnlyForCategory("ENTERTAINMENT");
+            case R.id.catEntertainmentPlusMinus:
+                res = myDB.getStateForCategory("ENTERTAINMENT");
                 if(res != null && res.moveToFirst())
-                    myDB.updateDataCategory("1", "ENTERTAINMENT", res.getString(0), "TRUE");
-                catEntertainmentPlus.setVisibility(View.INVISIBLE);
-                catEntertainmentMinus.setVisibility(View.VISIBLE);
+                {
+                    if(res.getString(1).equalsIgnoreCase("TRUE"))
+                        state = "FALSE";
+                    else
+                        state = "TRUE";
+                }
+                myDB.updateDataCategory("1", "ENTERTAINMENT", res.getString(2), state);
                 break;
-            case R.id.catEntertainmentMinus:
-                res = myDB.getBudgetOnlyForCategory("ENTERTAINMENT");
+            case R.id.catEducationPlusMinus:
+                res = myDB.getStateForCategory("EDUCATION");
                 if(res != null && res.moveToFirst())
-                    myDB.updateDataCategory("1", "ENTERTAINMENT", res.getString(0), "FALSE");
-                catEntertainmentPlus.setVisibility(View.VISIBLE);
-                catEntertainmentMinus.setVisibility(View.INVISIBLE);
+                {
+                    if(res.getString(1).equalsIgnoreCase("TRUE"))
+                        state = "FALSE";
+                    else
+                        state = "TRUE";
+                }
+                myDB.updateDataCategory("2", "EDUCATION", res.getString(2), state);
                 break;
-            case R.id.catEducationPlus:
-                res = myDB.getBudgetOnlyForCategory("EDUCATION");
+            case R.id.catHealthPlusMinus:
+                res = myDB.getStateForCategory("HEALTH");
                 if(res != null && res.moveToFirst())
-                    myDB.updateDataCategory("2", "EDUCATION", res.getString(0), "TRUE");
-                catEducationPlus.setVisibility(View.INVISIBLE);
-                catEducationMinus.setVisibility(View.VISIBLE);
+                {
+                    if(res.getString(1).equalsIgnoreCase("TRUE"))
+                        state = "FALSE";
+                    else
+                        state = "TRUE";
+                }
+                myDB.updateDataCategory("3", "HEALTH", res.getString(2), state);
                 break;
-            case R.id.catEducationMinus:
-                res = myDB.getBudgetOnlyForCategory("EDUCATION");
+            case R.id.catTransportPlusMinus:
+                res = myDB.getStateForCategory("TRANSPORT");
                 if(res != null && res.moveToFirst())
-                    myDB.updateDataCategory("2", "EDUCATION", res.getString(0), "FALSE");
-                catEducationPlus.setVisibility(View.VISIBLE);
-                catEducationMinus.setVisibility(View.INVISIBLE);
+                {
+                    if(res.getString(1).equalsIgnoreCase("TRUE"))
+                        state = "FALSE";
+                    else
+                        state = "TRUE";
+                }
+                myDB.updateDataCategory("4", "TRANSPORT", res.getString(2), state);
                 break;
-            case R.id.catHealthPlus:
-                res = myDB.getBudgetOnlyForCategory("HEALTH");
+            case R.id.catShoppingPlusMinus:
+                res = myDB.getStateForCategory("SHOPPING");
                 if(res != null && res.moveToFirst())
-                    myDB.updateDataCategory("3", "HEALTH", res.getString(0), "TRUE");
-                catHealthPlus.setVisibility(View.INVISIBLE);
-                catHealthMinus.setVisibility(View.VISIBLE);
+                {
+                    if(res.getString(1).equalsIgnoreCase("TRUE"))
+                        state = "FALSE";
+                    else
+                        state = "TRUE";
+                }
+                myDB.updateDataCategory("5", "SHOPPING", res.getString(2), state);
                 break;
-            case R.id.catHealthMinus:
-                res = myDB.getBudgetOnlyForCategory("HEALTH");
+            case R.id.catPersonalCarePlusMinus:
+                res = myDB.getStateForCategory("PERSONAL CARE");
                 if(res != null && res.moveToFirst())
-                    myDB.updateDataCategory("3", "HEALTH", res.getString(0), "FALSE");
-                catHealthPlus.setVisibility(View.VISIBLE);
-                catHealthMinus.setVisibility(View.INVISIBLE);
+                {
+                    if(res.getString(1).equalsIgnoreCase("TRUE"))
+                        state = "FALSE";
+                    else
+                        state = "TRUE";
+                }
+                myDB.updateDataCategory("6", "PERSONAL CARE", res.getString(2), state);
                 break;
-            case R.id.catTransportPlus:
-                res = myDB.getBudgetOnlyForCategory("TRANSPORT");
+            case R.id.catBillsPlusMinus:
+                res = myDB.getStateForCategory("BILLS");
                 if(res != null && res.moveToFirst())
-                    myDB.updateDataCategory("4", "TRANSPORT", res.getString(0), "TRUE");
-                catTransportPlus.setVisibility(View.INVISIBLE);
-                catTransportMinus.setVisibility(View.VISIBLE);
+                {
+                    if(res.getString(1).equalsIgnoreCase("TRUE"))
+                        state = "FALSE";
+                    else
+                        state = "TRUE";
+                }
+                myDB.updateDataCategory("7", "BILLS", res.getString(2), state);
                 break;
-            case R.id.catTransportMinus:
-                res = myDB.getBudgetOnlyForCategory("TRANSPORT");
+            case R.id.catFoodPlusMinus:
+                res = myDB.getStateForCategory("FOOD");
                 if(res != null && res.moveToFirst())
-                    myDB.updateDataCategory("4", "TRANSPORT", res.getString(0), "FALSE");
-                catTransportPlus.setVisibility(View.VISIBLE);
-                catTransportMinus.setVisibility(View.INVISIBLE);
-                break;
-            case R.id.catShoppingPlus:
-                res = myDB.getBudgetOnlyForCategory("SHOPPING");
-                if(res != null && res.moveToFirst())
-                    myDB.updateDataCategory("5", "SHOPPING", res.getString(0), "TRUE");
-                catShoppingPlus.setVisibility(View.INVISIBLE);
-                catShoppingMinus.setVisibility(View.VISIBLE);
-                break;
-            case R.id.catShoppingMinus:
-                res = myDB.getBudgetOnlyForCategory("SHOPPING");
-                if(res != null && res.moveToFirst())
-                    myDB.updateDataCategory("5", "SHOPPING", res.getString(0), "FALSE");
-                catShoppingPlus.setVisibility(View.VISIBLE);
-                catShoppingMinus.setVisibility(View.INVISIBLE);
-                break;
-            case R.id.catPersonalCarePlus:
-                res = myDB.getBudgetOnlyForCategory("PERSONAL CARE");
-                if(res != null && res.moveToFirst())
-                    myDB.updateDataCategory("6", "PERSONAL CARE", res.getString(0), "TRUE");
-                catPersonalCarePlus.setVisibility(View.INVISIBLE);
-                catPersonalCareMinus.setVisibility(View.VISIBLE);
-                break;
-            case R.id.catPersonalCareMinus:
-                res = myDB.getBudgetOnlyForCategory("PERSONAL CARE");
-                if(res != null && res.moveToFirst())
-                    myDB.updateDataCategory("6", "PERSONAL CARE", res.getString(0), "FALSE");
-                catPersonalCarePlus.setVisibility(View.VISIBLE);
-                catPersonalCareMinus.setVisibility(View.INVISIBLE);
-                break;
-            case R.id.catBillsPlus:
-                res = myDB.getBudgetOnlyForCategory("BILLS");
-                if(res != null && res.moveToFirst())
-                    myDB.updateDataCategory("7", "BILLS", res.getString(0), "TRUE");
-                catBillsPlus.setVisibility(View.INVISIBLE);
-                catBillsMinus.setVisibility(View.VISIBLE);
-                break;
-            case R.id.catBillsMinus:
-                res = myDB.getBudgetOnlyForCategory("BILLS");
-                if(res != null && res.moveToFirst())
-                    myDB.updateDataCategory("7", "BILLS", res.getString(0), "FALSE");
-                catBillsPlus.setVisibility(View.VISIBLE);
-                catBillsMinus.setVisibility(View.INVISIBLE);
-                break;
-            case R.id.catFoodPlus:
-                res = myDB.getBudgetOnlyForCategory("FOOD");
-                if(res != null && res.moveToFirst())
-                    myDB.updateDataCategory("8", "FOOD", res.getString(0), "TRUE");
-                catFoodPlus.setVisibility(View.INVISIBLE);
-                catFoodMinus.setVisibility(View.VISIBLE);
-                break;
-            case R.id.catFoodMinus:
-                res = myDB.getBudgetOnlyForCategory("FOOD");
-                if(res != null && res.moveToFirst())
-                    myDB.updateDataCategory("8", "FOOD", res.getString(0), "FALSE");
-                catFoodPlus.setVisibility(View.VISIBLE);
-                catFoodMinus.setVisibility(View.INVISIBLE);
+                {
+                    if(res.getString(1).equalsIgnoreCase("TRUE"))
+                        state = "FALSE";
+                    else
+                        state = "TRUE";
+                }
+                myDB.updateDataCategory("8", "FOOD", res.getString(2), state);
                 break;
             case R.id.addBudgetEntertainment:
                 initPopUpAddBudget("ENTERTAINMENT");
@@ -399,6 +318,9 @@ public class Category extends AppCompatActivity implements View.OnClickListener 
                 initPopUpAddBudget("FOOD");
                 break;
         }
+
+        toCloseOrOpen();
+
     }
 
     /**

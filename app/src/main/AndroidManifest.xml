@@ -22,7 +22,8 @@
         <activity android:name=".History" />
         <activity android:name=".Wishlist" />
         <activity android:name=".Category" />
-        <activity android:name=".Statistic"></activity>
+        <activity android:name=".Statistic" />
+        <activity android:name=".Saving"></activity>
     </application>
 
 </manifest>

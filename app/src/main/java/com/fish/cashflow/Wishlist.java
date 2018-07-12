@@ -30,7 +30,7 @@ public class Wishlist extends AppCompatActivity implements View.OnClickListener{
 
     //Variable to use
     private String[] monthInWords = {"JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"};
-    String[] monthInNumber = {"201801", "201802", "201803", "201804", "201805", "201806", "201807", "201808", "201809", "201810", "201811", "201812"};
+    private String[] monthInNumber = {"201801", "201802", "201803", "201804", "201805", "201806", "201807", "201808", "201809", "201810", "201811", "201812"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +60,7 @@ public class Wishlist extends AppCompatActivity implements View.OnClickListener{
 
         for (int i = 0; i < monthInWords.length; i++)
         {
+            // Get all monthly income based on month.
             Cursor res1 = myDB.getMonthlyIncome(monthInWords[i]);
             if(res1 != null && res1.moveToFirst()) // If the query result is not empty.
             {
@@ -68,6 +69,7 @@ public class Wishlist extends AppCompatActivity implements View.OnClickListener{
             else
                 Toast.makeText(Wishlist.this, "ERROR HAS OCCUR. PLEASE REPORT THIS BUG." , Toast.LENGTH_SHORT).show();
 
+            // Get all total expenses based on month.
             Cursor res2 = myDB.calculatingTotalExpenseForAllCategory(monthInNumber[i]);
             if(res2 != null && res2.moveToFirst()) // If the query result is not empty.
             {

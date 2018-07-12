@@ -354,6 +354,7 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
                                 Data[i] = 0;
                             }
                             break;
+
                         case "EDUCATION":
                             if( res.getString(1).equals("TRUE") )
                             {
@@ -367,6 +368,7 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
                                 Data[i] = 0;
                             }
                             break;
+
                         case "HEALTH":
                             if( res.getString(1).equals("TRUE") )
                             {
@@ -380,6 +382,7 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
                                 Data[i] = 0;
                             }
                             break;
+
                         case "TRANSPORT":
                             if( res.getString(1).equals("TRUE") )
                             {
@@ -394,6 +397,7 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
                             }
                             break;
                         case "SHOPPING":
+
                             if( res.getString(1).equals("TRUE") )
                             {
                                 colors.add(0xFF9a60af); // catShopping
@@ -406,6 +410,7 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
                                 Data[i] = 0;
                             }
                             break;
+
                         case "PERSONAL CARE":
                             if( res.getString(1).equals("TRUE") )
                             {
@@ -419,6 +424,7 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
                                 Data[i] = 0;
                             }
                             break;
+
                         case "BILLS":
                             if( res.getString(1).equals("TRUE") )
                             {
@@ -432,6 +438,7 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
                                 Data[i] = 0;
                             }
                             break;
+
                         case "FOOD":
                             if( res.getString(1).equals("TRUE") )
                             {
@@ -642,11 +649,11 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
         Button backButton = mViewRemainingBudget.findViewById(R.id.backButton);
 
         double budget = 0;
-        Cursor res = myDB.getBudgetOnlyForCategory(cat);
+        Cursor res = myDB.getStateForCategory(cat);
         if(res != null && res.moveToFirst()) // If the query result is not empty.
         {
             remainingBudget.setText("Remaining Budget "+res.getString(1));
-            budget = Double.parseDouble(res.getString(0));
+            budget = Double.parseDouble(res.getString(2));
             Log.d(TAG, "BUDGET --->" +budget);
         }
         else
@@ -844,6 +851,10 @@ public class BudgetPieChart extends AppCompatActivity implements View.OnClickLis
                 break;
             case R.id.history:
                 startActivity(new Intent(this, History.class));
+                finish();
+                break;
+            case R.id.savings:
+                startActivity(new Intent(this, Saving.class));
                 finish();
                 break;
             case R.id.wishlist:

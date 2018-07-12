@@ -235,27 +235,14 @@ public class DatabaseHelper extends SQLiteOpenHelper
     }
 
     /**
-     * Query select DESCRIPTION, STATE from Category where DESCRIPTION = "query(cat)";
+     * Query select DESCRIPTION, STATE, BUDGET from Category where DESCRIPTION = "query(cat)";
      * @param cat
      * @return Description, State
      */
     public Cursor getStateForCategory(String cat)
     {
         SQLiteDatabase db = this.getWritableDatabase();
-        String query = "select "+ COL_2_C + ", " + COL_4_C+" from "+ TABLE_NAME_CATEGORY +" where " + COL_2_C + " = " + " '" +cat+ "'";
-        Cursor res = db.rawQuery(query,null);
-        return res;
-    }
-
-    /**
-     * Query select BUDGET, DESCRIPTION from Category where DESCRIPTION = "query(cat)";
-     * @param cat
-     * @return Budget, Description
-     */
-    public Cursor getBudgetOnlyForCategory(String cat)
-    {
-        SQLiteDatabase db = this.getWritableDatabase();
-        String query = "select "+ COL_3_C  +", " + COL_2_C+" from "+ TABLE_NAME_CATEGORY +" where " + COL_2_C + " = " + " '" +cat+ "'";
+        String query = "select "+ COL_2_C + ", " + COL_4_C + ", " + COL_3_C  +" from "+ TABLE_NAME_CATEGORY +" where " + COL_2_C + " = " + " '" +cat+ "'";
         Cursor res = db.rawQuery(query,null);
         return res;
     }

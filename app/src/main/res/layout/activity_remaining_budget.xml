@@ -15,7 +15,7 @@
         android:text="Remaining Budget"
         android:textAlignment="center"
         android:textAllCaps="true"
-        android:textColor="#000000"
+        android:textColor="#ffffff"
         android:textSize="20sp"
         android:textStyle="bold" />
 
@@ -27,7 +27,7 @@
         android:text="RM"
         android:textAlignment="center"
         android:textAllCaps="true"
-        android:textColor="#000000"
+        android:textColor="#ffffff"
         android:textSize="18sp" />
 
     <Button
