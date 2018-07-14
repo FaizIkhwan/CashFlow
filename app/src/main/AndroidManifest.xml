@@ -9,7 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Splash">
+        <activity
+            android:name=".Splash"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -18,12 +20,23 @@
         </activity>
         <activity
             android:name=".BudgetPieChart"
-            android:theme="@style/withActionBar" />
-        <activity android:name=".History" />
-        <activity android:name=".Wishlist" />
-        <activity android:name=".Category" />
-        <activity android:name=".Statistic" />
-        <activity android:name=".Saving"></activity>
+            android:theme="@style/withActionBar"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".History"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Wishlist"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Category"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Statistic"
+            android:screenOrientation="landscape"/>
+        <activity
+            android:name=".Saving"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>
