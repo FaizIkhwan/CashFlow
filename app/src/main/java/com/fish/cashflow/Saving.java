@@ -25,6 +25,7 @@ public class Saving extends AppCompatActivity implements View.OnClickListener {
     //Interface
     TextView tvSavings;
     ImageButton backButton;
+    ImageView moneyIcon;
 
     //Variable to use
     private String[] monthInWords = {"JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"};
@@ -55,6 +56,7 @@ public class Saving extends AppCompatActivity implements View.OnClickListener {
         //Creating all object components
         backButton = findViewById(R.id.backButton);
         tvSavings = findViewById(R.id.tvSavings);
+        moneyIcon = findViewById(R.id.moneyIcon);
     }
 
     /**
