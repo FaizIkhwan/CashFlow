@@ -34,14 +34,20 @@ Install cashFlow.apk on your Android phone.
 	
 	Users can view their history expenses sorted by date.
 	
-4. **Wishlist**
+4.	**Savings**
+
+	![Savings](/images/saving.jpeg)
+	
+	Users can view their savings.
+	
+5. **Wishlist**
 
 	![Wishlist](/images/wishlist.jpg)
 	![Add Wishlist](/images/addWishlist.jpg)
 	
 	Users can add items to their wishlist, it also show progress bar to display the progress of their savings.
 	
-5. **Statistic**
+6. **Statistic**
 
 	![Statistic](/images/statistic.jpg)
 	
