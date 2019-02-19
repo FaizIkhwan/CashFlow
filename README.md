@@ -10,48 +10,8 @@ Our laboratory lecturer is Nordin Abu Bakar (Assoc. Prof. Dr.) and class lecture
 ## How to run
 Install cashFlow.apk on your Android phone.
 
-## Screenshots
-1. **Homepage**
-
-	![Homepage](/images/home.jpg)
-	![Add Monthly Income](/images/addingMonthlyIncome.jpg)
-	![Add Expense](/images/addingExpense.jpg)
-	![Checking Remaining Budget](/images/checkingRemainingBudget.jpg)
-	
-	Users can add/change their monthly income based on month by clicking setting icon. Users can add their expenses by clicking icon on the right. Users can check their remaining budget for specific category by clicking on the pie chart.
-	
-2. **Category**
-
-	![Category](/images/category.jpg)
-	![Adding Busget](/images/addingBudget.jpg)
-	
-	Users need to add budget for specific category by clicking setting icon. Users also can remove or add the category by clicking the add or remove icons.
-	
-3. **History**
-
-	![History](/images/history.jpg)
-	![History Samples](/images/historySample.jpg)
-	
-	Users can view their history expenses sorted by date.
-	
-4.	**Savings**
-
-	![Savings](/images/saving.jpeg)
-	
-	Users can view their savings.
-	
-5. **Wishlist**
-
-	![Wishlist](/images/wishlist.jpg)
-	![Add Wishlist](/images/addWishlist.jpg)
-	
-	Users can add items to their wishlist, it also show progress bar to display the progress of their savings.
-	
-6. **Statistic**
-
-	![Statistic](/images/statistic.jpg)
-	
-	Users can see their statistic on **Monthly income vs Total Montly Expense**.
+## Demo
+![CashFlow GIF](cashflow.gif)
 	
 ---
 
